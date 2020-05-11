@@ -25,7 +25,12 @@
  - Followed
  - Favorite Genres
 
-
+# **Colors**
+ - Base/Background (English Violet): #474056
+ - Old Lavender: #757083
+ - Eerie Black: #141115
+ - Bright Navy Blue: #3E78B2
+ - Yellow-green highlight: #A2D729
 
 # **ROLES**
  - UX/UI Lead
