@@ -5,6 +5,7 @@
 - Friending users
 - Bonus: Radio (shuffle play)
     - Algorithm/Random array
+    - Random playlist by genre
 
 # **FRONTEND?**
  - Continuous play while navigating site
