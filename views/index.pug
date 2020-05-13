@@ -6,8 +6,16 @@ html(lang="en")
     link(rel='icon' href="/public/images/favicon.ico" type="image/x-icon")
     link(rel='stylesheet' href="/public/stylesheets/normalize.css" type="text/css")
     link(rel='stylesheet' href="/public/stylesheets/index.css" type="text/css")
+    script(async defer src="public/index.js" type="text/javascript")
     title Vibe
   body
-    nav
-      .nav__logo
-        img(src="/public/images/Vibe.png")
+    button()#button1 Click me
+    button#button2 No me
+    //- nav
+    //-   .nav__logo
+    //-     img(src="/public/images/Vibe.png")
+    #bodyContent
+      if body === "body1"
+        include body1.pug
+      else if body === "body2"
+        include body2.pug
