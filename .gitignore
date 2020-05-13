@@ -110,7 +110,19 @@ dist
 
 # yarn v2
 
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+#nodemodules
+node_modules/
+
+
+
+
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
+
+
