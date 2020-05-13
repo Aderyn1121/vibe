@@ -10,6 +10,7 @@ button1.addEventListener('click', () => {
   xhr.onload = () => {
     if (xhr.status === 200) {
       bodyContent.innerHTML = xhr.responseText;
+      history.pushState({ body: 1 }, 'body1', 'http://localhost:8081/body1');
     } else {
       alert('it did not work');
     }
@@ -24,6 +25,7 @@ button2.addEventListener('click', () => {
   xhr.onload = () => {
     if (xhr.status === 200) {
       bodyContent.innerHTML = xhr.responseText;
+      history.pushState({ body: 2 }, 'body2', 'http://localhost:8081/body2');
     } else {
       alert('it did not work');
     }
