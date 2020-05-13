@@ -1,21 +1,8 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(rel='icon' href="/public/images/favicon.ico" type="image/x-icon")
-    link(rel='stylesheet' href="/public/stylesheets/normalize.css" type="text/css")
-    link(rel='stylesheet' href="/public/stylesheets/index.css" type="text/css")
-    script(async defer src="public/index.js" type="text/javascript")
-    title Vibe
-  body
-    button()#button1 Click me
-    button#button2 No me
-    //- nav
-    //-   .nav__logo
-    //-     img(src="/public/images/Vibe.png")
-    #bodyContent
-      if body === "body1"
-        include body1.pug
-      else if body === "body2"
-        include body2.pug
+include nav-bar
+
+.hero
+  img(src='public/images/hero.jpg')
+  .vibeCheck
+    h1.vibeCheck__header What's your VIBE?
+    .vibeCheck__subtitle Music for your mood. No credit card required.
+    button.vibeCheck__button TRY THE DEMO
