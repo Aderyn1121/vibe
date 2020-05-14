@@ -24,3 +24,6 @@ hs_err_pid*
 
 #nodemodules
 node_modules/
+
+#env 
+.env
