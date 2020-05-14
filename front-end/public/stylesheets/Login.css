@@ -1,0 +1,123 @@
+body {
+  background-color: #e0e0e2;
+  position: relative;
+  font-size: min(max(24px, 3vw), 30px);
+  font-family: 'Sintony', sans-serif;
+  box-sizing: border-box;
+  color: #020300;
+}
+
+button {
+  border: none;
+  background: none;
+  color: inherit;
+  font-weight: bold;
+}
+
+button:hover {
+  color: #fde74c;
+}
+
+svg {
+  height: 100%;
+}
+
+#loadingOverlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2a3750;
+  z-index: 1;
+}
+
+#loading {
+  display: flex;
+  justify-content: center;
+  height: 50%;
+  width: 50%;
+  margin: auto;
+}
+
+.nav-bar {
+  background-color: none;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: #aaaaaa solid thin;
+}
+
+.nav-bar__brand {
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.brand__vibe {
+  font-family: 'Montserrat', sans-serif;
+  margin-left: 1vw;
+  font-size: 1.5em;
+}
+
+#nav-logo {
+  height: 80%;
+  margin: 0;
+}
+
+#nav-logo {
+  justify-content: end;
+}
+
+.main {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: auto;
+  height: 100vh;
+}
+
+
+.fadeout {
+  animation: fadeout 1s 3s forwards;
+}
+
+.load {
+  stroke: #817e9f;
+  opacity: 0;
+  fill: none;
+  stroke-dasharray: 1200;
+  animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -3;
+  }
+}
+
+@keyframes load {
+  0% {
+    opacity: 10;
+    stroke: #2a3750;
+    stroke-dashoffset: 1200;
+  }
+
+  100% {
+    opacity: 10;
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel='icon' href="/public/images/favicon.ico" type="image/x-icon")
+    link(rel='stylesheet' href=`/public/stylesheets/normalize.css` type="text/css")
+    link(rel='stylesheet' href=`/public/stylesheets/${title}.css` type="text/css")
+    link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Sintony:wght@400;700&display=swap" rel="stylesheet")
+
+    script(async defer src="public/index.js" type="text/javascript")
+    title= title
+
+  body
+    block content

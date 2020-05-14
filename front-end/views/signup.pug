@@ -1,0 +1,25 @@
+include utils
+include head
+
+.nav-bar
+    .nav-bar__brand
+      #nav-logo.wrapper
+        include svg/logo.html
+      .brand__vibe VIBE
+.main
+  h1 EDIT TO SHOW SIGN UP
+  p To coninue, log in to Vibe
+  button#facebook-button CONTINUE WITH FACEBOOK
+  button#apple-button CONTINUE WITH APPLE
+  button#phone-button CONTINUE WITH PHONE NUMBER
+  .line
+  p OR
+  +input('email-username', 'text', 'Email or username')
+  +input('password', 'password', 'Password')
+  .submit
+    +input('remember', 'checkbox')
+    button#login-button
+  a() Forgot your password?
+  .line
+  p Don't have an account?
+  button#signup-button SIGN UP FOR VIBE
