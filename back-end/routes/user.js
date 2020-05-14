@@ -72,7 +72,7 @@ router.post('/user/login', csrfProtection, loginValidator, asyncHandler(async(re
     if(validateErrors.isEmpty()){
       //TODO: await user.findOne from email address  
       if(!user){
-        const passwordMatch = //compare password with bcrypt
+        const passwordMatch// = compare password with bcrypt
         if(passwordMatch){
             //call the loginUser middleware
             return res.redirect('/')
