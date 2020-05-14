@@ -30,20 +30,20 @@ button {
 }
 
 button:hover {
-  color: #817e9f;
+  color: #fde74c;
 }
 
 .nav-bar {
   background-color: #02030086;
-  height: 15vh;
+  height: 9vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.nav-bar * {
-  margin-left: 3vw;
-  margin-right: 3vw;
+.nav-bar > * {
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
 .nav-bar__brand {
@@ -53,9 +53,18 @@ button:hover {
   font-size: 3rem;
 }
 
-.nav-bar__brand img {
+#nav-logo {
   height: 100%;
-  margin-right: 0;
+  width: 100%;
+  margin: 0;
+}
+
+#nav-logo {
+  justify-content: end;
+}
+
+.nav-bar__sign-up {
+  margin-right: 20px;
 }
 
 .brand__vibe {
@@ -83,7 +92,7 @@ button:hover {
 
 .vibeCheck {
   display: inline-block;
-  margin-top: 15vh;
+  margin-top: 7vh;
   height: 85vh;
   width: 100%;
   z-index: 2;
@@ -110,14 +119,15 @@ button:hover {
 
 .vibeCheck__button {
   padding: 20px 75px;
-  background-color: #817e9f;
+  background-color: #fde74c;
   border-radius: 30px;
   font-size: 15px;
+  color: #020300;
 }
 
 .vibeCheck__button:hover {
-  background-color: #9693c0;
-  color: inherit;
+  background-color: #f3e57d;
+  color: #020300;
 }
 
 @keyframes fadeout {
@@ -135,42 +145,35 @@ button:hover {
   animation: fadeout 1s 3s forwards;
 }
 
-.wrapper {
+#loading {
   display: flex;
   justify-content: center;
   height: 50%;
   width: 50%;
+  margin: auto;
 }
 
-.wrapper svg {
-  margin: auto;
+svg {
   height: 100%;
 }
 
 path {
-  stroke: none;
+  stroke: #817e9f;
+  opacity: 0;
   fill: none;
   stroke-dasharray: 1200;
-  opacity: 0;
-
-  animation: load 3s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite forwards;
+  animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
 }
 
 @keyframes load {
   0% {
-    opacity: 1;
+    opacity: 10;
     stroke: #2a3750;
     stroke-dashoffset: 1200;
-  }
-
-  50% {
-    opacity: 1;
-    stroke-dashoffset: 0;
   }
 
   100% {
-    opacity: 1;
-    stroke: #2a3750;
-    stroke-dashoffset: 1200;
+    opacity: 10;
+    stroke-dashoffset: 0;
   }
 }
