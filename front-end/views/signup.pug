@@ -6,20 +6,31 @@ include head
       #nav-logo.wrapper
         include svg/logo.html
       .brand__vibe VIBE
+h1 EDIT TO SHOW REGISTER
 .main
-  h1 EDIT TO SHOW SIGN UP
-  p To coninue, log in to Vibe
+  .text
+    p To coninue, log in to Vibe
   button#facebook-button CONTINUE WITH FACEBOOK
   button#apple-button CONTINUE WITH APPLE
   button#phone-button CONTINUE WITH PHONE NUMBER
   .line
-  p OR
-  +input('email-username', 'text', 'Email or username')
-  +input('password', 'password', 'Password')
-  .submit
-    +input('remember', 'checkbox')
-    button#login-button
-  a() Forgot your password?
+    .line__one
+    .line__two
+    #orText OR
+  form(method="POST" action='/')#login-form
+    +input('_csrf', 'hidden')
+    +input('email-username', 'text', 'Email or username')
+    +input('password', 'password', 'Password')
+    .submit
+      .remember
+        +input('remember', 'checkbox')
+        label(for="remember") Remember me?
+      button#login-button Login
+  .text
+    a(href="") Forgot your password?
   .line
-  p Don't have an account?
+    .line__one
+    .line__two
+  .text
+    p Don't have an account?
   button#signup-button SIGN UP FOR VIBE
