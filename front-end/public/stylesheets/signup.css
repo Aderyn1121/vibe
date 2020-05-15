@@ -3,18 +3,36 @@ body {
   position: relative;
   font-size: min((20px, 2vw), 30px);
   font-family: 'Sintony', sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #020300;
   text-align: center;
 }
 
+#loadingOverlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #121212;
+  z-index: 1;
+}
+
 button,
 a {
   padding: 5px 0;
-  height: 3vw;
+  height: 60px;
+  width: 100%;
   background-color: #fde74c;
   border-radius: 30px;
-  font-size: 15px;
+  font-size: 20px;
   color: #020300;
   border: none;
 }
@@ -28,10 +46,8 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 7vh;
-  width: 100%;
+  width: 6%;
   color: #020300;
-  font-size: 15px;
   border: none;
   background: none;
   text-decoration: none;
@@ -89,21 +105,21 @@ svg {
 .main > *,
 form > * {
   margin: 10px 0;
-  height: 7vh;
+  height: 50px;
   width: 100%;
 }
 
-#facebook-button {
+#Emily-button {
   background-color: #3b5998;
   color: #e0e0e2;
 }
 
-#apple-button {
+#Jeff-button {
   background-color: #000000;
   color: #ffffff;
 }
 
-#phone-button {
+#Zach-button {
   background-color: #fde74c;
 }
 
@@ -122,22 +138,23 @@ form > * {
   background: none;
 }
 
-#orText {
+#continue {
   position: absolute;
   bottom: 10px;
+  width: 260px;
   background-color: #e0e0e0;
-  width: 40px;
-  left: calc(50% - 20px);
+  left: calc(50% - 130px);
 }
 
-#login-form {
+#auth-form {
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  height: calc((7vh + 20px) * 3);
+  height: calc(80px * 7);
 }
 
 input {
+  box-sizing: border-box;
   padding-left: 10px;
   height: 40px;
   border-radius: 3px;
@@ -148,22 +165,56 @@ input {
   align-items: center;
   justify-content: center;
 }
+
+.birthday {
+  display: flex;
+  flex-flow: column;
+}
+
+.birthdayInputs {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 30px;
+}
+
+.birthdayInputs * {
+  width: 140px;
+  height: 40px;
+  margin: 0px 10px;
+}
+#birthdayText {
+  padding-left: 10px;
+  height: 20px;
+  justify-self: center;
+  align-self: flex-start;
+}
+.gender {
+  display: flex;
+  justify-content: space-around;
+}
+
 .submit {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-#login-button {
+#auth-button {
   width: 10vw;
+  align-self: flex-end;
 }
 
 #signup-button {
   background-color: #fde74c;
 }
 
+.fadein {
+  animation: fadein 1s 250ms forwards;
+}
+
 .fadeout {
-  animation: fadeout 1s 3s forwards;
+  animation: fadeout 1s 250ms forwards;
 }
 
 .load {
@@ -182,6 +233,16 @@ input {
     opacity: 0;
     display: none;
     z-index: -3;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 

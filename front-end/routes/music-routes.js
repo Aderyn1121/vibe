@@ -4,7 +4,11 @@ const path = require('path');
 router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('music', { fileName: 'music', title: 'Music' });
+  res.render('music', {
+    fileName: 'music',
+    title: 'Music',
+    mainContent: 'home',
+  });
 });
 
 router.get('/home/ajax', (req, res) => {

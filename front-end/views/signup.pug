@@ -1,37 +1,41 @@
 include utils
 include head
-
+include overlay
 .nav-bar
     .nav-bar__brand
       #nav-logo.wrapper
         include svg/logo.html
       .brand__vibe VIBE
-h1 EDIT TO SHOW SIGNUP
 .main
   .text
-    p To coninue, log in to Vibe
-  a()#facebook-button CONTINUE WITH FACEBOOK
-  a()#apple-button CONTINUE WITH APPLE
-  a()#phone-button CONTINUE WITH PHONE NUMBER
-  .line
-    .line__one
-    .line__two
-    #orText OR
-  form(method="POST" action='/')#login-form
+    p Sign up with your email address
+  form(method="POST" action='/signup')#auth-form
     +input('_csrf', 'hidden')
-    +input('email-username', 'text', 'Email or username')
-    +input('password', 'password', 'Password')
-    .submit
-      .remember
-        +input('remember', 'checkbox')
-        label(for="remember") Remember me?
-      button#login-button Login
-  .text
-    a()#forget Forgot your password?
+    +input('email', 'text', 'Email', true)
+    +input('ConfirmEmail', 'text', 'Confirm Email', true)
+    +input('password', 'password', 'Password', true)
+    +input('ConfirmPassword', 'password', 'Confirm Password', true)
+    +input('name', 'text', 'What is your name?', true)
+    .birthday
+      label(for='day')#birthdayText Birthday
+      .birthdayInputs
+        +input('day', 'number', 'Day' )
+        select(name='date')
+          each month in months
+            option(value=month)= month
+        +input('year', 'number', 'Year')
+    .gender
+      label Man
+        +input('gender', 'radio', __, true, 'man')
+      label Woman
+        +input('gender', 'radio', __, true, 'woman')
+      label Non binary
+        +input('gender', 'radio', __, true, 'non_binary')
+    button#auth-button Sign Up
   .line
     .line__one
     .line__two
   .text
-    p Already have an Account?
+    p Already have an account?
 
-  a(href="/login")#signup-button LOGIN TO VIBE
+  a(href="/login")#signup-button Login to VIBE
