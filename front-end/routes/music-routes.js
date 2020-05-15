@@ -8,6 +8,11 @@ router.get('/', (req, res) => {
     fileName: 'music',
     title: 'Music',
     mainContent: 'home',
+    track: {
+      art: '/public/images/album-art.jpg',
+      title: 'Hide and Seek',
+      artist: 'Imogen Heap',
+    },
   });
 });
 

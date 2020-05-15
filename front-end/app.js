@@ -25,7 +25,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/music', musicRouter);
 
 app.get('/', (req, res) => {
-  res.render('index', { fileName: 'vibe', title: 'Vibe' });
+  res.render('index', { fileName: 'index', title: 'Vibe' });
 });
 
 app.get('/login', (req, res) => {
