@@ -151,7 +151,7 @@ svg {
   height: 100%;
   grid-area: music;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr 1fr;
   background-color: #181818;
   overflow: hidden;
 }
@@ -217,15 +217,15 @@ svg {
 
 .song-buttons > * {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  border-right: white solid 1px;
+  border-right: #121212 solid 3px;
 }
 
 .musicPlayer {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  border-right: white solid 1px;
+  border-right: #121212 solid 3px;
 }
 
 .play-buttons {
