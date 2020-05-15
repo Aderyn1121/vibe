@@ -17,6 +17,15 @@
 - Create animations using Adobe Creator Suite and native CSS
 - (Bonus): Explore Page
 
+# **PAGES**
+
+- Landing page
+- Log in
+- Sign up
+- Music page
+- Home page when signed up
+- Accounts page
+ 
 # **Account/Profile**
 
 - Username
