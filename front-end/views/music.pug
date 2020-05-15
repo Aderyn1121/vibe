@@ -48,6 +48,8 @@ include head
       .progress
         .start-time
         .progress-bar
+          audio(controls)
+            source(src=track.songFile autoplay=true)
         .end-time
     .otherOptions
       .queue-button

@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
       art: '/public/images/album-art.jpg',
       title: 'Hide and Seek',
       artist: 'Imogen Heap',
+      songFile: '/public/test_music/hide-and-seek.m4a',
     },
   });
 });
