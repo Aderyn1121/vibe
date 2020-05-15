@@ -1,6 +1,6 @@
 include utils
 include head
-
+include overlay
 .nav-bar
     .nav-bar__brand
       #nav-logo.wrapper
@@ -8,15 +8,15 @@ include head
       .brand__vibe VIBE
 .main
   .text
-    p To coninue, log in to Vibe
-  a()#facebook-button CONTINUE WITH FACEBOOK
-  a()#apple-button CONTINUE WITH APPLE
-  a()#phone-button CONTINUE WITH PHONE NUMBER
+    p Meet out team:
+  a(href='https://github.com/Aderyn1121')#Emily-button TEAM LEAD
+  a(href='https://github.com/gootieno')#Jeff-button MODEL LEAD
+  a(href='https://github.com/zachary-henderson')#Zach-button UX/UI DESIGN
   .line
     .line__one
     .line__two
-    #orText OR
-  form(method="POST" action='/')#login-form
+    #continue To continue, log in to Vibe
+  form(method="POST" action='/login')#auth-form
     +input('_csrf', 'hidden')
     +input('email-username', 'text', 'Email or username')
     +input('password', 'password', 'Password')

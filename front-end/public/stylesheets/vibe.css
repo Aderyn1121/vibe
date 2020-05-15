@@ -39,7 +39,7 @@ svg {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #2a3750;
+  background-color: #121212;
   z-index: 1;
 }
 
@@ -150,8 +150,12 @@ svg {
 
 /* Animations */
 
+.fadein {
+  animation: fadein 1s 250ms forwards;
+}
+
 .fadeout {
-  animation: fadeout 1s 3s forwards;
+  animation: fadeout 1s 250ms forwards;
 }
 
 .load {
@@ -170,6 +174,16 @@ svg {
     opacity: 0;
     display: none;
     z-index: -3;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
