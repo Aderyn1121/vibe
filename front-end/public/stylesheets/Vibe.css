@@ -1,3 +1,4 @@
+/* GLOBAL */
 body {
   background-color: #2a3750;
   position: relative;
@@ -7,7 +8,22 @@ body {
   color: #e0e0e2;
 }
 
-#overlay {
+button {
+  border: none;
+  background: none;
+  color: inherit;
+  font-weight: bold;
+}
+
+button:hover {
+  color: #fde74c;
+}
+
+svg {
+  height: 100%;
+}
+
+#loadingOverlay {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -22,16 +38,15 @@ body {
   z-index: 1;
 }
 
-button {
-  border: none;
-  background: none;
-  color: inherit;
-  font-weight: bold;
+#loading {
+  display: flex;
+  justify-content: center;
+  height: 50%;
+  width: 50%;
+  margin: auto;
 }
 
-button:hover {
-  color: #fde74c;
-}
+/* Navigation */
 
 .nav-bar {
   background-color: #02030086;
@@ -53,6 +68,11 @@ button:hover {
   font-size: 3rem;
 }
 
+.brand__vibe {
+  font-family: 'Montserrat', sans-serif;
+  margin-left: 1vw;
+}
+
 #nav-logo {
   height: 100%;
   width: 100%;
@@ -67,10 +87,7 @@ button:hover {
   margin-right: 20px;
 }
 
-.brand__vibe {
-  font-family: 'Montserrat', sans-serif;
-  margin-left: 1vw;
-}
+/* Hero  */
 
 .hero {
   position: absolute;
@@ -130,6 +147,20 @@ button:hover {
   color: #020300;
 }
 
+/* Animations */
+
+.fadeout {
+  animation: fadeout 1s 3s forwards;
+}
+
+.load {
+  stroke: #817e9f;
+  opacity: 0;
+  fill: none;
+  stroke-dasharray: 1200;
+  animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
+}
+
 @keyframes fadeout {
   0% {
     opacity: 1;
@@ -139,30 +170,6 @@ button:hover {
     display: none;
     z-index: -3;
   }
-}
-
-.fadeout {
-  animation: fadeout 1s 3s forwards;
-}
-
-#loading {
-  display: flex;
-  justify-content: center;
-  height: 50%;
-  width: 50%;
-  margin: auto;
-}
-
-svg {
-  height: 100%;
-}
-
-path {
-  stroke: #817e9f;
-  opacity: 0;
-  fill: none;
-  stroke-dasharray: 1200;
-  animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
 }
 
 @keyframes load {
