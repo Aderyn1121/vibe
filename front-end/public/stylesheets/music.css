@@ -7,17 +7,21 @@ body {
   color: #020300;
 }
 
-button {
+a {
   border: none;
   background: none;
   color: inherit;
   font-weight: bold;
+  text-decoration: none !important;
+}
+a:visited {
+  color: #e0e0e0;
+  text-decoration: none;
 }
 
-button:hover {
+a:hover {
   color: #fde74c;
 }
-
 svg {
   height: 100%;
 }
@@ -85,7 +89,6 @@ svg {
   height: 100vh;
 }
 
-
 .fadeout {
   animation: fadeout 1s 3s forwards;
 }
@@ -112,7 +115,7 @@ svg {
 @keyframes load {
   0% {
     opacity: 10;
-    stroke: #2a3750;
+    stroke: #e0e0e2;
     stroke-dashoffset: 1200;
   }
 

@@ -1,0 +1,188 @@
+body {
+  background-color: #e0e0e2;
+  position: relative;
+  font-size: min((20px, 2vw), 30px);
+  font-family: 'Sintony', sans-serif;
+  box-sizing: border-box;
+  color: #020300;
+  text-align: center;
+}
+
+button {
+  padding: 5px 0;
+  height: 3vw;
+  background-color: #fde74c;
+  border-radius: 30px;
+  font-size: 15px;
+  color: #020300;
+  border: none;
+}
+
+button:hover {
+  filter: opacity(0.6);
+}
+
+a {
+  border: none;
+  background: none;
+  color: #2a3750;
+  font-weight: bolder;
+}
+
+a:visited {
+  color: #2a3750;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2a37509a;
+}
+
+svg {
+  height: 100%;
+}
+
+.nav-bar {
+  background-color: none;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: #aaaaaa solid thin;
+}
+
+.nav-bar__brand {
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.brand__vibe {
+  font-family: 'Montserrat', sans-serif;
+  margin-left: 1vw;
+  font-size: 1.5em;
+}
+
+#nav-logo {
+  height: 80%;
+  margin: 0;
+}
+
+.main {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 30vw;
+  margin: auto;
+}
+
+.main > *,
+form > * {
+  margin: 10px 0;
+  height: 7vh;
+  width: 100%;
+}
+
+#facebook-button {
+  background-color: #3b5998;
+  color: #e0e0e2;
+}
+
+#apple-button {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.line {
+  position: relative;
+  margin: 0;
+}
+
+.line * {
+  height: 50%;
+  width: 100%;
+}
+
+.line__one {
+  border-bottom: #aaaaaa solid thin;
+  background: none;
+}
+
+#orText {
+  position: absolute;
+  bottom: 10px;
+  background-color: #e0e0e0;
+  width: 40px;
+  left: calc(50% - 20px);
+}
+
+#login-form {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: calc((7vh + 20px) * 3);
+}
+
+input {
+  height: 40px;
+  border-radius: 3px;
+  border: none;
+}
+.text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.submit {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#login-button {
+  width: 10vw;
+}
+
+#signup-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fadeout {
+  animation: fadeout 1s 3s forwards;
+}
+
+.load {
+  stroke: #817e9f;
+  opacity: 0;
+  fill: none;
+  stroke-dasharray: 1200;
+  animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -3;
+  }
+}
+
+@keyframes load {
+  0% {
+    opacity: 10;
+    stroke: #2a3750;
+    stroke-dashoffset: 1200;
+  }
+
+  100% {
+    opacity: 10;
+    stroke-dashoffset: 0;
+  }
+}
