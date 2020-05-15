@@ -1,26 +1,24 @@
 include utils
 include head
-include loading
+//- include loading
 
-.nav-bar
-    .nav-bar__brand
+.main
+  .logo
       #nav-logo.wrapper
         include svg/logo.html
       .brand__vibe VIBE
-.main
-  h1 Edit to show Music Player
-  p To coninue, log in to Vibe
-  button#facebook-button CONTINUE WITH FACEBOOK
-  button#apple-button CONTINUE WITH APPLE
-  button#phone-button CONTINUE WITH PHONE NUMBER
-  .line
-  p OR
-  +input('email-username', 'text', 'Email or username')
-  +input('password', 'password', 'Password')
-  .submit
-    +input('remember', 'checkbox')
-    button#login-button
-  a() Forgot your password?
-  .line
-  p Don't have an account?
-  button#signup-button SIGN UP FOR VIBE
+  .navbar
+  .sidebar
+    #sidebarLinks.sidebar__links
+      #home Home
+      #search Search
+      #library Library
+    .playlists
+  #mainContent.content
+    if mainContent === 'home'
+      include home
+    if mainContent === 'search'
+      include search
+    if mainContent === 'library'
+      include library
+  .music

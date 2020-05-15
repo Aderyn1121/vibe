@@ -1,27 +1,51 @@
 body {
-  background-color: #e0e0e2;
+  background-color: #121212;
   position: relative;
-  font-size: min(max(24px, 3vw), 30px);
+  font-size: min((20px, 2vw), 30px);
   font-family: 'Sintony', sans-serif;
   box-sizing: border-box;
+  color: #e0e0e0;
+  text-align: center;
+}
+
+button,
+a {
+  padding: 5px 0;
+  height: 3vw;
+  background-color: #fde74c;
+  border-radius: 30px;
+  font-size: 15px;
   color: #020300;
+  border: none;
+}
+
+button:hover,
+a:hover {
+  filter: opacity(0.6);
 }
 
 a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7vh;
+  width: 100%;
+  color: #020300;
+  font-size: 15px;
   border: none;
   background: none;
-  color: inherit;
-  font-weight: bold;
-  text-decoration: none !important;
+  text-decoration: none;
 }
+
 a:visited {
-  color: #e0e0e0;
+  color: #020300;
   text-decoration: none;
 }
 
 a:hover {
-  color: #fde74c;
+  color: #2a37509a;
 }
+
 svg {
   height: 100%;
 }
@@ -49,44 +73,73 @@ svg {
   margin: auto;
 }
 
-.nav-bar {
-  background-color: none;
-  height: 20vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: #aaaaaa solid thin;
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 75px 1fr 100px;
+  grid-template-areas:
+    'logo navbar'
+    'sidebar mainContent'
+    'music music';
 }
 
-.nav-bar__brand {
-  height: 80%;
+.logo {
+  grid-area: logo;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   font-size: 3rem;
+  background-color: #020300;
 }
 
 .brand__vibe {
   font-family: 'Montserrat', sans-serif;
   margin-left: 1vw;
-  font-size: 1.5em;
 }
 
 #nav-logo {
   height: 80%;
   margin: 0;
+  padding: 0;
 }
 
-#nav-logo {
-  justify-content: end;
+.navbar {
+  grid-area: navbar;
+  background-color: #141414;
 }
 
-.main {
+.sidebar {
+  height: 100%;
+  grid-area: sidebar;
+  background-color: #020300;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+}
+
+.sidebar__links {
   display: flex;
   flex-flow: column;
-  align-items: center;
-  margin: auto;
-  height: 100vh;
+  justify-content: space-evenly;
+}
+.sidebar__links > div {
+  margin-top: 30px;
+  width: 100;
+  height: 100%;
+}
+
+.sidebar__links > div:hover {
+  color: #fde74c;
+}
+
+.content {
+  grid-area: mainContent;
+}
+
+.music {
+  grid-area: music;
+  background-color: #181818;
 }
 
 .fadeout {
@@ -115,7 +168,7 @@ svg {
 @keyframes load {
   0% {
     opacity: 10;
-    stroke: #e0e0e2;
+    stroke: #2a3750;
     stroke-dashoffset: 1200;
   }
 
