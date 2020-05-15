@@ -9,7 +9,7 @@ body {
 }
 
 button,
-#signup-button {
+a {
   padding: 5px 0;
   height: 3vw;
   background-color: #fde74c;
@@ -20,20 +20,25 @@ button,
 }
 
 button:hover,
-#signup-button:hover {
+a:hover {
   filter: opacity(0.6);
 }
 
 a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7vh;
+  width: 100%;
+  color: #020300;
+  font-size: 15px;
   border: none;
   background: none;
-  color: #2a3750;
-  font-weight: bolder;
   text-decoration: none;
 }
 
 a:visited {
-  color: #2a3750;
+  color: #020300;
   text-decoration: none;
 }
 
@@ -98,6 +103,10 @@ form > * {
   color: #ffffff;
 }
 
+#phone-button {
+  background-color: #fde74c;
+}
+
 .line {
   position: relative;
   margin: 0;
@@ -129,6 +138,7 @@ form > * {
 }
 
 input {
+  padding-left: 10px;
   height: 40px;
   border-radius: 3px;
   border: none;
@@ -149,19 +159,7 @@ input {
 }
 
 #signup-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 7vh;
-  width: 100%;
-}
-
-#signup-button a {
-  margin: auto;
-  color: #020300;
-  font-size: 15px;
-  width: 100%;
-  height: 100%;
+  background-color: #fde74c;
 }
 
 .fadeout {

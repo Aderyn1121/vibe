@@ -9,9 +9,9 @@ include head
 .main
   .text
     p To coninue, log in to Vibe
-  button#facebook-button CONTINUE WITH FACEBOOK
-  button#apple-button CONTINUE WITH APPLE
-  button#phone-button CONTINUE WITH PHONE NUMBER
+  a()#facebook-button CONTINUE WITH FACEBOOK
+  a()#apple-button CONTINUE WITH APPLE
+  a()#phone-button CONTINUE WITH PHONE NUMBER
   .line
     .line__one
     .line__two
@@ -26,11 +26,11 @@ include head
         label(for="remember") Remember me?
       button#login-button Login
   .text
-    a() Forgot your password?
+    a()#forget Forgot your password?
   .line
     .line__one
     .line__two
   .text
     p Don't have an account?
-  #signup-button
-    a(href="/signup") SIGN UP FOR VIBE
+
+  a(href="/signup")#signup-button SIGN UP FOR VIBE
