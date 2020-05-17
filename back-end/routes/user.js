@@ -50,7 +50,10 @@ router.post('/', validateEmailAndPassword, handleValidationErrors, asyncHandler(
 //Get route for users
 router.get('/', asyncHandler(async(req, res)=>{
     const users = await User.findAll();
-    res.json({users})
+    const userList = users.map( user => {
+        return {userName: user.nickName, userId: user.id}
+    })
+    res.json({...userList})
     
 }))
 
