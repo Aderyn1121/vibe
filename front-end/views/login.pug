@@ -1,36 +1,8 @@
-include utils
-include head
-include overlay
-.nav-bar
-    .nav-bar__brand
-      #nav-logo.wrapper
-        include svg/logo.html
-      .brand__vibe VIBE
-.main
-  .text
-    p Meet out team:
-  a(href='https://github.com/Aderyn1121')#Emily-button TEAM LEAD
-  a(href='https://github.com/gootieno')#Jeff-button MODEL LEAD
-  a(href='https://github.com/zachary-henderson')#Zach-button UX/UI DESIGN
-  .line
-    .line__one
-    .line__two
-    #continue To continue, log in to Vibe
-  form(method="POST" action='/login')#auth-form
-    +input('_csrf', 'hidden')
-    +input('email-username', 'text', 'Email or username')
-    +input('password', 'password', 'Password')
-    .submit
-      .remember
-        +input('remember', 'checkbox')
-        label(for="remember") Remember me?
-      button#login-button Login
-  .text
-    a()#forget Forgot your password?
-  .line
-    .line__one
-    .line__two
-  .text
-    p Don't have an account?
+extends ./components/head
 
-  a(href="/signup")#signup-button SIGN UP FOR VIBE
+block content
+  include ./components/overlay
+
+  include ./components/login/nav-bar
+  
+  include ./components/login/main

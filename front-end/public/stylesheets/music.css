@@ -228,12 +228,12 @@ svg {
   border-right: #121212 solid 3px;
 }
 
-.play-buttons {
+.player-buttons {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 }
 
-.play-buttons * {
+.player-buttons * {
   display: flex;
   justify-content: center;
   align-items: center;

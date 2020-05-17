@@ -1,0 +1,34 @@
+.music
+  .songOptions
+    .song-info
+      .song-info__art
+        img(src=track.art)
+      .song-info__title= track.title
+      .song-info__artist= track.artist
+    .song-buttons
+      .like-button
+        i(class="fas fa-heart")
+      .popout-
+        i(class="fas fa-window-restore")
+  .musicPlayer
+    .player-buttons
+      #shuffleButton
+        i(class="fas fa-random")
+      #prevButton
+        i(class="fas fa-backward")
+      #playButton
+        i(class="fas fa-play")
+      #nextButton
+        i(class="fas fa-forward")
+      #repeatButton
+        i(class="fas fa-redo-alt")
+    .progress
+      .start-time
+      .progress-bar
+        audio
+          source(src=track.songFile)
+      .end-time
+  .otherOptions
+    .queue-button
+    .volume-icon
+    .volume-bar
