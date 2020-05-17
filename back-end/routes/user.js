@@ -47,24 +47,24 @@ router.post('/', validateEmailAndPassword, handleValidationErrors, asyncHandler(
     })
 }));
 
-//Get route for users
+//Get route for users returns userName and userId
 router.get('/', asyncHandler(async(req, res)=>{
     const users = await User.findAll();
     const userList = users.map( user => {
         return {userName: user.nickName, userId: user.id}
     })
-    res.json({...userList})
+    res.json({userList})
     
 }))
 
-//Get route for user by id
+//Get route for user by id returns specific userName and userId
 router.get('/:id(\\d+)', asyncHandler( async(req, res) => {
     const userId = parseInt(req.params.id, 10);
     const user = await User.findByPk(userId);
-    res.json({ user: user.id, username: user.nickName })
+    res.json({ username: user.nickName,  userId: user.id })
 }))
 
-//Get route for playlists
+//Get route for user playlists
 router.get('/:id/playlists', asyncHandler( async(req, res)=> {
     const userId = parseInt(req.params.id);
     const playlists = await Playlist.findAll({
@@ -73,11 +73,15 @@ router.get('/:id/playlists', asyncHandler( async(req, res)=> {
         },
         through: {
             attributes: ['playlistName']
+        },
+        where: {
+            userId: userId
         }
     });
-    playlists.forEach(playlist => {
-        res.json({ playList: playlist.playlistName, playlistId: playlist.id, userId: playlist.userId })
-    })
+    const playlistNames = playlists.map(playlist => {
+        return { playList: playlist.playlistName, playlistId: playlist.id, userId: playlist.userId }
+    });
+    res.json({ playlistNames })
 }))
 
 
