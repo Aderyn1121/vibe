@@ -1,16 +1,17 @@
 const express = require('express');
-const morgan = require('morgan')
+const morgan = require('morgan');
+const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
+const playlistRouter = require('./routes/playlist');
+const { environment } = require('./config');
 
 const app = express();
 
-app.use(morgan('dev'))
-app.use('/', userRouter)
-
-app.get('/', (req, res)=>{
-    res.send("the user route is working")
-})
-
+app.use(morgan('dev'));
+app.use(express.json());
+app.use('/', indexRouter);
+app.use('/users', userRouter);
+app.use('/playlists', playlistRouter);
 
 
 
@@ -24,6 +25,6 @@ app.use((err, req, res, next) => {
       errors: err.errors,
       stack: isProduction ? null : err.stack,
     });
-});
+  });
   
 module.exports = app;

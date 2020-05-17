@@ -14,6 +14,7 @@
     "bcryptjs": "^2.4.3",
     "express-validator": "^6.4.1",
     "faker": "^4.1.0",
+    "morgan": "^1.10.0",
     "npx": "^10.2.2",
     "sequelize": "^5.21.9",
     "sequelize-cli": "^5.5.1"
