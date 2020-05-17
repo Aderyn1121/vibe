@@ -1,85 +1,84 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
-
-const { csrfProtection, asyncHandler } = require('./utils');
+const { asyncHandler, csrfProtection, handleValidationErrors } = require('../utils');
+const { User } = require('../db/models');
+const { Playlist } = require('../db/models');
+const { Artist } = require('../db/models');
+const { Album } = require('../db/models');
+const { Song } = require('../db/models');
 
 const router = express.Router();
 
-//GET route to register page
-router.get('user/register', csrfProtection, (req, res) =>{
-    //TODO: await user from database and pass into render object
-    res.render('register', {
-        // key user here,
-        csrfProtection: req.csrfToken()
-    });
-})
-
-//Validate user information from sign-up
-const registerValidators = [
-    //TODO: check login information
+//Validate nickname and birthday
+const validateUserNickNameAndBirthday = [
+    check('nickname')
+        .exists({checkFalsy: true })
+        .withMessage('Please provide an entry for field nickname')
+        .isLength({ max: 20})
+        .withMessage('Nickname must not be more than 20 characters long'),
+    check('birthday')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide an entry for field birthday')
+        .isISO8601()
+        .withMessage('Please provide a valid date for birthday')
 ]
 
-//POST route from register page
-router.post('user/register', csrfProtection, userValidators, asyncHandler(async( req, res)=>{
-    //TODO: pull login info from req.body
+//Validate email and password 
+const validateEmailAndPassword = [
+    check('email')
+        .exists({ checkFalsy: true })
+        .isEmail()
+        .withMessage('Please provide an entry for field email.')
+        .isLength({ max: 100})
+        .withMessage('Email address must not be more than 100 characters long.'),
+    check('password')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide an entry for field password.')
+];
 
-    //TODO: build the user from body content
-
-    //check validation errors
-    const validatorErrors = validationResult(req)
-
-    //check if there are any errors
-    if(validatorErrors.isEmpty()){
-        //TODO: await a hashed password using bcrypt
-        //TODO: set the user.hashPassword to awaited hashed password. 
-        //TODO: save the user 
-        //---call the loginUser middleware after making one --
-        res.redirect('/');
-    } else {
-        //creating errors array and map the error msg into the errors variable. 
-        const errors = validatorErrors.array().map((error) => error.msg);
-        //TODO: rerender the registration page passing user info from like 27
-        res.render('register', {
-            //user goes here
-            errors, 
-            csrfToken: req.csrfToken()
-        });
-    }
-}))
-
-//GET route to the login page
-router.get('/user/login', csrfProtection, (req, res) => {
-    res.render('login', {
-        //title here,
-        csrfToken: csrfToken()
+//Post route for creating user
+router.post('/', validateEmailAndPassword, handleValidationErrors, asyncHandler( async( req, res) =>{
+    const { email, password, nickName, birthday } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({ email, hashedPassword, nickName, birthday});
+    res.status(201).json({
+        user: { id: user.id}
     })
-})
+}));
 
-//create login validators
-const loginValidator = [
-    //TODO: validate user log in 
-]
-
-
-//post route from the login page
-router.post('/user/login', csrfProtection, loginValidator, asyncHandler(async(req, res)=>{
-    //TODO: get the login info from req.body
-
-    let errors = []
-    const validateErrors = validationResult(req)
-
-    if(validateErrors.isEmpty()){
-      //TODO: await user.findOne from email address  
-      if(!user){
-        const passwordMatch// = compare password with bcrypt
-        if(passwordMatch){
-            //call the loginUser middleware
-            return res.redirect('/')
-        }
-      }
-      errors.push('login failed for the provided email address and password')
-    }
-    
+//Get route for users
+router.get('/', asyncHandler(async(req, res)=>{
+    const users = await User.findAll();
+    const userList = users.map( user => {
+        return {userName: user.nickName, userId: user.id}
+    })
+    res.json({...userList})
     
 }))
+
+//Get route for user by id
+router.get('/:id(\\d+)', asyncHandler( async(req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const user = await User.findByPk(userId);
+    res.json({ user: user.id, username: user.nickName })
+}))
+
+//Get route for playlists
+router.get('/:id/playlists', asyncHandler( async(req, res)=> {
+    const userId = parseInt(req.params.id);
+    const playlists = await Playlist.findAll({
+        include: {
+            model: User
+        },
+        through: {
+            attributes: ['playlistName']
+        }
+    });
+    playlists.forEach(playlist => {
+        res.json({ playList: playlist.playlistName, playlistId: playlist.id, userId: playlist.userId })
+    })
+}))
+
+
+module.exports = router;
