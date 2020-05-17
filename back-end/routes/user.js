@@ -50,7 +50,8 @@ router.post('/', validateEmailAndPassword, handleValidationErrors, asyncHandler(
 //Get route for users
 router.get('/', asyncHandler(async(req, res)=>{
     const users = await User.findAll();
-    res.json({ users })
+    res.json({users})
+    
 }))
 
 //Get route for user by id

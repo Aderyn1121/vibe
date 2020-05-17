@@ -6,9 +6,16 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const users = await queryInterface.bulkInsert('Users', [
       { 
-        email: faker.internet.email(),
+        email: 'john@doe.com',
         hashedPassword: bcrypt.hashSync(faker.internet.password()), 
         nickName: 'John Doe', birthday: new Date('01-01-2020'), 
+        createdAt: new Date(), 
+        updatedAt: new Date () 
+      },
+      { 
+        email: 'jane@doe.com',
+        hashedPassword: bcrypt.hashSync(faker.internet.password()), 
+        nickName: 'Jane Doe', birthday: new Date('01-01-2020'), 
         createdAt: new Date(), 
         updatedAt: new Date () 
       },
@@ -20,12 +27,29 @@ module.exports = {
         userId: users[0].id, 
         createdAt: new Date(), 
         updatedAt: new Date()
-      }
+      },
+      { 
+        playlistName: 'Weekend Vibes', 
+        userId: users[0].id, 
+        createdAt: new Date(), 
+        updatedAt: new Date()
+      },
+      { 
+        playlistName: 'Chillin', 
+        userId: users[1].id, 
+        createdAt: new Date(), 
+        updatedAt: new Date()
+      },
     ], {returning: true });
 
     const artists = await queryInterface.bulkInsert('Artists', [
       {
         artistName: 'Queen', 
+        createdAt: new Date(), 
+        updatedAt: new Date()
+      },
+      {
+        artistName: 'The Weeknd', 
         createdAt: new Date(), 
         updatedAt: new Date()
       },
@@ -39,6 +63,13 @@ module.exports = {
         createdAt: new Date(), 
         updatedAt: new Date() 
       },
+      { 
+        albumName: 'The Weeknd XO', 
+        releaseDate: new Date('03-19-2020'), 
+        artistId: artists[1].id, 
+        createdAt: new Date(), 
+        updatedAt: new Date() 
+      },
     ], {returning: true });
     
     const songs = await queryInterface.bulkInsert('Songs', [
@@ -48,7 +79,14 @@ module.exports = {
         albumId: albums[0].id,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      { 
+        songName: "Escape From LA", 
+        releaseDate: albums[0].releaseDate,
+        albumId: albums[1].id,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], { returning: true });
 
     return queryInterface.bulkInsert('PlaylistSongs', [
@@ -58,7 +96,21 @@ module.exports = {
         songId: songs[0].id,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
+      },
+      {
+        song: songs[1].songName,
+        playlistId: playlists[0].id,
+        songId: songs[1].id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        song: songs[1].songName,
+        playlistId: playlists[1].id,
+        songId: songs[1].id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
   ], {});
   },
 
