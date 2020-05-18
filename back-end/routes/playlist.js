@@ -4,9 +4,12 @@ const { Playlist } = require('../db/models');
 const { PlaylistSong } = require('../db/models');
 const { User } = require('../db/models');
 const { Song } = require('../db/models');
+
+const { requireAuth } = require('../auth');
 const { csrfProtection, asyncHandler } = require('../utils');
 
 const router = express.Router();
+router.use(requireAuth);
 
 const playlistNotFound = id => {
   const err = new Error(`Playlist with id of ${id} was not found`)
@@ -28,7 +31,7 @@ const playlistValidators =
 
 //Get route for playlists
 router.get('/', asyncHandler(async (req, res) => {
-  const playlists = await Playlist.findAll();
+  const playlists = await Playlist.findAll({order: [["createdAt", "DESC"]]});
   const userPlaylist = playlists.map(playlist => {
     return { playListName: playlist.playlistName, playListId: playlist.id, userId: playlist.userId }
   });
@@ -37,12 +40,14 @@ router.get('/', asyncHandler(async (req, res) => {
 
 
 //Get route for playlist by id
-router.get(
-  '/:id(\\d+)',
-  asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
     const playlist = await Playlist.findByPk(playlistId);
-    res.json({ playlistName: playlist.playlistName });
+    if(playlist){
+        res.json({ playlistName: playlist.playlistName });
+    } else {
+        next(playlistNotFound(playlistId))
+    }
   })
 );
 
@@ -55,13 +60,6 @@ router.get(
       where: {
         playlistId: playlistId,
       },
-    });
-    const songsList = playlistSongs.map((song) => {
-      return {
-        playlistSong: song.song,
-        songId: song.id,
-        playlistId: song.playlistId,
-      };
     });
     const songsList = playlistSongs.map(song => {
       return { playlistSong: song.song, songId: song.id, playlistId: song.playlistId }
