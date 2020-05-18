@@ -1,0 +1,36 @@
+.music
+  .songOptions
+    .song-info
+      audio#trackAudio.playing
+        source
+      .song-info__art#trackArt
+
+      .song-info__title#trackTitle ______________
+      .song-info__artist#trackArtist ______________
+    .song-buttons
+      .like-button
+        i(class="fas fa-heart")
+      .popout-
+        i(class="fas fa-window-restore")
+  .musicPlayer
+    .player-buttons
+      #shuffleButton
+        i(class="fas fa-random")
+      #prevButton
+        i(class="fas fa-backward")
+      #playButton
+        i(class="fas fa-play")
+      #nextButton
+        i(class="fas fa-forward")
+      #repeatButton
+        i(class="fas fa-redo-alt")
+    .progress
+      .start-time
+      .progress-bar
+      .end-time
+  .otherOptions
+    .queue-button
+    .volume-icon
+    .volume-bar
+
+    //- src=`../../public/images/album-art/${songQueue[0].id}.jpg`

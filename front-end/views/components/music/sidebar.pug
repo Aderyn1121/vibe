@@ -1,0 +1,8 @@
+.sidebar
+      #sidebarLinks.sidebar__links
+        #home Home
+        #search Search
+        #library Library
+      #sidebarPlaylists.playlists
+        each playlist in user.playlists
+          .sidebar__playlist(id= playlist.id)= playlist.name

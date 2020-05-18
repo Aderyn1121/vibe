@@ -3,22 +3,26 @@ const path = require('path');
 
 router = express.Router();
 
+const scripts = ['music/play-buttons', 'music', 'music/sidebar'];
+
 router.get('/', (req, res) => {
+  const user = {
+    id: 1,
+    name: 'Zachary',
+    playlists: [{ id: 1, name: 'I love music' }],
+  };
+
   res.render('music', {
     fileName: 'music',
     title: 'Music',
     mainContent: 'home',
-    track: {
-      art: '/public/images/album-art.jpg',
-      title: 'Hide and Seek',
-      artist: 'Imogen Heap',
-      songFile: '/public/test_music/hide-and-seek.m4a',
-    },
+    scripts,
+    user,
   });
 });
 
 router.get('/home/ajax', (req, res) => {
-  res.render('home', (err, html) => {
+  res.render('components/music/main-content/home', (err, html) => {
     res.send(JSON.stringify(html));
   });
 });
@@ -28,11 +32,12 @@ router.get('/home', (req, res) => {
     fileName: 'music',
     title: 'music',
     mainContent: 'home',
+    scripts,
   });
 });
 
 router.get('/search/ajax', (req, res) => {
-  res.render('search', (err, html) => {
+  res.render('components/music/main-content/search', (err, html) => {
     res.send(JSON.stringify(html));
   });
 });
@@ -42,11 +47,12 @@ router.get('/search', (req, res) => {
     fileName: 'music',
     title: 'Music',
     mainContent: 'search',
+    scripts,
   });
 });
 
 router.get('/library/ajax', (req, res) => {
-  res.render('library', (err, html) => {
+  res.render('components/music/main-content/library', (err, html) => {
     res.send(JSON.stringify(html));
   });
 });
@@ -56,6 +62,7 @@ router.get('/library', (req, res) => {
     fileName: 'music',
     title: 'Music',
     mainContent: 'library',
+    scripts,
   });
 });
 

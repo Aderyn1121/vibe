@@ -25,15 +25,24 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/music', musicRouter);
 
 app.get('/', (req, res) => {
-  res.render('index', { fileName: 'index', title: 'Vibe' });
+  res.render('index', { fileName: 'index', title: 'Vibe', scripts: ['index'] });
 });
 
 app.get('/login', (req, res) => {
-  res.render('login', { fileName: 'login', title: 'Login' });
+  res.render('login', {
+    fileName: 'login',
+    title: 'Login',
+    scripts: ['login'],
+  });
 });
 
 app.get('/signup', (req, res) => {
-  res.render('signup', { fileName: 'signup', title: 'Signup', months });
+  res.render('signup', {
+    fileName: 'signup',
+    title: 'Signup',
+    months,
+    scripts: ['signup'],
+  });
 });
 
 app.listen(8081, () => {
