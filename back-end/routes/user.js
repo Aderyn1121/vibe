@@ -11,13 +11,13 @@ const { Song } = require('../db/models');
 
 const router = express.Router();
 
-//Validate nickname and birthday
-const validateUserNickNameAndBirthday = [
-    check('nickname')
+//Validate userName and birthday
+const validateUsernameAndBirthday = [
+    check('userName')
         .exists({checkFalsy: true })
-        .withMessage('Please provide an entry for field nickname')
+        .withMessage('Please provide an entry for field userName')
         .isLength({ max: 20})
-        .withMessage('Nickname must not be more than 20 characters long'),
+        .withMessage('Username must not be more than 20 characters long'),
     check('birthday')
         .exists({ checkFalsy: true })
         .withMessage('Please provide an entry for field birthday')
@@ -39,10 +39,10 @@ const validateEmailAndPassword = [
 ];
 
 //Post route for creating user
-router.post('/', validateUserNickNameAndBirthday, validateEmailAndPassword, handleValidationErrors, asyncHandler( async( req, res) =>{
-    const { email, password, nickName, birthday } = req.body;
+router.post('/', validateUsernameAndBirthday, validateEmailAndPassword, handleValidationErrors, asyncHandler( async( req, res) =>{
+    const { email, password, userName, birthday } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, hashedPassword, nickName, birthday});
+    const user = await User.create({ email, hashedPassword, userName, birthday});
     res.status(201).json({
         user: { id: user.id}
     })
@@ -52,7 +52,7 @@ router.post('/', validateUserNickNameAndBirthday, validateEmailAndPassword, hand
 router.get('/', asyncHandler(async(req, res)=>{
     const users = await User.findAll();
     const userList = users.map( user => {
-        return {userName: user.nickName, userId: user.id}
+        return {userName: user.userName, userId: user.id}
     })
     res.json({userList})
     
@@ -62,7 +62,7 @@ router.get('/', asyncHandler(async(req, res)=>{
 router.get('/:id(\\d+)', asyncHandler( async(req, res) => {
     const userId = parseInt(req.params.id, 10);
     const user = await User.findByPk(userId);
-    res.json({ username: user.nickName,  userId: user.id })
+    res.json({ username: user.userName,  userId: user.id })
 }))
 
 //Get route for user playlists
