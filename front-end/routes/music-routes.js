@@ -3,18 +3,21 @@ const path = require('path');
 
 router = express.Router();
 
+const scripts = ['music/play-buttons', 'music', 'music/sidebar'];
+
 router.get('/', (req, res) => {
+  const user = {
+    id: 1,
+    name: 'Zachary',
+    playlists: [{ id: 1, name: 'I love music' }],
+  };
+
   res.render('music', {
     fileName: 'music',
     title: 'Music',
     mainContent: 'home',
-    track: {
-      art: '/public/images/album-art.jpg',
-      title: 'Hide and Seek',
-      artist: 'Imogen Heap',
-      songFile: '/public/test_music/hide-and-seek.m4a',
-    },
-    scripts: ['play-buttons', 'music'],
+    scripts,
+    user,
   });
 });
 
@@ -29,13 +32,7 @@ router.get('/home', (req, res) => {
     fileName: 'music',
     title: 'music',
     mainContent: 'home',
-    track: {
-      art: '/public/images/album-art.jpg',
-      title: 'Hide and Seek',
-      artist: 'Imogen Heap',
-      songFile: '/public/test_music/hide-and-seek.m4a',
-    },
-    scripts: ['play-buttons', 'music'],
+    scripts,
   });
 });
 
@@ -50,13 +47,7 @@ router.get('/search', (req, res) => {
     fileName: 'music',
     title: 'Music',
     mainContent: 'search',
-    track: {
-      art: '/public/images/album-art.jpg',
-      title: 'Hide and Seek',
-      artist: 'Imogen Heap',
-      songFile: '/public/test_music/hide-and-seek.m4a',
-    },
-    scripts: ['play-buttons', 'music'],
+    scripts,
   });
 });
 
@@ -71,13 +62,7 @@ router.get('/library', (req, res) => {
     fileName: 'music',
     title: 'Music',
     mainContent: 'library',
-    track: {
-      art: '/public/images/album-art.jpg',
-      title: 'Hide and Seek',
-      artist: 'Imogen Heap',
-      songFile: '/public/test_music/hide-and-seek.m4a',
-    },
-    scripts: ['play-buttons', 'music'],
+    scripts,
   });
 });
 
