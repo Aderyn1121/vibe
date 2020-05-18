@@ -25,9 +25,11 @@
       #repeatButton
         i(class="fas fa-redo-alt")
     .progress
-      .start-time
+      .start-time#startTime
       .progress-bar
-      .end-time
+        #bar
+          #circle(draggable= true)
+      .end-time#endTime
   .otherOptions
     .queue-button
     .volume-icon

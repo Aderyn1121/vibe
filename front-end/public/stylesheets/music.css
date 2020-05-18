@@ -282,12 +282,37 @@ svg {
   grid-template-columns: 1fr 3fr 1fr;
 }
 
+.progress * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#bar {
+  position: relative;
+  background-color: #e0e0e0;
+  width: 100%;
+  height: 4px;
+  border-radius: 30px;
+  overflow: visible;
+}
+
+#circle {
+  position: absolute;
+  background-color: #fde74c;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  left: 0%;
+}
+
 .otherOptions {
   display: grid;
   grid-template-columns: 1fr 1fr 5fr;
 }
 
 /* Animations */
+
 .fadeout {
   animation: fadeout 1s 3s forwards;
 }
