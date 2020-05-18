@@ -12,16 +12,20 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "csurf": "^1.11.0",
+    "express": "^4.17.1",
     "express-validator": "^6.4.1",
     "faker": "^4.1.0",
     "morgan": "^1.10.0",
-    "npx": "^10.2.2",
-    "sequelize": "^5.21.9",
-    "sequelize-cli": "^5.5.1"
+    "per-env": "^1.0.2",
+    "pg": "^8.2.1",
+    "sequelize": "^5.21.9"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
     "dotenv-cli": "^3.1.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^5.5.1"
   }
 }
