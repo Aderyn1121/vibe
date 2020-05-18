@@ -10,7 +10,7 @@ module.exports = {
       },
       albumName: {
         allowNull: false,
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(50)
       },
       releaseDate: {
         allowNull: false,
