@@ -8,18 +8,31 @@ module.exports = {
       { 
         email: 'john@doe.com',
         hashedPassword: bcrypt.hashSync(faker.internet.password()), 
-        nickName: 'John Doe', birthday: new Date('01-01-2020'), 
+        userName: 'John Doe', 
+        birthday: new Date('01-01-2020'), 
         createdAt: new Date(), 
         updatedAt: new Date () 
       },
       { 
         email: 'jane@doe.com',
         hashedPassword: bcrypt.hashSync(faker.internet.password()), 
-        nickName: 'Jane Doe', birthday: new Date('01-01-2020'), 
+        userName: 'Jane Doe', 
+        birthday: new Date('01-01-2020'), 
         createdAt: new Date(), 
         updatedAt: new Date () 
       },
     ], { returning: true });
+
+    const friends = await queryInterface.bulkInsert('UserFriends', [
+      {
+        userName: users[0].userName,
+        friendName:users[1].userName, 
+        userId:users[0].id, 
+        friendId:users[1].id,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ], {returning: true})
 
     const playlists = await queryInterface.bulkInsert('Playlists', [
       { 
@@ -120,6 +133,7 @@ module.exports = {
     await queryInterface.bulkDelete('Albums', null, {});
     await queryInterface.bulkDelete('Artists', null, {});
     await queryInterface.bulkDelete('Playlists', null, {});
+    await queryInterface.bulkDelete('UserFriends', null, {});
     return queryInterface.bulkDelete('Users', null, {});
   }
 };

@@ -9,6 +9,13 @@ const { csrfProtection, asyncHandler } = require('../utils');
 
 const router = express.Router();
 
+const playlistNotFound = id => {
+    const err = new Error(`Playlist with id of ${id} was not found`)
+    err.status = 404
+    err.title = 'Playlist not found'
+    return err
+}
+
 const playlistValidators = 
     check('playlistName')
         .exists({ checkFalsy: true })
@@ -23,9 +30,10 @@ const playlistValidators =
 //Get route for playlists
 router.get('/', asyncHandler(async (req, res) => {
     const playlists = await Playlist.findAll();
-    playlists.forEach(playlist => {
-        res.json({playListName: playlist.playlistName, playListId: playlist.id, userId: playlist.userId});
+    const userPlaylist = playlists.map(playlist => {
+        return {playListName: playlist.playlistName, playListId: playlist.id, userId: playlist.userId}
     });
+    res.json({ userPlaylist })
 }));
 
 
@@ -45,10 +53,10 @@ router.get('/:id/songs', asyncHandler(async( req, res) => {
             playlistId: playlistId
         }
     });
-    playlistSongs.forEach(song => {
-        res.json({ playlistSong: song.song, songId: song.id, playlistId: song.playlistId })
+    const songsList = playlistSongs.map(song => {
+        return { playlistSong: song.song, songId: song.id, playlistId: song.playlistId }
     }) 
-    res.json({playlistSongs});
+    res.json({songsList});
 }));
 
 //Get route for playlist song by id
