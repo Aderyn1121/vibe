@@ -7,3 +7,9 @@ Perfect for listening at work, at the gym, at home, or in your quarantine bunker
 
 # The songs you want, now.
 Our database has plenty of music to suit any taste, and it all streams for FREE to your browser.
+
+# Secure Socialization
+We just want you vibing. Our encryption ensures that your Vibe account is safe from most popular forms of attacks, so that you can relax.
+
+# Locally run
+All of our music comes from our own database, so you won't be reliant on a 3rd party server to get the tunes you want!
