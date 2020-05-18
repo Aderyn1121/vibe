@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const { asyncHandler, csrfProtection, handleValidationErrors } = require('../utils');
 const { User } = require('../db/models');
+const { UserFriend } = require('../db/models');
 const { Playlist } = require('../db/models');
 const { Artist } = require('../db/models');
 const { Album } = require('../db/models');
@@ -38,7 +39,7 @@ const validateEmailAndPassword = [
 ];
 
 //Post route for creating user
-router.post('/', validateEmailAndPassword, handleValidationErrors, asyncHandler( async( req, res) =>{
+router.post('/', validateUserNickNameAndBirthday, validateEmailAndPassword, handleValidationErrors, asyncHandler( async( req, res) =>{
     const { email, password, nickName, birthday } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ email, hashedPassword, nickName, birthday});
@@ -82,6 +83,15 @@ router.get('/:id/playlists', asyncHandler( async(req, res)=> {
         return { playList: playlist.playlistName, playlistId: playlist.id, userId: playlist.userId }
     });
     res.json({ playlistNames })
+}))
+
+router.get('/:id/friends', asyncHandler( async( req, res) => {
+    const friendId = parseInt(req.params.id, 10)
+    const friends = await UserFriend.findAll()
+    const friendsList = friends.map(user => {
+        return {userName: user.userName, friend: user.friendName, userId: user.id, friendId:user.friendId}
+    })
+    res.json({friendsList})
 }))
 
 
