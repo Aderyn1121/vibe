@@ -4,5 +4,5 @@
         #search Search
         #library Library
       #sidebarPlaylists.playlists
-        each playlist in user.playlists
-          .sidebar__playlist(id= playlist.id)= playlist.name
+        each playlist in playlists
+          .sidebar__playlist(id= playlist.playListId)= playlist.playListName

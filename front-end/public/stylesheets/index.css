@@ -140,7 +140,7 @@ svg {
   background-color: #fde74c;
   border-radius: 30px;
   font-size: 15px;
-  color: #020300;
+  color: #020300 !important;
 }
 
 .vibeCheck__button:hover {
