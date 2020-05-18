@@ -1,21 +1,28 @@
 const express = require('express');
 const path = require('path');
+const fetch = require('node-fetch');
 
 router = express.Router();
 
 const scripts = ['music/play-buttons', 'music', 'music/sidebar'];
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const user = {
     id: 1,
     name: 'Zachary',
-    playlists: [{ id: 1, name: 'I love music' }],
   };
+  console.log('here');
+  const playlistsJson = await fetch('http://localhost:8080/playlists');
+  console.log('there');
+  const playlists = await playlistsJson.json();
+
+  console.log(playlists);
 
   res.render('music', {
     fileName: 'music',
     title: 'Music',
     mainContent: 'home',
+    playlists,
     scripts,
     user,
   });
