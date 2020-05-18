@@ -4,7 +4,12 @@ const fetch = require('node-fetch');
 
 router = express.Router();
 
-const scripts = ['music/play-buttons', 'music', 'music/sidebar'];
+const scripts = [
+  'music/play-buttons',
+  'music',
+  'music/sidebar',
+  'music/progress-bar',
+];
 
 router.get('/', async (req, res) => {
   const user = {
