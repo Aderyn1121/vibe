@@ -8,33 +8,34 @@ const { csrfProtection, asyncHandler } = require('../utils');
 
 const router = express.Router();
 
-const playlistNotFound = id => {
-    const err = new Error(`Playlist with id of ${id} was not found`)
-    err.status = 404
-    err.title = 'Playlist not found'
-    return err
-}
+const playlistNotFound = (id) => {
+  const err = new Error(`Playlist with id of ${id} was not found`);
+  err.status = 404;
+  err.title = 'Playlist not found';
+  return err;
+};
 
-const playlistValidators =
-    check('playlistName')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide an entry for playlist name')
-        .isLength({ max: 20 })
-        .withMessage('Playlist name cannot be more than 20 characters long.')
-
-
-
-
+const playlistValidators = check('playlistName')
+  .exists({ checkFalsy: true })
+  .withMessage('Please provide an entry for playlist name')
+  .isLength({ max: 20 })
+  .withMessage('Playlist name cannot be more than 20 characters long.');
 
 //Get route for playlists
-router.get('/', asyncHandler(async (req, res) => {
+router.get(
+  '/',
+  asyncHandler(async (req, res) => {
     const playlists = await Playlist.findAll();
-    const userPlaylist = playlists.map(playlist => {
-        return {playListName: playlist.playlistName, playListId: playlist.id, userId: playlist.userId}
+    const userPlaylist = playlists.map((playlist) => {
+      return {
+        playListName: playlist.playlistName,
+        playListId: playlist.id,
+        userId: playlist.userId,
+      };
     });
-    res.json({ userPlaylist })
-}));
-
+    res.json({ userPlaylist });
+  })
+);
 
 //Get route for playlist by id
 router.get(
@@ -63,11 +64,9 @@ router.get(
         playlistId: song.playlistId,
       };
     });
-    const songsList = playlistSongs.map(song => {
-        return { playlistSong: song.song, songId: song.id, playlistId: song.playlistId }
-    })
-    res.json({songsList});
-}));
+    res.json({ songsList });
+  })
+);
 
 //Get route for playlist song by id
 router.get(
@@ -78,3 +77,5 @@ router.get(
     res.json({ songName: song.songName, songId: songId });
   })
 );
+
+module.exports = router;
