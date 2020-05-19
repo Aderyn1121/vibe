@@ -68,9 +68,8 @@ router.post('/sign-up', validateUser, handleValidationErrors , asyncHandler( asy
 }));
 
 //Post route for loging in user 
-router.post('/login', validateEmailAndPassword, handleValidationErrors, requireAuth, asyncHandler( async(req, res) =>{
+router.post('/login', validateEmailAndPassword, handleValidationErrors, asyncHandler( async(req, res) =>{
     const { email, password } = req.body;
-    console.log('EMAIL:', email)
     const user = await User.findOne({ where: { email }});
 
     if(!user || !user.validatePassword(password)){
@@ -85,9 +84,5 @@ router.post('/login', validateEmailAndPassword, handleValidationErrors, requireA
     res.json({token, user: { id: user.id }})
 }))
 
-// //Post route for loging out user
-// router.post('/log-out', (req, res) => {
-//     logoutUser(req, res);
-// })
 
 module.exports = router;
