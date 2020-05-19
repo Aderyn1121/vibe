@@ -37,3 +37,7 @@ Favorite snippets
 -  **Backend Lead:** Geoffrey Otieno
 -  **UX/UI Lead:** Zachary Henderson and
 -  **Team Lead:** Emily Burnham
+
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-pug.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
