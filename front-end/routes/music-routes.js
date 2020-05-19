@@ -13,22 +13,12 @@ const scripts = [
 ];
 
 router.get('/', async (req, res) => {
-  const user = {
-    id: 1,
-    name: 'Zachary',
-  };
-
-  const playlistsJson = await fetch('http://localhost:8080/playlists');
-  const playlistsObject = await playlistsJson.json();
-  const playlists = playlistsObject.userPlaylist;
 
   res.render('music', {
     fileName: 'music',
     title: 'Music',
     mainContent: 'home',
-    playlists,
     scripts,
-    user,
   });
 });
 
