@@ -72,14 +72,17 @@ router.post('/sign-up', validateUser, handleValidationErrors , asyncHandler( asy
 router.post('/login', validateEmailAndPassword, handleValidationErrors, requireAuth, asyncHandler( async(req, res) =>{
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email }});
-    if(user){
-        const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
-        if(passwordMatch){
-            //redirect to main page
-            console.log('log-in with bearer token works! Redirect to any page!')
-        }
-    } 
-    res.json({ email })
+
+    if(!user || !user.validatePassword(password)){
+        const err = new Error('Login Failed');
+        err.status = 404;
+        err.title = 'Login failed';
+        err.erros = ['The provided login information was invalid'];
+        return next(err);
+    };
+
+    const token = getUserToken(user);
+    res.json({token, user: { id: user.id }})
 }))
 
 //Post route for loging out user

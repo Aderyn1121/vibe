@@ -9,7 +9,7 @@ const { requireAuth } = require('../auth');
 const { csrfProtection, asyncHandler } = require('../utils');
 
 const router = express.Router();
-router.use(requireAuth);
+// router.use(requireAuth);
 
 
 const playlistNotFound = (id) => {
@@ -28,28 +28,12 @@ const playlistValidators = check('playlistName')
 //Get route for playlists
 
 router.get('/', asyncHandler(async (req, res) => {
-  const playlists = await Playlist.findAll({order: [["createdAt", "DESC"]]});
+  const playlists = await Playlist.findAll();
   const userPlaylist = playlists.map(playlist => {
     return { playListName: playlist.playlistName, playListId: playlist.id, userId: playlist.userId }
   });
   res.json({ userPlaylist })
 }));
-
-
-router.get(
-  '/',
-  asyncHandler(async (req, res) => {
-    const playlists = await Playlist.findAll();
-    const userPlaylist = playlists.map((playlist) => {
-      return {
-        playListName: playlist.playlistName,
-        playListId: playlist.id,
-        userId: playlist.userId,
-      };
-    });
-    res.json({ userPlaylist });
-  })
-);
 
 //Get route for playlist by id
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
