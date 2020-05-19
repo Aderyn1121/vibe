@@ -14,3 +14,5 @@ const logoutUser = () => {
   localStorage.removeItem('VIBE_USER_ID');
   location.reload();
 };
+
+test;
