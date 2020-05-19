@@ -1,7 +1,7 @@
 # Vibe
 ### An open-source, web-based music platform, catered to *your* vibes.
 
-![Alt Text](https://i.imgur.com/Pp4SQKY.gif)
+![Alt Text](https://i.imgur.com/FNi3qlt.gif)
 
 Vibe is a free, social music platform with an emphasis on finding music suited to your 'vibe'.
 From rock, to jazz, to pop and everything around and in-between, Vibe will help you create your perfect playlist.
