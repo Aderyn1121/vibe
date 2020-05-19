@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
-const { asyncHandler } = require('./utils');
+const asyncHandler = require('./utils');
 
 router = express.Router();
 
@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
   });
 });
 
+
 router.post('/', async (req, res) => {
   console.log(req.body);
   const { email, password } = req.body;
@@ -31,4 +32,7 @@ router.post('/', async (req, res) => {
   console.log(loginObject);
 });
 
+    res.redirect('/music');
+  })
+);
 module.exports = router;

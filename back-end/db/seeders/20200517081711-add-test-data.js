@@ -4,56 +4,76 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const users = await queryInterface.bulkInsert('Users', [
-      { 
-        email: 'john@doe.com',
-        hashedPassword: bcrypt.hashSync(faker.internet.password()), 
-        userName: 'John Doe', 
-        birthday: new Date('01-01-2020'), 
-        createdAt: new Date(), 
-        updatedAt: new Date () 
-      },
-      { 
-        email: 'jane@doe.com',
-        hashedPassword: bcrypt.hashSync(faker.internet.password()), 
-        userName: 'Jane Doe', 
-        birthday: new Date('01-01-2020'), 
-        createdAt: new Date(), 
-        updatedAt: new Date () 
-      },
-    ], { returning: true });
+    const users = await queryInterface.bulkInsert(
+      'Users',
+      [
+        {
+          email: 'john@doe.com',
+          hashedPassword: bcrypt.hashSync(faker.internet.password()),
+          userName: 'John Doe',
+          birthday: new Date('01-01-2020'),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          email: 'jane@doe.com',
+          hashedPassword: bcrypt.hashSync(faker.internet.password()),
+          userName: 'Jane Doe',
+          birthday: new Date('01-01-2020'),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          email: 'vibe4@user.com',
+          hashedPassword: bcrypt.hashSync('Test@1234'),
+          userName: 'Demo User',
+          birthday: new Date('01-01-2020'),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      { returning: true }
+    );
 
-    const friends = await queryInterface.bulkInsert('UserFriends', [
-      {
-        userName: users[0].userName,
-        friendName:users[1].userName, 
-        userId:users[0].id, 
-        friendId:users[1].id,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    ], {returning: true})
+    const friends = await queryInterface.bulkInsert(
+      'UserFriends',
+      [
+        {
+          userName: users[0].userName,
+          friendName: users[1].userName,
+          userId: users[0].id,
+          friendId: users[1].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      { returning: true }
+    );
 
-    const playlists = await queryInterface.bulkInsert('Playlists', [
-      { 
-        playlistName: 'My Jamz', 
-        userId: users[0].id, 
-        createdAt: new Date(), 
-        updatedAt: new Date()
-      },
-      { 
-        playlistName: 'Weekend Vibes', 
-        userId: users[0].id, 
-        createdAt: new Date(), 
-        updatedAt: new Date()
-      },
-      { 
-        playlistName: 'Chillin', 
-        userId: users[1].id, 
-        createdAt: new Date(), 
-        updatedAt: new Date()
-      },
-    ], {returning: true });
+    const playlists = await queryInterface.bulkInsert(
+      'Playlists',
+      [
+        {
+          playlistName: 'My Jamz',
+          userId: users[0].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          playlistName: 'Weekend Vibes',
+          userId: users[0].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          playlistName: 'Chillin',
+          userId: users[1].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      { returning: true }
+    );
 
     const artists = await queryInterface.bulkInsert(
       'Artists',
@@ -197,21 +217,21 @@ module.exports = {
         },
         {
           song: songs[2].songName,
-          playlistId: playlists[3].id,
+          playlistId: playlists[2].id,
           songId: songs[2].id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           song: songs[3].songName,
-          playlistId: playlists[3].id,
+          playlistId: playlists[2].id,
           songId: songs[3].id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           song: songs[4].songName,
-          playlistId: playlists[3].id,
+          playlistId: playlists[2].id,
           songId: songs[4].id,
           createdAt: new Date(),
           updatedAt: new Date(),
