@@ -21,17 +21,14 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
   console.log(req.body);
   const { email, password } = req.body;
-  const body = { email, password}
+
   const loginRes = await fetch('http://localhost:8080/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ email, password }),
   });
-  const {
-    token,
-    user: { id },
-  } = await loginRes.json();
-  console.log(token, user.id);
+  const loginObject = await loginRes.json();
+  console.log(loginObject);
 });
 
 module.exports = router;

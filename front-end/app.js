@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
 const musicRouter = require('./routes/music-routes');
+<<<<<<< HEAD
+=======
 const loginRouter = require('./routes/login-routes');
+>>>>>>> ca2f14d3f682e4b37d1c4ab26b4219d9e77f926a
 const { asyncHandler } = require('./routes/utils');
-// const {}=
 
 const months = [
   'January',
@@ -41,6 +43,17 @@ app.get('/signup', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+app.get('/login', (req, res) => {
+  res.render('login', {
+    fileName: 'login',
+    title: 'Login',
+    scripts: ['login'],
+  });
+});
+
+=======
+>>>>>>> ca2f14d3f682e4b37d1c4ab26b4219d9e77f926a
 // Error handling stuff
 
 app.use((req, res, next) => {

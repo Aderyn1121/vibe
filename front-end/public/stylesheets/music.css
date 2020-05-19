@@ -115,10 +115,21 @@ svg {
   padding: 0;
 }
 /* Nav */
-.navbar {
+
+.nav-bar {
   grid-area: navbar;
   background-color: #141414;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.nav-bar__buttons#navButtons > * {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  color: #e0e0e0;
+}
+
 /* Sidebar */
 .sidebar {
   height: 100%;

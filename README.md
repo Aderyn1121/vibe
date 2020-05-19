@@ -1,7 +1,7 @@
 ![Alt Text](https://i.imgur.com/FNi3qlt.gif)
 ### An open-source, web-based music platform, catered to *your* vibes.
 
-Vibe is a free, social music platform with an emphasis on finding music suited to your 'vibe'.
+Vibe is a non-commercial, social music platform with an emphasis on finding music suited to your 'vibe'.
 From rock, to jazz, to pop and everything around and in-between, Vibe will help you create your perfect playlist.
 
 
@@ -31,9 +31,15 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 Favorite snippets
 ```
 ---
+# Database Structure
 
-
+![](https://i.imgur.com/qIx984r.png)
+---
 # Contributors
 -  **Backend Lead:** Geoffrey Otieno
 -  **UX/UI Lead:** Zachary Henderson and
 -  **Team Lead:** Emily Burnham
+
+[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-pug.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
