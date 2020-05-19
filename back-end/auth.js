@@ -20,6 +20,16 @@ const getUserToken = (user) => {
     return token;
 }
 
+const loginUser = (req, res, next) => {
+    req.session.auth = {
+        userId: user.id
+    }
+};
+
+const logoutUser = (req, res) => {
+    delete req.session.auth
+}
+
 // const restoreUser = (req, res, next) => {
 //     const { token } = req;
 //     if(!token){
@@ -46,4 +56,9 @@ const getUserToken = (user) => {
 // }
 
 const requireAuth = [bearerToken()];
-module.exports = { getUserToken, requireAuth};
+module.exports = { 
+    getUserToken, 
+    requireAuth, 
+    loginUser, 
+    logoutUser
+};
