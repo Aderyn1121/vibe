@@ -33,7 +33,7 @@ Favorite snippets
 ---
 # Database Structure
 
-![]https://i.imgur.com/qIx984r.png
+![](https://i.imgur.com/qIx984r.png)
 ---
 # Contributors
 -  **Backend Lead:** Geoffrey Otieno
