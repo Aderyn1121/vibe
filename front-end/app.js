@@ -26,32 +26,31 @@ app.use('/music', musicRouter);
 
 //Error handling stuff
 
-app.use((req, res, next) => {
-  const err = new Error("The requested page couldn't be found.");
-  err.status = 404;
-  next(err);
-});
+// app.use((req, res, next) => {
+//   const err = new Error("The requested page couldn't be found.");
+//   err.status = 404;
+//   next(err);
+// });
 
-app.use((err, req, res, next) => {
-  if (req.url !== "/favicon.ico") {
+// app.use((err, req, res, next) => {
+//   if (req.url !== "/favicon.ico") {
 
-    console.error(err);
+//     console.error(err);
 
-  }
-  next(err);
-});
+//   }
+//   next(err);
+// });
 
-app.use((err, req, res, next) => {
-  if (err.status === 404) {
-    res.status(404);
-    res.render("page-not-found", { filename: 'page-not-found', title: "Page Not Found" });
-  } else {
-    next(err);
-  }
-});
+// app.use((err, req, res, next) => {
+//   if (err.status === 404) {
+//     res.status(404);
+//     res.render("page-not-found", { filename: 'page-not-found', title: "Page Not Found" });
+//   } else {
+//     next(err);
+//   }
+// });
 
 //
-
 
 app.get('/', (req, res) => {
   res.render('index', { fileName: 'index', title: 'Vibe', scripts: ['index'] });
