@@ -23,6 +23,14 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          email: 'vibe4@user.com',
+          hashedPassword: bcrypt.hashSync('Test@1234'),
+          userName: 'Demo User',
+          birthday: new Date('01-01-2020'),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       { returning: true }
     );

@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
-const { asyncHandler } = require('./utils');
+const asyncHandler = require('./utils');
 
 router = express.Router();
 
@@ -18,20 +18,20 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', async (req, res) => {
-  console.log(req.body);
-  const { email, password } = req.body;
+router.post(
+  '/',
+  asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
 
-  const loginRes = await fetch('http://localhost:8080/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  });
-  const {
-    token,
-    user: { id },
-  } = await loginRes.json();
-  console.log(token, user.id);
-});
+    const loginRes = await fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
 
+    const { token, user: id } = await loginRes.json();
+
+    res.redirect('/music');
+  })
+);
 module.exports = router;
