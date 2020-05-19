@@ -24,25 +24,6 @@ const validateEmailAndPassword = [
 ];
 
 
-router.post('/token', validateEmailAndPassword, asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({
-        where:{
-            email,
-        }
-    });
-
-    if(!user || !user.validatePassword(password)){
-        const err = new Error('Login Failed');
-        err.status = 404;
-        err.title = 'Login failed';
-        err.erros = ['The provided credentials were invalid'];
-        return next(err);
-    };
-
-    const token = getUserToken(user);
-    res.json({token, user: { id: user.id }})
-}))
 
 //Get route for users returns userName and userId
 router.get('/', asyncHandler(async(req, res)=>{
@@ -62,7 +43,7 @@ router.get('/:id(\\d+)', asyncHandler( async(req, res) => {
 }))
 
 //Get route for user playlists
-router.get('/:id/playlists', requireAuth, asyncHandler( async(req, res)=> {
+router.get('/:id/playlists', asyncHandler( async(req, res)=> {
     const userId = parseInt(req.params.id);
     const playlists = await Playlist.findAll({
         include: {
