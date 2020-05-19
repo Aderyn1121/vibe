@@ -82,16 +82,12 @@ router.post(
   })
 );
 
-//Post route for loging in user
-router.post(
-  '/login',
-  validateEmailAndPassword,
-  handleValidationErrors,
-  asyncHandler(async (req, res) => {
+
+//Post route for loging in user 
+router.post('/login', validateEmailAndPassword, handleValidationErrors, asyncHandler( async(req, res) =>{
     const { email, password } = req.body;
-    console.log('EMAIL:', email);
-    const user = await User.findOne({ where: { email } });
-    console.log(user);
+    const user = await User.findOne({ where: { email }});
+
 
     if (!user || !user.validatePassword(password)) {
       const err = new Error('Login Failed');
@@ -106,9 +102,5 @@ router.post(
   })
 );
 
-// //Post route for loging out user
-// router.post('/log-out', (req, res) => {
-//     logoutUser(req, res);
-// })
 
 module.exports = router;
