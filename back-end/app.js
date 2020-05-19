@@ -4,6 +4,7 @@ const cors = require('cors')
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const playlistRouter = require('./routes/playlist');
+const userAuthRouter = require('./routes/userAuth');
 const { environment } = require('./config');
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/', indexRouter);
 app.use('/users', userRouter);
+app.use('/', userAuthRouter);
 app.use('/playlists', playlistRouter);
 
 

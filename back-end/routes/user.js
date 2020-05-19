@@ -10,21 +10,7 @@ const { Playlist } = require('../db/models');
 
 const router = express.Router();
 
-//Validate userName and birthday
-const validateUsernameAndBirthday = [
-    check('userName')
-        .exists({checkFalsy: true })
-        .withMessage('Please provide an entry for field userName')
-        .isLength({ max: 20})
-        .withMessage('Username must not be more than 20 characters long'),
-    check('birthday')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide an entry for field birthday')
-        .isISO8601()
-        .withMessage('Please provide a valid date for birthday')
-]
-
-//Validate email and password 
+//Post route for creating user
 const validateEmailAndPassword = [
     check('email')
         .exists({ checkFalsy: true })
@@ -37,17 +23,6 @@ const validateEmailAndPassword = [
         .withMessage('Please provide an entry for field password.')
 ];
 
-//Post route for creating user
-router.post('/sign-up', csrfProtection, validateUsernameAndBirthday, validateEmailAndPassword, handleValidationErrors, asyncHandler( async( req, res) =>{
-    const { email, password, userName, birthday } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.build({ email, hashedPassword, userName, birthday});
-    const token = getUserToken(user)
-    res.status(201).json({
-        user: { id: user.id},
-        token
-    })
-}));
 
 router.post('/token', validateEmailAndPassword, asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -121,4 +96,4 @@ router.get('/:id/friends', requireAuth, asyncHandler( async( req, res) => {
 }))
 
 
-module.exports = router;
+module.exports = router
