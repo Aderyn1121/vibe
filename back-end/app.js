@@ -5,6 +5,7 @@ const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const playlistRouter = require('./routes/playlist');
 const userAuthRouter = require('./routes/userAuth');
+const searchRouter = require('./routes/search')
 const { environment } = require('./config');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/playlists', playlistRouter);
+app.use('/search', searchRouter )
 app.use('/', userAuthRouter);
 
 
