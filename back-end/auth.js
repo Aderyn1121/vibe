@@ -17,48 +17,39 @@ const getUserToken = (user) => {
         secret,
         {expiresIn: parseInt(expiresIn, 10)} // This will expire in 1 week
     );
+    console.log('token')
     return token;
 }
 
-const loginUser = (req, res, next) => {
-    req.session.auth = {
-        userId: user.id
-    }
-};
 
-const logoutUser = (req, res) => {
-    delete req.session.auth
+const restoreUser = (req, res, next) => {
+    const { token } = req;
+    console.log(token)
+    if(!token){
+        return res.set("WWW-Authenticate", "Bearer").status(401).end();
+    }
+    return jwt.verify(token, secret, null, async( err, jwtPayload) => {
+        if(err) {
+            err.status = 401;
+            return next(err);
+        }
+
+        const { id } = jwtPayload.data
+        try{
+            req.user = await User.findByPk(id);
+        } catch (e){
+            return next(e)
+        }
+
+        if(!req.user) {
+            return res.set("WWW-Authenticate", "Bearer").status(401).end();
+        }
+        return next();
+    })
 }
 
-// const restoreUser = (req, res, next) => {
-//     const { token } = req;
-//     if(!token){
-//         return res.set("WWW-Authenticate", "Bearer").status(401).end();
-//     }
-//     return jwt.verify(token, secret, null, async( err, jwtPayload) => {
-//         if(err) {
-//             err.status = 401;
-//             return next(err);
-//         }
-
-//         const { id } = jwtPayload.data
-//         try{
-//             req.user = await User.findByPk(id);
-//         } catch (e){
-//             return next(e)
-//         }
-
-//         if(!req.user) {
-//             return res.set("WWW-Authenticate", "Bearer").status(401).end();
-//         }
-//         return next();
-//     })
-// }
-
-const requireAuth = [bearerToken()];
+const requireAuth = [bearerToken(), restoreUser];
 module.exports = { 
     getUserToken, 
-    requireAuth, 
-    loginUser, 
-    logoutUser
+    requireAuth
 };
