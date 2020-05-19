@@ -32,7 +32,7 @@ router.post('/token', validateEmailAndPassword, asyncHandler(async (req, res) =>
         }
     });
 
-    if(!user || user.validatePassword(password)){
+    if(!user || !user.validatePassword(password)){
         const err = new Error('Login Failed');
         err.status = 404;
         err.title = 'Login failed';
