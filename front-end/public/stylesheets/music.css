@@ -148,11 +148,31 @@ svg {
 .sidebar__links > div:hover {
   color: #fde74c;
 }
+.playlistTitle {
+  margin-right: 150px;
+}
 .playlists {
+  margin-top: 6px;
   display: flex;
   flex-flow: column;
   height: 100%;
   overflow-y: scroll;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.playlists::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #000000;
+}
+
+.playlists::-webkit-scrollbar {
+  width: 6px;
+  background-color: #000000;
+}
+
+.playlists::-webkit-scrollbar-thumb {
+  background-color: #121212;
+  border-radius: 30px;
 }
 
 .playlists > div {

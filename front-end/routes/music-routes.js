@@ -16,13 +16,10 @@ router.get('/', async (req, res) => {
     id: 1,
     name: 'Zachary',
   };
-  console.log('here');
+
   const playlistsJson = await fetch('http://localhost:8080/playlists');
-  console.log('there');
   const playlistsObject = await playlistsJson.json();
   const playlists = playlistsObject.userPlaylist;
-
-  console.log(playlists);
 
   res.render('music', {
     fileName: 'music',
