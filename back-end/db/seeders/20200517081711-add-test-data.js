@@ -4,61 +4,6 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-<<<<<<< HEAD
-    const users = await queryInterface.bulkInsert(
-      'Users',
-      [
-        {
-          email: 'john@doe.com',
-          hashedPassword: bcrypt.hashSync(faker.internet.password()),
-          nickName: 'John Doe',
-          birthday: new Date('01-01-2020'),
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          email: 'jane@doe.com',
-          hashedPassword: bcrypt.hashSync(faker.internet.password()),
-          nickName: 'Jane Doe',
-          birthday: new Date('01-01-2020'),
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      { returning: true }
-    );
-
-    const playlists = await queryInterface.bulkInsert(
-      'Playlists',
-      [
-        {
-          playlistName: 'My Jamz',
-          userId: users[0].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          playlistName: 'Weekend Vibes',
-          userId: users[0].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          playlistName: 'Chillin',
-          userId: users[0].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          playlistName: 'I love music',
-          userId: users[1].id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      { returning: true }
-    );
-=======
     const users = await queryInterface.bulkInsert('Users', [
       { 
         email: 'john@doe.com',
@@ -109,7 +54,6 @@ module.exports = {
         updatedAt: new Date()
       },
     ], {returning: true });
->>>>>>> origin/back-end
 
     const artists = await queryInterface.bulkInsert(
       'Artists',
