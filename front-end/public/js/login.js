@@ -14,9 +14,21 @@ logInForm.addEventListener('submit', async (e) => {
       'Content-Type': 'application/json',
     },
   });
+
   if (!res.ok) {
-    throw new Error('this is an error');
+    const { errors } = await res.json();
+    errors.forEach((error) => {
+      const errorP = document.createElement('p');
+      if (error !== 'Invalid value') {
+        errorP.innerHTML = error;
+        errorP.classList.add('error');
+        errorP.style.color = 'red';
+        errorP.style['font-size'] = '.8rem';
+        logInForm.prepend(errorP);
+      }
+    });
   }
+
   const {
     token,
     user: { id },

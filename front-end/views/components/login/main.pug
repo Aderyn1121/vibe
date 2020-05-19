@@ -10,7 +10,7 @@
       #continue To continue, log in to Vibe
     form(method="POST" action='/login')#auth-form
       +input('_csrf', 'hidden')
-      +input('email', 'email', 'email')
+      +input('email', 'email', 'Email')
       +input('password', 'password', 'Password')
       .submit
         .remember
