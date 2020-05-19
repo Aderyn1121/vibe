@@ -27,8 +27,11 @@ router.post('/', async (req, res) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
   });
-  const loginObject = await loginRes.json();
-  console.log(loginObject);
+  const {
+    token,
+    user: { id },
+  } = await loginRes.json();
+  console.log(token, user.id);
 });
 
 module.exports = router;
