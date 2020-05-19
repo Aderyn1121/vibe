@@ -16,9 +16,11 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 - We utilize JWTs and cookies to ensure user privacy. No longer will anybody see how many times you've played "Grandma got Run Over by a Reindeer".
 
 --- 
+# Coding highlights
 
 ```
 Favorite snippets
 ```
+--- 
 
 
