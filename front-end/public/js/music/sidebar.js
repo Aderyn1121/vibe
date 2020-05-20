@@ -20,7 +20,7 @@ sidebarPlaylists.addEventListener('click', async (event) => {
   if (!event.target.id) return;
   const playlistId = event.target.id;
   const playlistJSON = await fetch(
-    `http://localhost:8080/playlists/${playlistId}/songs`,
+    `${backendUrl}/playlists/${playlistId}/songs`,
     {
       method: 'GET',
       headers: {

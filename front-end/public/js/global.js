@@ -17,4 +17,3 @@ const logoutUser = () => {
   localStorage.removeItem('VIBE_USER_ID');
   window.location.replace('http://localhost:8081/');
 };
-
