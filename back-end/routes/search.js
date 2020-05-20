@@ -36,7 +36,7 @@ router.get('/:id/users', asyncHandler( async(req, res) => {
 }));
 
 //get route for finding artists
-router.get('/:id/artists', asyncHandler( async(req, res) => {
+router.get('/artists', asyncHandler( async(req, res) => {
     const artistsList = await Artist.findAll();
     const artists = artistsList.map( artist => {
         return { artistId: artist.id, artistName: artist.artistName }
@@ -47,7 +47,7 @@ router.get('/:id/artists', asyncHandler( async(req, res) => {
 
 //   url/users/1/search/1/playlists
 
-router.get('/:id/playlists', asyncHandler( async(req, res) => {
+router.get('/playlists', asyncHandler( async(req, res) => {
     const userId = parseInt(req.params.id);
     const playlistsList = await Playlist.findAll({ where: { userId }});
     const playlists = playlistsList.map( playlist => {
@@ -57,7 +57,7 @@ router.get('/:id/playlists', asyncHandler( async(req, res) => {
     res.json({ playlists });
 }));
 
-router.get('/:id/songs', asyncHandler( async(req, res) => {
+router.get('/songs', asyncHandler( async(req, res) => {
     const songsList = await Song.findAll();
     const songs = songsList.map( song => {
         return { songId: song.id, songName: song.songName }
@@ -66,7 +66,7 @@ router.get('/:id/songs', asyncHandler( async(req, res) => {
     res.json({ songs });
 }));
 
-router.get('/:id/albums', asyncHandler( async(req, res) => {
+router.get('/albums', asyncHandler( async(req, res) => {
     const albumList = await Album.findAll();
     const albums = albumList.map( album => {
         return { albumId: album.id, albumName: album.albumName }

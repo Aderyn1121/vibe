@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   PlaylistSong.associate = function(models) {
     // associations can be defined here
+    PlaylistSong.belongsTo(models.Song, {foreignKey: 'songId'});
   };
   return PlaylistSong;
 };

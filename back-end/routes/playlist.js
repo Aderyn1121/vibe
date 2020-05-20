@@ -1,16 +1,16 @@
 const express = require('express');
-const { check, validationResult } = require('express-validator');
+const { check } = require('express-validator');
 const { Playlist } = require('../db/models');
 const { PlaylistSong } = require('../db/models');
-const { User } = require('../db/models');
 const { Song } = require('../db/models');
-
+const { Artist } = require('../db/models');
+const { Album } = require('../db/models');
 const { requireAuth } = require('../auth');
-const { csrfProtection, asyncHandler } = require('../utils');
+const {  asyncHandler } = require('../utils');
 
 const router = express.Router();
 // this route will only work with a loggen in user once line 13 is enabled
-router.use(requireAuth);
+// router.use(requireAuth);
 
 const playlistNotFound = (id) => {
   const err = new Error(`Playlist with id of ${id} was not found`);
@@ -26,7 +26,7 @@ const playlistValidators = check('playlistName')
   .withMessage('Playlist name cannot be more than 20 characters long.');
 
 //Get route for playlists
-router.post('/add');
+
 
 router.get(
   '/',
@@ -62,19 +62,44 @@ router.get(
   '/:id/songs',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
+
     const playlistSongs = await PlaylistSong.findAll({
       where: {
-        playlistId: playlistId,
+        playlistId,
       },
+
+      include: [
+        {
+          model: Song,
+          include: [
+            {
+              model: Album,
+              include: [
+                  {
+                    model: Artist 
+                  }
+              ]
+            }
+          ]
+      },
+    
+    ]
     });
 
-    const songsList = playlistSongs.map((song) => {
-      return {
-        playlistSong: song.song,
-        songId: song.songId,
-        playlistId: song.playlistId,
-      };
-    });
+
+    
+    const songsList = playlistSongs.map(playlistSong => {
+      return { 
+        playlistId: playlistSong.playlistId, 
+        playlistSong: playlistSong.song, 
+        songId: playlistSong.songId, 
+        albumName: playlistSong.Song.Album.albumName, 
+        albumId: playlistSong.Song.Album.id,
+        artistName: playlistSong.Song.Album.Artist.artistName,
+        artistId: playlistSong.Song.Album.Artist.id
+      }
+    })
+
     res.json({ songsList });
   })
 );
