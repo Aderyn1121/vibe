@@ -30,6 +30,7 @@ module.exports = {
           hashedPassword: bcrypt.hashSync('Test@1234'),
           userName: 'Demo User',
           birthday: new Date('01-01-2020'),
+          gender: 'non-binary',
           createdAt: new Date(),
           updatedAt: new Date(),
         },

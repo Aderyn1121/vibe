@@ -26,8 +26,6 @@ const router = express.Router();
 //         .withMessage('Please provide an entry for field password.')
 // ];
 
-
-
 //removing line 31 - 45  since login/sign up works for getting userId username json only
 //for when user is logged in.
 
@@ -40,18 +38,21 @@ const router = express.Router();
 
 // }))
 
+router.get(
+  '/:id(\\d+)/',
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const user = await User.findByPk(userId);
+    res.json({ username: user.userName, userId: user.id });
+  })
+);
 
-// router.get('/:id(\\d+)/', asyncHandler( async(req, res) => {
-//     const userId = parseInt(req.params.id, 10);
-//     const user = await User.findByPk(userId);
-//     res.json({ username: user.userName,  userId: user.id })
-// }))
+// Get route for user playlists   /users/1/playlists/
 
-//Get route for user playlists   /users/1/playlists/
-
-
-
-router.get('/:id/playlists',requireAuth, asyncHandler( async(req, res)=> {
+router.get(
+  '/:id/playlists',
+  requireAuth,
+  asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id);
     const playlists = await Playlist.findAll({
       include: {
@@ -75,9 +76,11 @@ router.get('/:id/playlists',requireAuth, asyncHandler( async(req, res)=> {
   })
 );
 
-
-router.get('/:id/friends', requireAuth, asyncHandler( async( req, res) => {
-    const userId = parseInt(req.params.id, 10)
+router.get(
+  '/:id/friends',
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
     const friends = await UserFriend.findAll({
       where: {
         userId,
