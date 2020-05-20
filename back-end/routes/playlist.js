@@ -26,7 +26,9 @@ const playlistValidators =
         .isLength({ max: 20 })
         .withMessage('Playlist name cannot be more than 20 characters long.');
 
+
 //Get route for playlists
+router.post('/add', )
 
 router.get(
   '/',
