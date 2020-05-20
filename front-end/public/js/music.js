@@ -49,7 +49,7 @@ let songQueue = [];
 let currentTrack = 0;
 let repeat = 'none';
 
-function playMusic() {
+const playMusic = async () => {
   track.audio.play();
   playButton.innerHTML = '<i class="fas fa-pause"></i>';
   track.audio.classList.add('playing');
@@ -57,7 +57,7 @@ function playMusic() {
     clearInterval(interval);
   }
   interval = setInterval(updateTime, 1000);
-}
+};
 
 function startMusic(songInQueue) {
   track.audio.src = `../../public/test_music/${songInQueue.songId}.m4a`;
@@ -111,4 +111,11 @@ function prevTrack() {
 
 track.audio.addEventListener('ended', () => {
   nextTrack();
+});
+
+track.audio.addEventListener('loadstart', () => {
+  document.body.style.cursor = 'progress';
+});
+track.audio.addEventListener('playing', () => {
+  document.body.style.cursor = 'default';
 });
