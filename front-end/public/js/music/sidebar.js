@@ -21,7 +21,12 @@ sidebarPlaylists.addEventListener('click', async (event) => {
   const playlistId = event.target.id;
   const playlistJSON = await fetch(
     `http://localhost:8080/playlists/${playlistId}/songs`,
-    { method: 'GET' }
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+    }
   );
 
   const { songsList: playlist } = await playlistJSON.json();

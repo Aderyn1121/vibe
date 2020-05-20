@@ -1,3 +1,4 @@
+
 const playButton = document.getElementById('playButton');
 const nextButton = document.getElementById('nextButton');
 const prevButton = document.getElementById('prevButton');
