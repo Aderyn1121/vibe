@@ -19,16 +19,14 @@ const playlistNotFound = (id) => {
   return err;
 };
 
-const playlistValidators = 
-    check('playlistName')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide an entry for playlist name')
-        .isLength({ max: 20 })
-        .withMessage('Playlist name cannot be more than 20 characters long.');
-
+const playlistValidators = check('playlistName')
+  .exists({ checkFalsy: true })
+  .withMessage('Please provide an entry for playlist name')
+  .isLength({ max: 20 })
+  .withMessage('Playlist name cannot be more than 20 characters long.');
 
 //Get route for playlists
-router.post('/add', )
+router.post('/add');
 
 router.get(
   '/',
@@ -68,16 +66,15 @@ router.get(
       where: {
         playlistId: playlistId,
       },
-      include: {
-          model: Artist
-      }
     });
 
-
-    
-    const songsList = playlistSongs.map(song => {
-      return { playlistSong: song.song, songId: song.songId, playlistId: song.playlistId }
-    })
+    const songsList = playlistSongs.map((song) => {
+      return {
+        playlistSong: song.song,
+        songId: song.songId,
+        playlistId: song.playlistId,
+      };
+    });
     res.json({ songsList });
   })
 );

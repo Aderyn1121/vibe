@@ -1,7 +1,7 @@
 const updateUser = async () => {
   const user = await getUser();
 
-  navButtons.innerHTML = `<a id=logoutButton>Logout</a><a>${user.username}</a>`;
+  navButtons.innerHTML = `<a> Welcome, ${user.username}</a><a id=logoutButton>Logout</a>`;
 
   const logoutButton = document.getElementById('logoutButton');
   logoutButton.addEventListener('mouseup', logoutUser);
