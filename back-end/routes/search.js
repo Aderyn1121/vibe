@@ -11,7 +11,7 @@ const { asyncHandler } = require('../utils');
 
 const router = express.Router();
 
-//NOTES: This file is just to have active calls querying from the database. once everyhthing is working and displaying as needed I will add the requireAuth 
+//NOTES: This file is just to have active calls querying from the database. once everyhthing is working and displaying as needed I will add the requireAuth
 // To test when a user is logged in
 
 //search route for finding all user friends
@@ -21,7 +21,7 @@ router.get('/:id/friends', asyncHandler( async(req, res) => {
     const friends = friendsList.map( friend => {
         return {friendName: friend.friendName, friendId: friend.friendId }
     })
-    
+
     res.json({friends})
 }));
 

@@ -1,5 +1,3 @@
-//Authorization
-
 const updateUser = async () => {
   const user = await getUser();
 
@@ -12,7 +10,12 @@ const updateUser = async () => {
 const updatePlaylists = async () => {
   const user = await getUser();
   const playlistsJSON = await fetch(
-    `http://localhost:8080/users/${user.userId}/playlists`
+    `http://localhost:8080/users/${user.userId}/playlists`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+    }
   );
   const { playlistNames: playlists } = await playlistsJSON.json();
   const sidebarPlaylists = document.getElementById('sidebarPlaylists');
@@ -24,6 +27,8 @@ const updatePlaylists = async () => {
   });
 };
 // inital load
+
+//Authorization
 if (!localStorage['VIBE_TOKEN']) {
   window.location.replace('http://localhost:8081/login');
 } else {
@@ -54,10 +59,10 @@ function playMusic() {
 }
 
 function startMusic(songInQueue) {
-  track.audio.src = `../../public/test_music/${songInQueue.id}.m4a`;
-  track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.id}.jpg' >`;
-  track.title.innerHTML = songInQueue.title;
-  track.artist.innerHTML = songInQueue.artist;
+  track.audio.src = `../../public/test_music/${songInQueue.songId}.m4a`;
+  track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.songId}.jpg' >`;
+  track.title.innerHTML = songInQueue.playlistSong;
+  // track.artist.innerHTML = songInQueue.artist;
   playMusic();
 }
 

@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const musicRouter = require('./routes/music-routes');
+
 const loginRouter = require('./routes/login-routes');
+
 const { asyncHandler } = require('./routes/utils');
 
 const months = [
@@ -25,7 +27,6 @@ app.set('view engine', 'pug');
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/music', musicRouter);
-app.use('/login', loginRouter);
 
 app.get('/', (req, res) => {
   res.render('index', { fileName: 'index', title: 'Vibe', scripts: ['index'] });
@@ -40,6 +41,7 @@ app.get('/signup', (req, res) => {
   });
 });
 
+
 app.get('/login', (req, res) => {
   res.render('login', {
     fileName: 'login',
@@ -47,6 +49,7 @@ app.get('/login', (req, res) => {
     scripts: ['login'],
   });
 });
+
 
 // Error handling stuff
 
