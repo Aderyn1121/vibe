@@ -30,7 +30,7 @@ const updatePlaylists = async () => {
 
 //Authorization
 if (!localStorage['VIBE_TOKEN']) {
-  window.location.replace(`${window.location.hostname}/login`);
+  window.location.replace('/login');
 } else {
   const username = document.getElementById('username');
   updateUser();
