@@ -38,14 +38,6 @@ app.get('/signup', (req, res) => {
   });
 });
 
-app.get('/login', (req, res) => {
-  res.render('login', {
-    fileName: 'login',
-    title: 'Login',
-    scripts: ['login'],
-  });
-});
-
 // Error handling stuff
 
 app.use((req, res, next) => {
