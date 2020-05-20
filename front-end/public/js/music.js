@@ -54,10 +54,10 @@ function playMusic() {
 }
 
 function startMusic(songInQueue) {
-  track.audio.src = `../../public/test_music/${songInQueue.id}.m4a`;
-  track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.id}.jpg' >`;
-  track.title.innerHTML = songInQueue.title;
-  track.artist.innerHTML = songInQueue.artist;
+  track.audio.src = `../../public/test_music/${songInQueue.songId}.m4a`;
+  track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.songId}.jpg' >`;
+  track.title.innerHTML = songInQueue.playlistSong;
+  // track.artist.innerHTML = songInQueue.artist;
   playMusic();
 }
 

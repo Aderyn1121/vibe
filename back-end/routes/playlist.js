@@ -12,7 +12,6 @@ const router = express.Router();
 // this route will only work with a loggen in user once line 13 is enabled
 router.use(requireAuth);
 
-
 const playlistNotFound = (id) => {
   const err = new Error(`Playlist with id of ${id} was not found`);
   err.status = 404;
@@ -29,22 +28,31 @@ const playlistValidators =
 
 //Get route for playlists
 
-router.get('/', asyncHandler(async (req, res) => {
-  const playlists = await Playlist.findAll();
-  const userPlaylist = playlists.map(playlist => {
-    return { playListName: playlist.playlistName, playListId: playlist.id, userId: playlist.userId }
-  });
-  res.json({ userPlaylist })
-}));
+router.get(
+  '/',
+  asyncHandler(async (req, res) => {
+    const playlists = await Playlist.findAll();
+    const userPlaylist = playlists.map((playlist) => {
+      return {
+        playListName: playlist.playlistName,
+        playListId: playlist.id,
+        userId: playlist.userId,
+      };
+    });
+    res.json({ userPlaylist });
+  })
+);
 
 //Get route for playlist by id
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+router.get(
+  '/:id(\\d+)',
+  asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
     const playlist = await Playlist.findByPk(playlistId);
-    if(playlist){
-        res.json({ playlistName: playlist.playlistName });
+    if (playlist) {
+      res.json({ playlistName: playlist.playlistName });
     } else {
-        next(playlistNotFound(playlistId))
+      next(playlistNotFound(playlistId));
     }
   })
 );
@@ -60,13 +68,14 @@ router.get(
       },
     });
 
+
     
     const songsList = playlistSongs.map(song => {
       return { playlistSong: song.song, songId: song.songId, playlistId: song.playlistId }
     })
     res.json({ songsList });
-  }));
-
+  })
+);
 
 //Get route for playlist song by id
 router.get(
