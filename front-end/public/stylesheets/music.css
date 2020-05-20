@@ -120,14 +120,16 @@ svg {
 .nav-bar {
   grid-area: navbar;
   background-color: #141414;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
-
-.nav-bar__buttons#navButtons > * {
-  margin-left: 5vw;
-  margin-right: 5vw;
+#navButtons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+#navButtons > * {
+  width: 20%;
+  margin-left: 20px;
   color: #e0e0e0;
 }
 
