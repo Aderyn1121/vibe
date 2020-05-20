@@ -10,7 +10,8 @@ const { environment } = require('./config');
 
 const app = express();
 
-app.use(cors({origin: 'http://localhost:8081'}));
+const origin = process.env.FRONTEND_URL;
+app.use(cors({origin}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/', indexRouter);
