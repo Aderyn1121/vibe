@@ -25,9 +25,9 @@ const playlistValidators = check('playlistName')
   .isLength({ max: 20 })
   .withMessage('Playlist name cannot be more than 20 characters long.');
 
-//Get route for playlists
 
 
+//Get route for playlists--------------------------------------
 router.get(
   '/',
   asyncHandler(async (req, res) => {
@@ -86,8 +86,6 @@ router.get(
     ]
     });
 
-
-    
     const songsList = playlistSongs.map(playlistSong => {
       return { 
         playlistId: playlistSong.playlistId, 
