@@ -62,7 +62,7 @@ router.get(
 
     
     const songsList = playlistSongs.map(song => {
-      return { playlistSong: song.song, songId: song.id, playlistId: song.playlistId }
+      return { playlistSong: song.song, songId: song.songId, playlistId: song.playlistId }
     })
     res.json({ songsList });
   }));
