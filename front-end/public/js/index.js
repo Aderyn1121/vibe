@@ -15,7 +15,7 @@ updateUser();
 demoButton.addEventListener('click', async (e) => {
   const body = { email: 'vibe4@user.com', password: 'Test@1234' };
 
-  const res = await fetch('http://localhost:8080/login', {
+  const res = await fetch(`${backendURL}/login`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

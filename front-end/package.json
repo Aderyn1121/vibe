@@ -4,8 +4,12 @@
   "description": "- Song/Playlist CRUD - Search - Following playlists - Friending users - Bonus: Radio (shuffle play)     - Algorithm/Random array",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon front-end/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config app.js",
+    "start:production": "node app.js"
+  },
+  "engines": {
+    "node": "13.x"
   },
   "repository": {
     "type": "git",

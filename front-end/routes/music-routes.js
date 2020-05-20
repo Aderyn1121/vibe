@@ -1,23 +1,15 @@
 const express = require('express');
-const path = require('path');
-const fetch = require('node-fetch');
-const { asyncHandler } = require('./utils');
 
 router = express.Router();
 
-const scripts = [
-  'music/play-buttons',
-  'music',
-  'music/sidebar',
-  'music/progress-bar',
-];
+const scripts = ['music/play-buttons', 'music/sidebar', 'music/progress-bar'];
 
 router.get('/', async (req, res) => {
-
   res.render('music', {
     fileName: 'music',
     title: 'Music',
     mainContent: 'home',
+    script: 'music',
     scripts,
   });
 });
@@ -33,6 +25,7 @@ router.get('/home', (req, res) => {
     fileName: 'music',
     title: 'music',
     mainContent: 'home',
+    script: 'music',
     scripts,
   });
 });
@@ -48,6 +41,7 @@ router.get('/search', (req, res) => {
     fileName: 'music',
     title: 'Music',
     mainContent: 'search',
+    script: 'music',
     scripts,
   });
 });
@@ -63,8 +57,9 @@ router.get('/library', (req, res) => {
     fileName: 'music',
     title: 'Music',
     mainContent: 'library',
+    script: 'music',
     scripts,
   });
 });
 
-module.exports =  router ;
+module.exports = router;

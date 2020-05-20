@@ -1,7 +1,7 @@
 const updateUser = async () => {
   const user = await getUser();
 
-  navButtons.innerHTML = `<a id=logoutButton>Logout</a><a>${user.username}</a>`;
+  navButtons.innerHTML = `<a> Welcome, ${user.username}</a><a id=logoutButton>Logout</a>`;
 
   const logoutButton = document.getElementById('logoutButton');
   logoutButton.addEventListener('mouseup', logoutUser);
@@ -10,7 +10,7 @@ const updateUser = async () => {
 const updatePlaylists = async () => {
   const user = await getUser();
   const playlistsJSON = await fetch(
-    `http://localhost:8080/users/${user.userId}/playlists`,
+    `${backendURL}/users/${user.userId}/playlists`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
@@ -30,7 +30,7 @@ const updatePlaylists = async () => {
 
 //Authorization
 if (!localStorage['VIBE_TOKEN']) {
-  window.location.replace('http://localhost:8081/login');
+  window.location.replace('/login');
 } else {
   const username = document.getElementById('username');
   updateUser();

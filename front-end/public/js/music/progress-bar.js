@@ -1,3 +1,4 @@
+
 const startTime = document.getElementById('startTime');
 const endTime = document.getElementById('endTime');
 const progressCircle = document.getElementById('circle');

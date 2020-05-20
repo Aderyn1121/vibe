@@ -1,10 +1,7 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 const musicRouter = require('./routes/music-routes');
-
-const loginRouter = require('./routes/login-routes');
-
-const { asyncHandler } = require('./routes/utils');
 
 const months = [
   'January',
@@ -25,11 +22,15 @@ const app = express();
 
 app.set('view engine', 'pug');
 
+app.locals.backend = process.env.BACKEND_URL;
+
+app.use(bodyParser.json());
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/music', musicRouter);
 
 app.get('/', (req, res) => {
-  res.render('index', { fileName: 'index', title: 'Vibe', scripts: ['index'] });
+  res.render('index', { fileName: 'index', title: 'Vibe', script: 'index' });
 });
 
 app.get('/signup', (req, res) => {
@@ -37,19 +38,17 @@ app.get('/signup', (req, res) => {
     fileName: 'signup',
     title: 'Signup',
     months,
-    scripts: ['signup'],
+    script: 'signup',
   });
 });
-
 
 app.get('/login', (req, res) => {
   res.render('login', {
     fileName: 'login',
     title: 'Login',
-    scripts: ['login'],
+    script: 'login',
   });
 });
-
 
 // Error handling stuff
 
@@ -78,6 +77,9 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(8081, () => {
-  console.log('listening on port 8081');
+const port = Number.parseInt(process.env.PORT, 10) || 8081;
+app.listen(port, () => {
+  console.log(`BACKEND_URL: ${process.env.BACKEND_URL}`);
+  console.log(`PORT: ${process.env.PORT}`);
+  console.log(`Listening for requests on port ${port}...`);
 });
