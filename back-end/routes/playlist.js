@@ -68,13 +68,11 @@ router.get(
       },
     });
 
-    const songsList = playlistSongs.map((song) => {
-      return {
-        playlistSong: song.song,
-        songId: song.songId,
-        playlistId: song.playlistId,
-      };
-    });
+
+    
+    const songsList = playlistSongs.map(song => {
+      return { playlistSong: song.song, songId: song.songId, playlistId: song.playlistId }
+    })
     res.json({ songsList });
   })
 );
