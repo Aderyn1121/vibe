@@ -17,17 +17,20 @@ sidebarLinks.addEventListener('click', async (event) => {
 });
 
 sidebarPlaylists.addEventListener('click', async (event) => {
+  if (!event.target.id) return;
   const playlistId = event.target.id;
-  // get playlist by id
-  const res = JSON.stringify([
-    { id: 1, title: 'Hide and Seek', artist: 'Imogen Heap' },
-    { id: 2, title: 'Seasons', artist: 'Type (A) Alert' },
-    { id: 3, title: 'Teach Me Tonight', artist: 'Groove for Thought' },
-  ]);
+  const playlistJSON = await fetch(
+    `http://localhost:8080/playlists/${playlistId}/songs`,
+    { method: 'GET' }
+  );
 
-  const data = JSON.parse(res);
+  const { songsList: playlist } = await playlistJSON.json();
 
-  songQueue = data;
-  currentTrack = 0;
-  startMusic(songQueue[currentTrack]);
+  console.log(playlist);
+
+  if (playlist.length > 0) {
+    songQueue = playlist;
+    currentTrack = 0;
+    startMusic(songQueue[currentTrack]);
+  }
 });
