@@ -9,7 +9,8 @@ const { requireAuth } = require('../auth');
 const { csrfProtection, asyncHandler } = require('../utils');
 
 const router = express.Router();
-// router.use(requireAuth);
+// this route will only work with a loggen in user once line 13 is enabled
+router.use(requireAuth);
 
 const playlistNotFound = (id) => {
   const err = new Error(`Playlist with id of ${id} was not found`);
@@ -18,11 +19,12 @@ const playlistNotFound = (id) => {
   return err;
 };
 
-const playlistValidators = check('playlistName')
-  .exists({ checkFalsy: true })
-  .withMessage('Please provide an entry for playlist name')
-  .isLength({ max: 20 })
-  .withMessage('Playlist name cannot be more than 20 characters long.');
+const playlistValidators = 
+    check('playlistName')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide an entry for playlist name')
+        .isLength({ max: 20 })
+        .withMessage('Playlist name cannot be more than 20 characters long.');
 
 //Get route for playlists
 

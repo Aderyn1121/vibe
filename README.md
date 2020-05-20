@@ -31,8 +31,10 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 Favorite snippets
 ```
 ---
+# Database Structure
 
-
+![](https://i.imgur.com/qIx984r.png)
+---
 # Contributors
 -  **Backend Lead:** Geoffrey Otieno
 -  **UX/UI Lead:** Zachary Henderson and
