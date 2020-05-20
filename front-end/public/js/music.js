@@ -10,7 +10,7 @@ const updateUser = async () => {
 const updatePlaylists = async () => {
   const user = await getUser();
   const playlistsJSON = await fetch(
-    `http://localhost:8080/users/${user.userId}/playlists`,
+    `${backendURL}/users/${user.userId}/playlists`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,

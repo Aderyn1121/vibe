@@ -1,3 +1,5 @@
+
+
 const logInForm = document.getElementById('auth-form');
 
 logInForm.addEventListener('submit', async (e) => {
@@ -6,8 +8,8 @@ logInForm.addEventListener('submit', async (e) => {
   const email = formData.get('email');
   const password = formData.get('password');
   const body = { email, password };
-
-  const res = await fetch('http://localhost:8080/login', {
+  console.log(backendURL);
+  const res = await fetch(`${backendURL}/login`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
