@@ -1,5 +1,3 @@
-//Authorization
-
 const updateUser = async () => {
   const user = await getUser();
 
@@ -12,7 +10,12 @@ const updateUser = async () => {
 const updatePlaylists = async () => {
   const user = await getUser();
   const playlistsJSON = await fetch(
-    `http://localhost:8080/users/${user.userId}/playlists`
+    `http://localhost:8080/users/${user.userId}/playlists`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+    }
   );
   const { playlistNames: playlists } = await playlistsJSON.json();
   const sidebarPlaylists = document.getElementById('sidebarPlaylists');
@@ -24,6 +27,8 @@ const updatePlaylists = async () => {
   });
 };
 // inital load
+
+//Authorization
 if (!localStorage['VIBE_TOKEN']) {
   window.location.replace('http://localhost:8081/login');
 } else {
