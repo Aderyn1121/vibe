@@ -10,6 +10,7 @@ body {
   color: #e0e0e0;
   text-align: center;
 }
+
 img {
   height: 100%;
   width: 100%;
@@ -203,6 +204,7 @@ svg {
 .content {
   grid-area: mainContent;
 }
+
 /* Music */
 .music {
   height: 100%;
