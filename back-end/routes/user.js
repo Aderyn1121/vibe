@@ -1,12 +1,15 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
-const { asyncHandler, csrfProtection, handleValidationErrors } = require('../utils');
-const { requireAuth, getUserToken } = require('../auth')
+const {
+  asyncHandler,
+  csrfProtection,
+  handleValidationErrors,
+} = require('../utils');
+const { requireAuth, getUserToken } = require('../auth');
 const { User } = require('../db/models');
 const { UserFriend } = require('../db/models');
 const { Playlist } = require('../db/models');
-
 
 const router = express.Router();
 
@@ -25,8 +28,8 @@ const router = express.Router();
 
 
 
-//removing line 31 - 45  since login/sign up works for getting userId username json only 
-//for when user is logged in. 
+//removing line 31 - 45  since login/sign up works for getting userId username json only
+//for when user is logged in.
 
 // router.get('/', asyncHandler(async(req, res)=>{
 //     const users = await User.findAll();
@@ -34,7 +37,7 @@ const router = express.Router();
 //         return {userName: user.userName, userId: user.id}
 //     })
 //     res.json({userList})
-    
+
 // }))
 
 
@@ -51,36 +54,46 @@ const router = express.Router();
 router.get('/:id/playlists',requireAuth, asyncHandler( async(req, res)=> {
     const userId = parseInt(req.params.id);
     const playlists = await Playlist.findAll({
-        include: {
-            model: User
-        },
-        through: {
-            attributes: ['playlistName']
-        },
-        where: {
-            userId: userId
-        }
+      include: {
+        model: User,
+      },
+      through: {
+        attributes: ['playlistName'],
+      },
+      where: {
+        userId: userId,
+      },
     });
-    const playlistNames = playlists.map(playlist => {
-        return { playList: playlist.playlistName, playlistId: playlist.id, userId: playlist.userId }
+    const playlistNames = playlists.map((playlist) => {
+      return {
+        playList: playlist.playlistName,
+        playlistId: playlist.id,
+        userId: playlist.userId,
+      };
     });
-    res.json({ playlistNames })
-}))
+    res.json({ playlistNames });
+  })
+);
 
 
 router.get('/:id/friends', requireAuth, asyncHandler( async( req, res) => {
     const userId = parseInt(req.params.id, 10)
     const friends = await UserFriend.findAll({
-        where:{
-            userId,
-        }
-    })
+      where: {
+        userId,
+      },
+    });
     //Friend id is the friends userId from the Users model
-    const friendsList = friends.map(user => {
-        return {userName: user.userName, friend: user.friendName, userId: user.id, friendId:user.friendId}
-    })
-    res.json({friendsList})
-}))
+    const friendsList = friends.map((user) => {
+      return {
+        userName: user.userName,
+        friend: user.friendName,
+        userId: user.id,
+        friendId: user.friendId,
+      };
+    });
+    res.json({ friendsList });
+  })
+);
 
-
-module.exports = router
+module.exports = router;
