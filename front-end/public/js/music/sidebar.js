@@ -5,13 +5,13 @@ const sidebarPlaylists = document.getElementById('sidebarPlaylists');
 sidebarLinks.addEventListener('click', async (event) => {
   if (!['home', 'search', 'library'].includes(event.target.id)) return;
   const res = await fetch(
-    `http://localhost:8081/music/${event.target.id}/ajax`
+    `${window.location.hostname}/music/${event.target.id}/ajax`
   );
   const data = await res.json();
   history.pushState(
     { mainContent: 'home' },
     'home',
-    `http://localhost:8081/music/${event.target.id}`
+    `${window.location.hostname}/music/${event.target.id}`
   );
   mainContent.innerHTML = data;
 });
