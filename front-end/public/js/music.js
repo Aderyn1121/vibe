@@ -1,7 +1,8 @@
 const updateUser = async () => {
   const user = await getUser();
+  const welcome = document.getElementById('welcome');
 
-  navButtons.innerHTML = `<a> Welcome, ${user.username}</a><a id=logoutButton>Logout</a>`;
+  welcome.innerHTML = `<h3>Welcome, ${user.username}</h3>`;
 
   const logoutButton = document.getElementById('logoutButton');
   logoutButton.addEventListener('mouseup', logoutUser);
@@ -62,7 +63,7 @@ function startMusic(songInQueue) {
   track.audio.src = `../../public/test_music/${songInQueue.songId}.m4a`;
   track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.songId}.jpg' >`;
   track.title.innerHTML = songInQueue.playlistSong;
-  // track.artist.innerHTML = songInQueue.artist;
+  track.artist.innerHTML = songInQueue.artistName;
   playMusic();
 }
 
