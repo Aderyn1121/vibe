@@ -58,6 +58,9 @@ router.get(
       where: {
         playlistId: playlistId,
       },
+      include: {
+          model: Artist
+      }
     });
 
     
