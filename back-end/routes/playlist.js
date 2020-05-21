@@ -27,6 +27,7 @@ const playlistValidators = check('playlistName')
 
 
 
+//Get route for playlists--------------------------------------
 router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, asyncHandler( async( req, res) => {
     const userId = parseInt(req.params.id, 10);
     console.log(userId)
@@ -95,8 +96,6 @@ router.get(
     ]
     });
 
-
-    
     const songsList = playlistSongs.map(playlistSong => {
       return { 
         playlistId: playlistSong.playlistId, 
