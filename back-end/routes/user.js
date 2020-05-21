@@ -9,6 +9,7 @@ const { requireAuth, getUserToken } = require('../auth');
 const { User } = require('../db/models');
 const { UserFriend } = require('../db/models');
 const { Playlist } = require('../db/models');
+const { PlaylistSong } = require('../db/models');
 
 const router = express.Router();
 
@@ -55,7 +56,19 @@ router.get(
     res.json({ playlistNames });
   })
 );
+router.get('/:id/library', asyncHandler( async(req, res) =>{
+  const userId = parseInt(req.params.id, 10);
+  const playlists = await Playlist.findAll({where: { userId} });
 
+
+  const playlistSongs = []
+  for(let i = 0; i < playlists.length; i++){
+    let playlistId = playlists[i].id;
+    let songs = await PlaylistSong.findAll({ where: {playlistId}})
+    playlistSongs.push(...songs)
+  }
+  res.json({playlistSongs})
+}))
 
 //Add Playlists
 router.post('/:id/add-playlist', playlistValidators, handleValidationErrors, requireAuth, asyncHandler( async( req, res) => {
