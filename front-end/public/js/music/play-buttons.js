@@ -1,8 +1,8 @@
-
 const playButton = document.getElementById('playButton');
 const nextButton = document.getElementById('nextButton');
 const prevButton = document.getElementById('prevButton');
 const repeatButton = document.getElementById('repeatButton');
+
 
 playButton.addEventListener('click', (e) => {
   if (track.audio.classList.contains('playing')) {
@@ -33,3 +33,8 @@ repeatButton.addEventListener('click', (e) => {
     repeatButton.classList.remove('glow');
   }
 });
+
+volume.oninput = () => {
+  volumeLevel.innerHTML = volume.value;
+  track.audio.volume = volume.value / 100;
+};

@@ -12,10 +12,13 @@ let interval;
 let songQueue = [];
 let currentTrack = 0;
 let repeat = 'none';
+const volumeLevel = document.getElementById('volumeLevel');
+const volume = document.getElementById('volume');
 
 const playMusic = async () => {
   document.body.style.cursor = 'progress';
   await track.audio.play();
+  track.audio.volume = volume.value / 100;
   document.body.style.cursor = 'default';
   playButton.innerHTML = '<i class="fas fa-pause"></i>';
   track.audio.classList.add('playing');
