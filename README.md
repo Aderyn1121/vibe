@@ -35,8 +35,6 @@ Favorite snippets
 
 We ran into a few major and minor problems to overcome, including:
 
-- 
-
 - Heroku's Speed: Due to Heroku's slow speed we added a loading screen and a cursor change to indicate that the app *is* working.
 
 - Git Structure: We had to make separate repos for the front and back end within the main repo folder in order to push things to Heroku.
