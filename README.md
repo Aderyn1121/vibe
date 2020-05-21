@@ -7,7 +7,7 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 
 # Latest Public Release
 
-*Vibe can be found at https://pure-gorge-09335.herokuapp.com/*
+*Vibe can be found at https://aa-vibe-app.herokuapp.com/*
 
 *No installation necessary. Tested on Google Chrome v. 81.0.4044*
 
@@ -35,10 +35,15 @@ Favorite snippets
 
 We ran into a few major and minor problems to overcome, including:
 
+- Heroku's Speed: Due to Heroku's slow speed we added a loading screen and a cursor change to indicate that the app *is* working.
+
+- Git Structure: We had to make separate repos for the front and back end within the main repo folder in order to push things to Heroku.
+
 - Github workflow: We had to learn quickly to keep our commits small and frequent, or one branch would end up far behind the others.
+
 - Solving Music Storage/Playback: We had to decide between using an API to stream music and using locally stored music files. We decided on the latter so that we could customize our player.
 
-- Issues with require auth being called on the wrong routes were fixed through rearranging our routers so that the javascript didn't run into an auth requirement before hitting the route that was meant to be called. Order of operations matters.
+- Issues with require auth being called on the wrong routes were fixed through rearranging our router mounts so that the javascript didn't run into an auth requirement before hitting the route that was meant to be called. Order of operations matters.
 
 ---
 # Database Structure
@@ -51,5 +56,5 @@ We ran into a few major and minor problems to overcome, including:
 -  **Team Lead:** Emily Burnham (Aderyn1121)
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-pug.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)

@@ -169,26 +169,12 @@ input {
 .birthday {
   display: flex;
   flex-flow: column;
+  text-align: left;
+}
+.birthday * {
+  margin-top: 20px;
 }
 
-.birthdayInputs {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin-top: 30px;
-}
-
-.birthdayInputs * {
-  width: 140px;
-  height: 40px;
-  margin: 0px 10px;
-}
-#birthdayText {
-  padding-left: 10px;
-  height: 20px;
-  justify-self: center;
-  align-self: flex-start;
-}
 .gender {
   display: flex;
   justify-content: space-around;
