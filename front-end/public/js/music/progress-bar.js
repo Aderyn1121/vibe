@@ -2,7 +2,6 @@ const startTime = document.getElementById('startTime');
 const endTime = document.getElementById('endTime');
 const progressBar = document.getElementById('progress-bar');
 
-
 function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
   const duration = Math.floor(track.audio.duration) - currentTime;
   const percent = currentTime / track.audio.duration;
@@ -36,7 +35,6 @@ function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
   } else {
     endTime.innerHTML = '00:00:00';
   }
-  console.log(percent);
   progressBar.value = Math.floor(percent * 100);
 }
 
@@ -44,7 +42,6 @@ progressBar.oninput = function (event) {
   if (!track.audio.src) return;
   clearInterval(interval);
   const percent = progressBar.value / 100;
-  console.log(percent);
   updateTime(Math.floor(track.audio.duration * percent));
   const changeTrackTime = () => {
     track.audio.currentTime = Math.floor(track.audio.duration * percent);
