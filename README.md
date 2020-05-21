@@ -38,6 +38,8 @@ We ran into a few major and minor problems to overcome, including:
 - Github workflow: We had to learn quickly to keep our commits small and frequent, or one branch would end up far behind the others.
 - Solving Music Storage/Playback: We had to decide between using an API to stream music and using locally stored music files. We decided on the latter so that we could customize our player.
 
+- Issues with require auth being called on the wrong routes were fixed through rearranging our routers so that the javascript didn't run into an auth requirement before hitting the route that was meant to be called. Order of operations matters.
+
 ---
 # Database Structure
 
