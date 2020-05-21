@@ -2,7 +2,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-![Alt Text](https://i.imgur.com/FNi3qlt.gif)
+# ![Alt Text](https://i.imgur.com/FNi3qlt.gif)
 ### An open-source, web-based music platform, catered to *your* vibes.
 
 Vibe is a non-commercial, social music platform with an emphasis on finding music suited to your 'vibe'.
