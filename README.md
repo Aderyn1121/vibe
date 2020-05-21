@@ -5,7 +5,7 @@
 Vibe is a non-commercial, social music platform with an emphasis on finding music suited to your 'vibe'.
 From rock, to jazz, to pop and everything around and in-between, Vibe will help you create your perfect playlist.
 
-*(This was more fun to write than "Spotify-inspired, express-based music player app.)*
+*(This was more fun to write than "Spotify-inspired, express-based music player app".)*
 
 
 # Latest Public Release
