@@ -29,7 +29,7 @@ const searchResults = {
 }
 
 
-//search route for finding all user friends
+//search route for finding all Artists, songs, and albums
 router.get('/', asyncHandler( async(req, res) => {
     let { searchInput } = req.body;
     searchInput = searchInput.toLowerCase();
@@ -66,6 +66,7 @@ router.get('/', asyncHandler( async(req, res) => {
     res.json({searchResults})
 }));
 
+//search route for finding all user friends
 router.get('/:id/friends', asyncHandler( async(req, res) => {
     const userId = parseInt(req.params.id);
     const friendsList = await UserFriend.findAll({ where: { userId }});
@@ -86,23 +87,7 @@ router.get('/:id/users', asyncHandler( async(req, res) => {
     res.json({ users });
 }));
 
-//get route for finding artists
-router.get('/artists', asyncHandler( async(req, res) => {
-    let { name } = req.body;
-    const artists = await Artist.findAll();
-    artists.map( artist => {
-        let check = artist.artistName
-        check = check.toLowerCase()
-        if(regExMaker(check, name) !== null){
-            matchedArtist.push(artist.artistName)
-        }
-    });
-
-    res.json({searchResults})
-}));
-
-//   url/users/1/search/1/playlists
-
+//search route for finding all playlists
 router.get('/playlists', asyncHandler( async(req, res) => {
     const userId = parseInt(req.params.id);
     const playlistsList = await Playlist.findAll({ where: { userId }});
@@ -113,30 +98,5 @@ router.get('/playlists', asyncHandler( async(req, res) => {
     res.json({ playlists });
 }));
 
-router.get('/songs', handleValidationErrors, asyncHandler( async(req, res) => {
-    let { name } = req.body;
-    name = name.toLowerCase();
-
-    const songs = await Song.findAll()
-    songs.map( song => {
-        let check = song.songName
-        check = check.toLowerCase()
-        if(regExMaker(check, name) !== null){
-            matchedSongs.push(song.songName)
-        }
-        
-    }) 
-    res.json({searchResults})
-}));
-
-
-router.get('/albums', asyncHandler( async(req, res) => {
-    const albumList = await Album.findAll();
-    const albums = albumList.map( album => {
-        return { albumId: album.id, albumName: album.albumName }
-    });
-
-    res.json({ albums });
-}));
 
 module.exports = router;
