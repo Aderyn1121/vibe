@@ -40,15 +40,6 @@ router.get('/', asyncHandler( async(req, res) => {
         matchedAlbums
     }
 
-    await function clearSearch(results){
-        console.log(results)
-        console.log('clearing results')
-        for( const match in results){
-            match[result] = [];
-        }
-    }
-
-    //Artists
     const artists = await Artist.findAll();
     artists.map( artist => {
         let find = artist.artistName
@@ -78,7 +69,6 @@ router.get('/', asyncHandler( async(req, res) => {
         }
     });
     await res.send({searchResults})
-    // clearSearch(searchResults)
 
 }));
 
