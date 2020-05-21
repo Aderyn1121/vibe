@@ -51,3 +51,55 @@ svg {
   margin: auto;
 
 }
+
+/* Animations */
+
+.fadein {
+  animation: fadein 1s 250ms forwards;
+}
+
+.fadeout {
+  animation: fadeout 1s 250ms forwards;
+}
+
+.load {
+  stroke: #817e9f;
+  opacity: 0;
+  fill: none;
+  stroke-dasharray: 1200;
+  animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -3;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes load {
+  0% {
+    opacity: 10;
+    stroke: #2a3750;
+    stroke-dashoffset: 1200;
+  }
+
+  100% {
+    opacity: 10;
+    stroke-dashoffset: 0;
+  }
+}
