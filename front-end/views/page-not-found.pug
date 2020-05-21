@@ -1,6 +1,7 @@
 extends ./components/head
 
 block content
-    div
-        p Sorry! We couldn't find the page you requested!
-        a(href='/') Return to Landing Page.
+  include ./components/loading
+  div
+    p Sorry! We couldn't find the page you requested!
+    a(href='/') Return to Landing Page.

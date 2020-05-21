@@ -12,28 +12,9 @@ sidebarLinks.addEventListener('click', async (event) => {
     `/music/${event.target.id}`
   );
   mainContent.innerHTML = data;
+  updateHome();
 });
 
 sidebarPlaylists.addEventListener('click', async (event) => {
-  if (!event.target.id) return;
-  const playlistId = event.target.id;
-  const playlistJSON = await fetch(
-    `${backendURL}/playlists/${playlistId}/songs`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
-      },
-    }
-  );
-
-  const { songsList: playlist } = await playlistJSON.json();
-
-  console.log(playlist);
-
-  if (playlist.length > 0) {
-    songQueue = playlist;
-    currentTrack = 0;
-    startMusic(songQueue[currentTrack]);
-  }
+  playPlaylist();
 });

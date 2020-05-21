@@ -18,4 +18,13 @@ const handleValidationErrors = (req, res, next) => {
     next();
 }; 
 
-module.exports = { csrfProtection, asyncHandler, handleValidationErrors }
+const regExMaker = (value, word) => {
+    const pattern = word.split(' ').map(letter => {
+      return `(?=.*${word})`
+    }).join(' ')
+  
+    const reg =  new RegExp(`${pattern}`, 'g')
+    return value.match(reg)
+}
+
+module.exports = { csrfProtection, asyncHandler, handleValidationErrors, regExMaker }

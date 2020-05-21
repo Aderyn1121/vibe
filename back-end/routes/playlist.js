@@ -6,11 +6,12 @@ const { Song } = require('../db/models');
 const { Artist } = require('../db/models');
 const { Album } = require('../db/models');
 const { requireAuth } = require('../auth');
-const {  asyncHandler, handleValidationErrors } = require('../utils');
+const {  asyncHandler, handleValidationErrors, regExMaker } = require('../utils');
 
 const router = express.Router();
 // this route will only work with a loggen in user once line 13 is enabled
 // router.use(requireAuth);
+
 
 const playlistNotFound = (id) => {
   const err = new Error(`Playlist with id of ${id} was not found`);
@@ -19,6 +20,7 @@ const playlistNotFound = (id) => {
   return err;
 };
 
+
 const playlistValidators = check('playlistName')
   .exists({ checkFalsy: true })
   .withMessage('Please provide an entry for playlist name')
@@ -26,17 +28,36 @@ const playlistValidators = check('playlistName')
   .withMessage('Playlist name cannot be more than 20 characters long.');
 
 
-
+//Add playlists
 router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, asyncHandler( async( req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    console.log(userId)
-    const { playlistName } = req.body;
-    console.log(playlistName)
-    const playlist = await Playlist.create({playlistName, userId });
-    res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
+      const userId = parseInt(req.params.id, 10);
+      console.log(userId)
+      const { playlistName } = req.body;
+      console.log(playlistName)
+      const playlist = await Playlist.create({playlistName, userId });
+      res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
+}));
+
+//Delete playlists
+router.delete('/playlists/:id/delete', asyncHandler(async(req, res) => {
+  const playlistId = parseInt(req.params.id);
+  const playlist = await Playlist.findByPk(playlistId);
+  playlist.destroy();
+  res.status(204).end();
 }))
 
-//Get route for playlists
+//edit playlists
+router.put('/playlists/:id/edit', playlistValidators, handleValidationErrors, asyncHandler( async(req, res) => {
+  const playlistId = parseInt(req.params.id);
+  const playlist = await Playlist.findByPk(playlistId);
+  const { playlistName } = req.body;
+  await playlist.update({playlistName});
+  res.json({message: 'The playlist name was updated'});
+}))
+
+//add song
+
+//Get route for playlists--------------------------------------
 router.get(
   '/playlists',
   asyncHandler(async (req, res) => {
@@ -54,21 +75,22 @@ router.get(
 
 //Get route for playlist by id
 router.get(
-  '/:id(\\d+)',
+  '/playlists/:id',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
     const playlist = await Playlist.findByPk(playlistId);
-    if (playlist) {
+    console.log(playlistId)
+    // if (playlist) {
       res.json({ playlistName: playlist.playlistName });
-    } else {
-      next(playlistNotFound(playlistId));
-    }
+    // } else {
+    //   next(playlistNotFound(playlistId));
+    // }
   })
 );
 
 //Get route for playlist songs
 router.get(
-  '/:id/songs',
+  '/playlists/:id/songs',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
 
@@ -95,8 +117,6 @@ router.get(
     ]
     });
 
-
-    
     const songsList = playlistSongs.map(playlistSong => {
       return { 
         playlistId: playlistSong.playlistId, 
@@ -115,7 +135,7 @@ router.get(
 
 //Get route for playlist song by id
 router.get(
-  '/:id/songs/:id(\\d+)',
+  '/playlists/:id/songs/:id(\\d+)',
   asyncHandler(async (req, res) => {
     const songId = parseInt(req.params.id);
     const song = await Song.findByPk(songId);

@@ -69,7 +69,7 @@ app.use((err, req, res, next) => {
   if (err.status === 404) {
     res.status(404);
     res.render('page-not-found', {
-      filename: 'page-not-found',
+      fileName: 'page-not-found',
       title: 'Page Not Found',
     });
   } else {

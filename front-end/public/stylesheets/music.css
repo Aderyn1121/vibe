@@ -1,4 +1,6 @@
 /* Global*/
+@import 'home.css';
+
 body {
   background-color: #121212;
   position: relative;
@@ -181,18 +183,18 @@ input {
   font-family: 'Montserrat', sans-serif;
 }
 
-.playlists::-webkit-scrollbar-track {
+.scroll::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #000000;
 }
 
-.playlists::-webkit-scrollbar {
+.scroll::-webkit-scrollbar {
   width: 6px;
   background-color: #000000;
 }
 
-.playlists::-webkit-scrollbar-thumb {
-  background-color: #121212;
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #fde74c;
   border-radius: 30px;
 }
 
@@ -212,6 +214,7 @@ input {
 /* Content */
 .content {
   grid-area: mainContent;
+  overflow-y: scroll;
 }
 
 /* Music */
@@ -381,7 +384,7 @@ input {
 @keyframes load {
   0% {
     opacity: 10;
-    stroke: #2a3750;
+    stroke: #000000;
     stroke-dashoffset: 1200;
   }
 

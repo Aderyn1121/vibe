@@ -7,7 +7,7 @@ const {
   csrfProtection,
   handleValidationErrors,
 } = require('../utils');
-const { logoutUser, loginUser, getUserToken, requireAuth } = require('../auth');
+const { getUserToken, requireAuth } = require('../auth');
 const { User } = require('../db/models');
 
 const router = express.Router();
@@ -66,13 +66,15 @@ router.post(
   validateUser,
   handleValidationErrors,
   asyncHandler(async (req, res) => {
-    const { email, password, userName, birthday } = req.body;
+    const { email, password, userName, birthday, gender } = req.body;
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       email,
       hashedPassword,
       userName,
       birthday,
+      gender
     });
     const token = getUserToken(user);
     res.status(201).json({
