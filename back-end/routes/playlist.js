@@ -13,14 +13,6 @@ const router = express.Router();
 router.use(requireAuth);
 
 
-const playlistNotFound = (id) => {
-  const err = new Error(`Playlist with id of ${id} was not found`);
-  err.status = 404;
-  err.title = 'Playlist not found';
-  return err;
-};
-
-
 const playlistValidators = check('playlistName')
   .exists({ checkFalsy: true })
   .withMessage('Please provide an entry for playlist name')
@@ -28,7 +20,6 @@ const playlistValidators = check('playlistName')
   .withMessage('Playlist name cannot be more than 20 characters long.');
 
 
-//Add playlists
 
 //Delete playlists
 router.delete('/:id/delete', asyncHandler(async(req, res) => {
