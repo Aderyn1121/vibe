@@ -187,7 +187,6 @@ input {
 }
 
 .playlists {
-  /* margin-top: 6px; */
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -223,6 +222,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .playlists > div:hover {

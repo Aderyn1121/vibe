@@ -1,10 +1,9 @@
 const startTime = document.getElementById('startTime');
 const endTime = document.getElementById('endTime');
-const progressCircle = document.getElementById('circle');
-const bar = document.getElementById('bar');
+const progressBar = document.getElementById('progress-bar');
 
-function updateTime() {
-  const currentTime = Math.ceil(track.audio.currentTime);
+
+function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
   const duration = Math.floor(track.audio.duration) - currentTime;
   const percent = currentTime / track.audio.duration;
 
@@ -37,52 +36,20 @@ function updateTime() {
   } else {
     endTime.innerHTML = '00:00:00';
   }
-  progressCircle.style['left'] = `${percent * 96}%`;
+  console.log(percent);
+  progressBar.value = Math.floor(percent * 100);
 }
 
-progressCircle.onmousedown = function (event) {
+progressBar.oninput = function (event) {
   if (!track.audio.src) return;
   clearInterval(interval);
-  let newLeft;
-  event.preventDefault(); // prevent selection start (browser action)
-
-  let shiftX = event.clientX - progressCircle.getBoundingClientRect().left;
-  // shiftY not needed, the progressCircle moves only horizontally
-
-  function onMouseMove(event) {
-    if (!track.audio.src) return;
-    newLeft = event.clientX - shiftX - bar.getBoundingClientRect().left;
-
-    // the pointer is out of bar => lock the progressCircle within the bounaries
-    if (newLeft < 0) {
-      newLeft = 0;
-    }
-    let rightEdge = bar.offsetWidth - progressCircle.offsetWidth;
-    if (newLeft > rightEdge) {
-      newLeft = rightEdge;
-    }
-
-    progressCircle.style.left = newLeft + 'px';
-  }
-
-  function onMouseUp() {
-    if (!track.audio.src) return;
-    const percent = newLeft / (screen.width * 0.24084919);
-    track.audio.currentTime = Math.floor(percent * track.audio.duration);
-
-    if (interval) {
-      clearInterval(interval);
-    }
-    interval = setInterval(updateTime, 1000);
-
-    document.removeEventListener('mouseup', onMouseUp);
-    document.removeEventListener('mousemove', onMouseMove);
-  }
-
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-};
-
-progressCircle.ondragstart = function () {
-  return false;
+  const percent = progressBar.value / 100;
+  console.log(percent);
+  updateTime(Math.floor(track.audio.duration * percent));
+  const changeTrackTime = () => {
+    track.audio.currentTime = Math.floor(track.audio.duration * percent);
+    playMusic();
+    document.body.removeEventListener('mouseup', changeTrackTime);
+  };
+  document.body.addEventListener('mouseup', changeTrackTime);
 };

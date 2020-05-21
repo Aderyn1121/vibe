@@ -26,13 +26,11 @@
         i(class="fas fa-redo-alt")
     .progress
       .start-time#startTime
-      .progress-bar
-        #bar
-          #circle(draggable= true)
+      input(type="range" min="0" max="100" value="0")#progress-bar
       .end-time#endTime
   .otherOptions
     .queue-button
     .volume-icon
     .volume-bar
-
-    //- src=`../../public/images/album-art/${songQueue[0].id}.jpg`
+      input(type="range" min="0" max="100" value="50")#volume
+      p#volumeLevel 50
