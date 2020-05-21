@@ -24,7 +24,7 @@ router.get('/home/ajax', (req, res) => {
 router.get('/home', (req, res) => {
   res.render('music', {
     fileName: 'music',
-    title: 'music',
+    title: 'Music',
     mainContent: 'home',
     script: 'music',
     scripts,

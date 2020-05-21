@@ -130,11 +130,21 @@ svg {
   grid-area: navbar;
   width: 100%;
   background-color: #141414;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
-
+#nav-search {
+  display: flex;
+  margin: 0 20px;
+  align-items: center;
+  width: 100%;
+}
+#searchIcon {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
 #logoutButton {
   color: #e0e0e0 !important;
 }
