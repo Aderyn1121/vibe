@@ -44,7 +44,7 @@ router.delete('/playlists/:id/delete', asyncHandler(async(req, res) => {
   res.status(204).end();
 }))
 
-router.put('/playlists/:id', playlistValidators, handleValidationErrors, asyncHandler( async(req, res) => {
+router.put('/playlists/:id/edit', playlistValidators, handleValidationErrors, asyncHandler( async(req, res) => {
   const playlistId = parseInt(req.params.id);
   const playlist = await Playlist.findByPk(playlistId);
   const { playlistName } = req.body;
