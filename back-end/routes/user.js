@@ -58,7 +58,7 @@ router.get(
 
 
 //Add Playlists
-router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, requireAuth, asyncHandler( async( req, res) => {
+router.post('/:id/add-playlist', playlistValidators, handleValidationErrors, requireAuth, asyncHandler( async( req, res) => {
   const userId = parseInt(req.params.id, 10);
   console.log(userId)
   const { playlistName } = req.body;
