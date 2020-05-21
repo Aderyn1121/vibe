@@ -28,6 +28,14 @@ const searchResults = {
     matchedAlbums
 }
 
+let clearSearch = (results) => {
+    console.log(results)
+    console.log('clearing results')
+    for( const result in results){
+        results[result] = []
+    }
+}
+
 
 //search route for finding all Artists, songs, and albums
 router.get('/', asyncHandler( async(req, res) => {
@@ -37,9 +45,9 @@ router.get('/', asyncHandler( async(req, res) => {
     //Artists
     const artists = await Artist.findAll();
     artists.map( artist => {
-        let check = artist.artistName
-        check = check.toLowerCase()
-        if(regExMaker(check, searchInput) !== null){
+        let find = artist.artistName
+        find = find.toLowerCase()
+        if(regExMaker(find, searchInput) !== null){
             matchedArtist.push(artist.artistName)
         }
     });
@@ -47,9 +55,9 @@ router.get('/', asyncHandler( async(req, res) => {
     //Songs
     const songs = await Song.findAll()
     songs.map( song => {
-        let check = song.songName
-        check = check.toLowerCase()
-        if(regExMaker(check, searchInput) !== null){
+        let find = song.songName
+        find = find.toLowerCase()
+        if(regExMaker(find, searchInput) !== null){
             matchedSongs.push(song.songName)
         }
         
@@ -57,13 +65,21 @@ router.get('/', asyncHandler( async(req, res) => {
     
     const albums = await Album.findAll()
     albums.map( album => {
-        let check = album.albumName
-        check = check.toLowerCase()
-        if(regExMaker(check, searchInput) !== null){
+        let find = album.albumName
+        find = find.toLowerCase()
+        if(regExMaker(find, searchInput) !== null){
             matchedAlbums.push(album.albumName)
         }
     });
-    res.json({searchResults})
+    await res.send({searchResults})
+    await clearSearch(searchResults)
+    // console.log("searchResults")
+    // clearSearch(searchResults)
+    // matchedSongs = []
+    // matchedFriends = []
+    // matchedUsers = []
+    // matchedArtist = []
+    // matchedAlbums = []
 }));
 
 //search route for finding all user friends

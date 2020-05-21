@@ -1,6 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const { check, validationResult } = require('express-validator');
+const { check } = require('express-validator');
 const {
   asyncHandler,
   csrfProtection,
@@ -59,7 +58,7 @@ router.get(
 
 
 //Add Playlists
-router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, asyncHandler( async( req, res) => {
+router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, requireAuth, asyncHandler( async( req, res) => {
   const userId = parseInt(req.params.id, 10);
   console.log(userId)
   const { playlistName } = req.body;
@@ -70,6 +69,7 @@ router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationE
 
 router.get(
   '/:id/friends',
+  requireAuth,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const friends = await UserFriend.findAll({
