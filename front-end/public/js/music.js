@@ -1,76 +1,6 @@
-// Music funtions
-const updateUser = async () => {
-  const user = await getUser();
-  const welcome = document.getElementById('welcome');
-
-  welcome.innerHTML = `<h3>Welcome, ${user.username}</h3>`;
-
-  const logoutButton = document.getElementById('logoutButton');
-  logoutButton.addEventListener('mouseup', logoutUser);
-};
-
-const updatePlaylists = async () => {
-  const user = await getUser();
-  const playlistsJSON = await fetch(
-    `${backendURL}/users/${user.userId}/playlists`,
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
-      },
-    }
-  );
-  const { playlistNames: playlists } = await playlistsJSON.json();
-  const sidebarPlaylists = document.getElementById('sidebarPlaylists');
-
-  playlists.forEach((playlist) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<div id=${playlist.playlistId}>${playlist.playList}</div>`;
-    sidebarPlaylists.appendChild(div);
-  });
-};
-
-const updateHome = async () => {
-  const userId = localStorage.getItem('VIBE_USER_ID');
-  const playlistsJSON = await fetch(`${backendURL}/users/${userId}/playlists`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
-    },
-  });
-
-  const { playlistNames: playlists } = await playlistsJSON.json();
-  const homePlaylists = document.getElementById('homePlaylists');
-  playlists.forEach((playlist) => {
-    console.log(playlist);
-    playlistDiv = document.createElement('div');
-    playlistImg = document.createElement('img');
-    playlistText = document.createElement('div');
-
-    playlistDiv.classList.add('home__playlist');
-    playlistImg.src = `/public/images/playlists/${Math.floor(
-      Math.random() * (16 - 1) + 1
-    )}.jpg`;
-    playlistText.innerHTML = playlist.playList;
-    playlistDiv.appendChild(playlistImg);
-    playlistDiv.appendChild(playlistText);
-
-    homePlaylists.prepend(playlistDiv);
-  });
-};
-
 // inital load
 
 //Authorization
-if (!localStorage['VIBE_TOKEN']) {
-  window.location.replace('/login');
-} else {
-  const username = document.getElementById('username');
-  updateUser();
-  updatePlaylists();
-  changelogo(0, '#000000');
-  updateHome();
-}
-
-document.body.style.cursor = 'default';
 
 const track = {
   art: document.getElementById('trackArt'),
@@ -142,6 +72,105 @@ function prevTrack() {
     startMusic(songQueue[currentTrack]);
   }
 }
+
+// Music funtions
+const updateUser = async () => {
+  const user = await getUser();
+  const welcome = document.getElementById('welcome');
+
+  welcome.innerHTML = `<h3>Welcome, ${user.username}</h3>`;
+
+  const logoutButton = document.getElementById('logoutButton');
+  logoutButton.addEventListener('mouseup', logoutUser);
+};
+
+const updatePlaylists = async () => {
+  const user = await getUser();
+  const playlistsJSON = await fetch(
+    `${backendURL}/users/${user.userId}/playlists`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+    }
+  );
+  const { playlistNames: playlists } = await playlistsJSON.json();
+  const sidebarPlaylists = document.getElementById('sidebarPlaylists');
+
+  playlists.forEach((playlist) => {
+    const div = document.createElement('div');
+    div.innerHTML = `<div playlistid=${playlist.playlistId}>${playlist.playList}</div>`;
+    sidebarPlaylists.appendChild(div);
+  });
+};
+
+const playPlaylist = async () => {
+  if (!event.target.getAttribute('playlistid')) return;
+  const playlistId = event.target.getAttribute('playlistid');
+  const playlistJSON = await fetch(
+    `${backendURL}/playlists/${playlistId}/songs`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+    }
+  );
+
+  const { songsList: playlist } = await playlistJSON.json();
+
+  if (playlist.length > 0) {
+    songQueue = playlist;
+    currentTrack = 0;
+    startMusic(songQueue[currentTrack]);
+  }
+};
+
+const updateHome = async () => {
+  const userId = localStorage.getItem('VIBE_USER_ID');
+  const playlistsJSON = await fetch(`${backendURL}/users/${userId}/playlists`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+  });
+
+  const { playlistNames: playlists } = await playlistsJSON.json();
+  const homePlaylists = document.getElementById('homePlaylists');
+  playlists.forEach((playlist) => {
+    console.log(playlist);
+    playlistDiv = document.createElement('div');
+    playlistImg = document.createElement('img');
+    playlistText = document.createElement('div');
+
+    playlistDiv.classList.add('home__playlist');
+    playlistImg.src = `/public/images/playlists/${Math.floor(
+      Math.random() * (16 - 1) + 1
+    )}.jpg`;
+    playlistImg.setAttribute('playlistid', playlist.playlistId);
+    playlistText.innerHTML = playlist.playList;
+    playlistDiv.appendChild(playlistImg);
+    playlistDiv.appendChild(playlistText);
+
+    homePlaylists.prepend(playlistDiv);
+
+    homePlaylists.addEventListener('click', async (event) => {
+      console.log(event.target);
+      playPlaylist();
+    });
+  });
+};
+
+if (!localStorage['VIBE_TOKEN']) {
+  window.location.replace('/login');
+} else {
+  const username = document.getElementById('username');
+  updateUser();
+  updatePlaylists();
+  changelogo(0, '#000000');
+  updateHome();
+}
+
+document.body.style.cursor = 'default';
 
 track.audio.addEventListener('ended', () => {
   nextTrack();
