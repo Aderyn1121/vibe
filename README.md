@@ -27,8 +27,16 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 ---
 # Coding highlights
 
+Regex-Based Song Search
 ```
-Favorite snippets
+const regExMaker = (value, word) => {
+    const pattern = word.split(' ').map(letter => {
+      return `(?=.*${word})`
+    }).join(' ')
+  
+    const reg =  new RegExp(`${pattern}`, 'g')
+    return value.match(reg)
+}
 ```
 ---
 # Troubleshooting
