@@ -1,0 +1,11 @@
+body {
+    background-color: #121212;
+     position: relative;
+  font-size: min((20px, 2vw), 30px);
+  font-family: 'Sintony', sans-serif;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: #e0e0e0;
+  text-align: center;
+}
