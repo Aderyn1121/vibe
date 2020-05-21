@@ -31,6 +31,14 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 Favorite snippets
 ```
 ---
+# Troubleshooting
+
+We ran into a few major and minor problems to overcome, including:
+
+- Github workflow: We had to learn quickly to keep our commits small and frequent, or one branch would end up far behind the others.
+- Solving Music Storage/Playback: We had to decide between using an API to stream music and using locally stored music files. We decided on the latter so that we could customize our player.
+
+---
 # Database Structure
 
 ![](https://i.imgur.com/qIx984r.png)
