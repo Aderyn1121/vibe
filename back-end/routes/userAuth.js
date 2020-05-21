@@ -7,7 +7,7 @@ const {
   csrfProtection,
   handleValidationErrors,
 } = require('../utils');
-const { getUserToken, requireAuth } = require('../auth');
+const { getUserToken } = require('../auth');
 const { User } = require('../db/models');
 
 const router = express.Router();
@@ -101,7 +101,7 @@ router.post('/login', validateEmailAndPassword, handleValidationErrors, asyncHan
 
     const token = getUserToken(user);
     res.json({ token, user: { id: user.id } });
-  })
+})
 );
 
 
