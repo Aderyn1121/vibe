@@ -35,13 +35,15 @@ Favorite snippets
 
 We ran into a few major and minor problems to overcome, including:
 
-- Heroku's Speed: Due to Heroku's slow speed we added a loading screen and a cursor change to indicate that the app *is* working.
+- We had some troubles keeping out HTTP calls down for each page while keeping our application organized. We used pug's string interpolation feature to dynamically call scripts/css files as they were needed for each page. 
 
-- Git Structure: We had to make separate repos for the front and back end within the main repo folder in order to push things to Heroku.
+- Due to Heroku's slow speed we added a loading screen and a cursor change to indicate that the app *is* working.
 
-- Github workflow: We had to learn quickly to keep our commits small and frequent, or one branch would end up far behind the others.
+- We had to make separate repos for the front and back end within the main repo folder in order to push things to Heroku.
 
-- Solving Music Storage/Playback: We had to decide between using an API to stream music and using locally stored music files. We decided on the latter so that we could customize our player.
+- We had to learn quickly to keep our commits small and frequent, or one branch would end up far behind the others.
+
+- We had to decide between using an API to stream music and using locally stored music files. We decided on the latter so that we could customize our player.
 
 - Issues with require auth being called on the wrong routes were fixed through rearranging our router mounts so that the javascript didn't run into an auth requirement before hitting the route that was meant to be called. Order of operations matters.
 
