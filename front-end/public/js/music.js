@@ -102,6 +102,7 @@ const updatePlaylists = async () => {
 
   playlists.forEach((playlist) => {
     const div = document.createElement('div');
+    div.setAttribute('playlistid', playlist.playlistId);
     div.innerHTML = `<div playlistid=${playlist.playlistId}>${playlist.playList}</div>`;
     sidebarPlaylists.appendChild(div);
   });
@@ -139,6 +140,7 @@ const updateHome = async () => {
 
   const { playlistNames: playlists } = await playlistsJSON.json();
   const homePlaylists = document.getElementById('homePlaylists');
+
   playlists.forEach((playlist) => {
     console.log(playlist);
     playlistDiv = document.createElement('div');
