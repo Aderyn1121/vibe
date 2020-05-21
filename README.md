@@ -7,7 +7,7 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 
 # Latest Public Release
 
-*Vibe can be found at https://pure-gorge-09335.herokuapp.com/*
+*Vibe can be found at https://aa-vibe-app.herokuapp.com/*
 
 *No installation necessary. Tested on Google Chrome v. 81.0.4044*
 
