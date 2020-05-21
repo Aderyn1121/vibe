@@ -1,3 +1,4 @@
+// Music funtions
 const updateUser = async () => {
   const user = await getUser();
   const welcome = document.getElementById('welcome');
@@ -27,6 +28,35 @@ const updatePlaylists = async () => {
     sidebarPlaylists.appendChild(div);
   });
 };
+
+const updateHome = async () => {
+  const userId = localStorage.getItem('VIBE_USER_ID');
+  const playlistsJSON = await fetch(`${backendURL}/users/${userId}/playlists`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+  });
+
+  const { playlistNames: playlists } = await playlistsJSON.json();
+  const homePlaylists = document.getElementById('homePlaylists');
+  playlists.forEach((playlist) => {
+    console.log(playlist);
+    playlistDiv = document.createElement('div');
+    playlistImg = document.createElement('img');
+    playlistText = document.createElement('div');
+
+    playlistDiv.classList.add('home__playlist');
+    playlistImg.src = `/public/images/playlists/${Math.floor(
+      Math.random() * (16 - 1) + 1
+    )}.jpg`;
+    playlistText.innerHTML = playlist.playList;
+    playlistDiv.appendChild(playlistImg);
+    playlistDiv.appendChild(playlistText);
+
+    homePlaylists.prepend(playlistDiv);
+  });
+};
+
 // inital load
 
 //Authorization
@@ -37,6 +67,7 @@ if (!localStorage['VIBE_TOKEN']) {
   updateUser();
   updatePlaylists();
   changelogo(0, '#000000');
+  updateHome();
 }
 
 document.body.style.cursor = 'default';
@@ -116,9 +147,14 @@ track.audio.addEventListener('ended', () => {
   nextTrack();
 });
 
+track.audio.addEventListener('playing', () => {
+  document.body.style.cursor = 'default';
+});
+
 track.audio.addEventListener('loadstart', () => {
   document.body.style.cursor = 'progress';
 });
-track.audio.addEventListener('playing', () => {
+
+window.addEventListener('load', () => {
   document.body.style.cursor = 'default';
 });

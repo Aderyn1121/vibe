@@ -12,6 +12,7 @@ sidebarLinks.addEventListener('click', async (event) => {
     `/music/${event.target.id}`
   );
   mainContent.innerHTML = data;
+  updateHome();
 });
 
 sidebarPlaylists.addEventListener('click', async (event) => {
@@ -28,8 +29,6 @@ sidebarPlaylists.addEventListener('click', async (event) => {
   );
 
   const { songsList: playlist } = await playlistJSON.json();
-
-  console.log(playlist);
 
   if (playlist.length > 0) {
     songQueue = playlist;

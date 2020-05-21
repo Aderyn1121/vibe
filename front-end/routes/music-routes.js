@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
     mainContent: 'home',
     script: 'music',
     scripts,
+    blockScript: 'home',
   });
 });
 
@@ -27,6 +28,7 @@ router.get('/home', (req, res) => {
     mainContent: 'home',
     script: 'music',
     scripts,
+    blockScript: 'home',
   });
 });
 
@@ -43,6 +45,7 @@ router.get('/search', (req, res) => {
     mainContent: 'search',
     script: 'music',
     scripts,
+    blockScript: 'search',
   });
 });
 
@@ -59,6 +62,7 @@ router.get('/library', (req, res) => {
     mainContent: 'library',
     script: 'music',
     scripts,
+    blockScript: 'library',
   });
 });
 
