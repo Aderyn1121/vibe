@@ -144,7 +144,7 @@ const updateHome = async () => {
 
     playlistDiv.classList.add('home__playlist');
     playlistImg.src = `/public/images/playlists/${Math.floor(
-      Math.random() * (16 - 1) + 1
+      Math.random() * (15 - 1) + 1
     )}.jpg`;
     playlistImg.setAttribute('playlistid', playlist.playlistId);
     playlistText.innerHTML = playlist.playList;
