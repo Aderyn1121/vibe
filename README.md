@@ -35,6 +35,8 @@ Favorite snippets
 
 We ran into a few major and minor problems to overcome, including:
 
+- We encountered a bug implementing searches due to function ordering. The stored values were declared outside of the asyn callback to the route and caused the values not to reset.
+
 - We had some troubles keeping out HTTP calls down for each page while keeping our application organized. We used pug's string interpolation feature to dynamically call scripts/css files as they were needed for each page. 
 
 - Due to Heroku's slow speed we added a loading screen and a cursor change to indicate that the app *is* working.
