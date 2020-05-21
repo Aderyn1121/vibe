@@ -36,7 +36,10 @@ if (!localStorage['VIBE_TOKEN']) {
   const username = document.getElementById('username');
   updateUser();
   updatePlaylists();
+  changelogo(0, '#000000');
 }
+
+document.body.style.cursor = 'default';
 
 const track = {
   art: document.getElementById('trackArt'),

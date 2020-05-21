@@ -381,7 +381,7 @@ input {
 @keyframes load {
   0% {
     opacity: 10;
-    stroke: #2a3750;
+    stroke: #000000;
     stroke-dashoffset: 1200;
   }
 
