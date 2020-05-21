@@ -13,6 +13,12 @@ const { Playlist } = require('../db/models');
 
 const router = express.Router();
 
+const playlistValidators = check('playlistName')
+  .exists({ checkFalsy: true })
+  .withMessage('Please provide an entry for playlist name')
+  .isLength({ max: 20 })
+  .withMessage('Playlist name cannot be more than 20 characters long.');
+
 router.get(
   '/:id(\\d+)/',
   asyncHandler(async (req, res) => {
@@ -26,6 +32,7 @@ router.get(
 
 router.get(
   '/:id/playlists',
+  requireAuth,
   asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id);
     const playlists = await Playlist.findAll({
@@ -49,6 +56,17 @@ router.get(
     res.json({ playlistNames });
   })
 );
+
+
+//Add Playlists
+router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, asyncHandler( async( req, res) => {
+  const userId = parseInt(req.params.id, 10);
+  console.log(userId)
+  const { playlistName } = req.body;
+  console.log(playlistName)
+  const playlist = await Playlist.create({playlistName, userId });
+  res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
+}));
 
 router.get(
   '/:id/friends',
