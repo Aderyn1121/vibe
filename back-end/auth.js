@@ -35,13 +35,16 @@ const restoreUser = (req, res, next) => {
         }
 
         const { id } = jwtPayload.data
+        console.log('This is the ID:', id)
         try{
             req.user = await User.findByPk(id);
+            console.log(req.user)
         } catch (e){
             return next(e)
         }
 
         if(!req.user) {
+            console.log('here')
             return res.set("WWW-Authenticate", "Bearer").status(401).end();
         }
         return next();
