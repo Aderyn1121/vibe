@@ -14,7 +14,9 @@ let currentTrack = 0;
 let repeat = 'none';
 
 const playMusic = async () => {
-  track.audio.play();
+  document.body.style.cursor = 'progress';
+  await track.audio.play();
+  document.body.style.cursor = 'default';
   playButton.innerHTML = '<i class="fas fa-pause"></i>';
   track.audio.classList.add('playing');
   if (interval) {
@@ -35,6 +37,7 @@ function pauseMusic() {
   track.audio.pause();
   playButton.innerHTML = '<i class="fas fa-play"></i>';
   track.audio.classList.remove('playing');
+  document.body.style.cursor = 'default';
 }
 
 function stopMusic(song) {
@@ -170,20 +173,6 @@ if (!localStorage['VIBE_TOKEN']) {
   updateHome();
 }
 
-document.body.style.cursor = 'default';
-
 track.audio.addEventListener('ended', () => {
   nextTrack();
-});
-
-track.audio.addEventListener('playing', () => {
-  document.body.style.cursor = 'default';
-});
-
-track.audio.addEventListener('loadstart', () => {
-  document.body.style.cursor = 'progress';
-});
-
-window.addEventListener('load', () => {
-  document.body.style.cursor = 'default';
 });
