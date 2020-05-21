@@ -36,9 +36,9 @@ Favorite snippets
 ![](https://i.imgur.com/qIx984r.png)
 ---
 # Contributors
--  **Backend Lead:** Geoffrey Otieno
--  **UX/UI Lead:** Zachary Henderson and
--  **Team Lead:** Emily Burnham
+-  **Backend Lead:** Geoffrey Otieno (gootieno)
+-  **UX/UI Lead:** Zachary Henderson (zachary-henderson)
+-  **Team Lead:** Emily Burnham (Aderyn1121)
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-pug.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
