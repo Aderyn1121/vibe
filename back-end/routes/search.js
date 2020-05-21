@@ -63,7 +63,7 @@ router.get('/', asyncHandler( async(req, res) => {
             matchedAlbums.push(album.albumName)
         }
     });
-    res.json({searchResults})
+    await res.json({searchResults})
 }));
 
 //search route for finding all user friends
