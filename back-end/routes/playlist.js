@@ -10,7 +10,7 @@ const {  asyncHandler, handleValidationErrors, regExMaker } = require('../utils'
 
 const router = express.Router();
 // this route will only work with a loggen in user once line 13 is enabled
-// router.use(requireAuth);
+router.use(requireAuth);
 
 
 const playlistNotFound = (id) => {
@@ -29,17 +29,9 @@ const playlistValidators = check('playlistName')
 
 
 //Add playlists
-router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, asyncHandler( async( req, res) => {
-      const userId = parseInt(req.params.id, 10);
-      console.log(userId)
-      const { playlistName } = req.body;
-      console.log(playlistName)
-      const playlist = await Playlist.create({playlistName, userId });
-      res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
-}));
 
 //Delete playlists
-router.delete('/playlists/:id/delete', asyncHandler(async(req, res) => {
+router.delete('/:id/delete', asyncHandler(async(req, res) => {
   const playlistId = parseInt(req.params.id);
   const playlist = await Playlist.findByPk(playlistId);
   playlist.destroy();
@@ -47,7 +39,7 @@ router.delete('/playlists/:id/delete', asyncHandler(async(req, res) => {
 }))
 
 //edit playlists
-router.put('/playlists/:id/edit', playlistValidators, handleValidationErrors, asyncHandler( async(req, res) => {
+router.put('/:id/edit', playlistValidators, handleValidationErrors, asyncHandler( async(req, res) => {
   const playlistId = parseInt(req.params.id);
   const playlist = await Playlist.findByPk(playlistId);
   const { playlistName } = req.body;
@@ -55,11 +47,10 @@ router.put('/playlists/:id/edit', playlistValidators, handleValidationErrors, as
   res.json({message: 'The playlist name was updated'});
 }))
 
-//add song
 
 //Get route for playlists--------------------------------------
 router.get(
-  '/playlists',
+  '/',
   asyncHandler(async (req, res) => {
     const playlists = await Playlist.findAll();
     const userPlaylist = playlists.map((playlist) => {
@@ -75,7 +66,7 @@ router.get(
 
 //Get route for playlist by id
 router.get(
-  '/playlists/:id',
+  '/:id',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
     const playlist = await Playlist.findByPk(playlistId);
@@ -90,7 +81,7 @@ router.get(
 
 //Get route for playlist songs
 router.get(
-  '/playlists/:id/songs',
+  '/:id/songs',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
 
@@ -134,8 +125,9 @@ router.get(
 );
 
 //Get route for playlist song by id
+//Move to a songs route
 router.get(
-  '/playlists/:id/songs/:id(\\d+)',
+  '/:id/songs/:id(\\d+)',
   asyncHandler(async (req, res) => {
     const songId = parseInt(req.params.id);
     const song = await Song.findByPk(songId);
