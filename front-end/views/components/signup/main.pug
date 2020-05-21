@@ -4,18 +4,12 @@
     form(method="POST" action='/signup')#auth-form
       +input('_csrf', 'hidden')
       +input('email', 'text', 'Email', true)
-      +input('ConfirmEmail', 'text', 'Confirm Email', true)
+      +input('confirmEmail', 'text', 'Confirm Email', true)
       +input('password', 'password', 'Password', true)
-      +input('ConfirmPassword', 'password', 'Confirm Password', true)
-      +input('name', 'text', 'What is your name?', true)
-      .birthday
-        label(for='day')#birthdayText Birthday
-        .birthdayInputs
-          +input('day', 'number', 'Day' )
-          select(name='date')
-            each month in months
-              option(value=month)= month
-          +input('year', 'number', 'Year')
+      +input('confirmPassword', 'password', 'Confirm Password', true)
+      +input('userName', 'text', 'Choose a username', true)
+      .birthday Birthday
+        +input('birthday', 'date', __, true)
       .gender
         label Man
           +input('gender', 'radio', __, true, 'man')
