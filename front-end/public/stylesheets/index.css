@@ -85,7 +85,8 @@ svg {
   margin: 0;
 }
 
-.nav-bar__sign-up {
+.nav-bar__sign-up,
+#logoutButton {
   margin-right: 20px;
 }
 
