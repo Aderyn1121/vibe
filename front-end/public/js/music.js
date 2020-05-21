@@ -84,7 +84,7 @@ const updateUser = async () => {
   const user = await getUser();
   const welcome = document.getElementById('welcome');
 
-  welcome.innerHTML = `<h3>Welcome, ${user.username}</h3>`;
+  welcome.innerHTML = `Welcome, ${user.username}`;
 
   const logoutButton = document.getElementById('logoutButton');
   logoutButton.addEventListener('mouseup', logoutUser);
