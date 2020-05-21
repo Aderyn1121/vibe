@@ -11,7 +11,7 @@ signupForm.addEventListener('submit', async (e) => {
   const birthday = formData.get('birthday');
   const gender = formData.get('gender');
 
-  const body = { email, password, confirmPassword, userName, birthday, gender };
+  const body = { email, password, confirmEmail, confirmPassword, userName, birthday, gender };
   const res = await fetch(`${backendURL}/sign-up`, {
     method: 'POST',
     body: JSON.stringify(body),
