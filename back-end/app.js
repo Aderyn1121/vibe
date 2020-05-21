@@ -16,7 +16,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/', indexRouter);
 app.use('/users', userRouter);
-app.use('/playlists', playlistRouter);
+app.use('/', playlistRouter);
 app.use('/search', searchRouter);
 app.use('/', userAuthRouter);
 
