@@ -27,17 +27,32 @@ const playlistValidators = check('playlistName')
 
 
 
-//Get route for playlists--------------------------------------
 router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, asyncHandler( async( req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    console.log(userId)
-    const { playlistName } = req.body;
-    console.log(playlistName)
-    const playlist = await Playlist.create({playlistName, userId });
-    res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
+      const userId = parseInt(req.params.id, 10);
+      console.log(userId)
+      const { playlistName } = req.body;
+      console.log(playlistName)
+      const playlist = await Playlist.create({playlistName, userId });
+      res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
+}));
+
+
+router.delete('/playlists/:id/delete', asyncHandler(async(req, res) => {
+  const playlistId = parseInt(req.params.id);
+  const playlist = await Playlist.findByPk(playlistId);
+  playlist.destroy();
+  res.status(204).end();
 }))
 
-//Get route for playlists
+router.put('/playlists/:id/edit', playlistValidators, handleValidationErrors, asyncHandler( async(req, res) => {
+  const playlistId = parseInt(req.params.id);
+  const playlist = await Playlist.findByPk(playlistId);
+  const { playlistName } = req.body;
+  await playlist.update({playlistName});
+  res.json({message: 'The playlist name was updated'});
+}))
+
+//Get route for playlists--------------------------------------
 router.get(
   '/playlists',
   asyncHandler(async (req, res) => {
@@ -55,7 +70,7 @@ router.get(
 
 //Get route for playlist by id
 router.get(
-  '/:id(\\d+)',
+  'playlists/:id(\\d+)',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
     const playlist = await Playlist.findByPk(playlistId);
@@ -69,7 +84,7 @@ router.get(
 
 //Get route for playlist songs
 router.get(
-  '/:id/songs',
+  'playlists/:id/songs',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
 
