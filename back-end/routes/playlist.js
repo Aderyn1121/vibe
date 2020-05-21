@@ -6,11 +6,12 @@ const { Song } = require('../db/models');
 const { Artist } = require('../db/models');
 const { Album } = require('../db/models');
 const { requireAuth } = require('../auth');
-const {  asyncHandler, handleValidationErrors } = require('../utils');
+const {  asyncHandler, handleValidationErrors, regExMaker } = require('../utils');
 
 const router = express.Router();
 // this route will only work with a loggen in user once line 13 is enabled
 // router.use(requireAuth);
+
 
 const playlistNotFound = (id) => {
   const err = new Error(`Playlist with id of ${id} was not found`);
@@ -19,6 +20,7 @@ const playlistNotFound = (id) => {
   return err;
 };
 
+
 const playlistValidators = check('playlistName')
   .exists({ checkFalsy: true })
   .withMessage('Please provide an entry for playlist name')
@@ -26,7 +28,7 @@ const playlistValidators = check('playlistName')
   .withMessage('Playlist name cannot be more than 20 characters long.');
 
 
-
+//Add playlists
 router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, asyncHandler( async( req, res) => {
       const userId = parseInt(req.params.id, 10);
       console.log(userId)
@@ -36,7 +38,7 @@ router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationE
       res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
 }));
 
-
+//Delete playlists
 router.delete('/playlists/:id/delete', asyncHandler(async(req, res) => {
   const playlistId = parseInt(req.params.id);
   const playlist = await Playlist.findByPk(playlistId);
@@ -44,6 +46,7 @@ router.delete('/playlists/:id/delete', asyncHandler(async(req, res) => {
   res.status(204).end();
 }))
 
+//edit playlists
 router.put('/playlists/:id/edit', playlistValidators, handleValidationErrors, asyncHandler( async(req, res) => {
   const playlistId = parseInt(req.params.id);
   const playlist = await Playlist.findByPk(playlistId);
@@ -51,6 +54,8 @@ router.put('/playlists/:id/edit', playlistValidators, handleValidationErrors, as
   await playlist.update({playlistName});
   res.json({message: 'The playlist name was updated'});
 }))
+
+//add song
 
 //Get route for playlists--------------------------------------
 router.get(

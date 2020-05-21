@@ -7,7 +7,7 @@ const { UserFriend } = require('../db/models');
 const { Playlist } = require('../db/models');
 const { Album } = require('../db/models');
 
-const { asyncHandler } = require('../utils');
+const { asyncHandler, handleValidationErrors, regExMaker } = require('../utils');
 
 const router = express.Router();
 
@@ -15,6 +15,8 @@ const router = express.Router();
 // To test when a user is logged in
 
 //search route for finding all user friends
+
+
 router.get('/:id/friends', asyncHandler( async(req, res) => {
     const userId = parseInt(req.params.id);
     const friendsList = await UserFriend.findAll({ where: { userId }});
@@ -57,13 +59,23 @@ router.get('/playlists', asyncHandler( async(req, res) => {
     res.json({ playlists });
 }));
 
-router.get('/songs', asyncHandler( async(req, res) => {
-    const songsList = await Song.findAll();
-    const songs = songsList.map( song => {
-        return { songId: song.id, songName: song.songName }
-    });
+router.get('/songs', handleValidationErrors, asyncHandler( async(req, res) => {
+    let { name } = req.body;
+    name = name.toLowerCase();
 
-    res.json({ songs });
+    const songs = await Song.findAll()
+
+    let matchedSongs = []
+
+    songs.map( song => {
+        let check = song.songName
+        check = check.toLowerCase()
+        if(regExMaker(check, name) !== null){
+            matchedSongs.push(song.songName)
+        }
+        
+    }) 
+    res.json({matchedSongs})
 }));
 
 router.get('/albums', asyncHandler( async(req, res) => {
