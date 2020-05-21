@@ -13,34 +13,40 @@ const router = express.Router();
 
 //NOTES: This file is just to have active calls querying from the database. once everyhthing is working and displaying as needed I will add the requireAuth
 // To test when a user is logged in
-let matchedSongs = []
-let matchedFriends = []
-let matchedUsers = []
-let matchedArtist = []
-let matchedAlbums = []
-let matchedPlaylists = []
+console.log('Outside')
 
-const searchResults = {
-    matchedSongs,
-    matchedFriends,
-    matchedUsers,
-    matchedArtist,
-    matchedAlbums
-}
 
-let clearSearch = (results) => {
-    console.log(results)
-    console.log('clearing results')
-    for( const result in results){
-        results[result] = []
-    }
-}
 
 
 //search route for finding all Artists, songs, and albums
 router.get('/', asyncHandler( async(req, res) => {
     let { searchInput } = req.body;
     searchInput = searchInput.toLowerCase();
+     
+    console.log('Inside')
+
+    let matchedSongs = []
+    let matchedFriends = []
+    let matchedUsers = []
+    let matchedArtist = []
+    let matchedAlbums = []
+    let matchedPlaylists = []
+
+    const searchResults = {
+        matchedSongs,
+        matchedFriends,
+        matchedUsers,
+        matchedArtist,
+        matchedAlbums
+    }
+
+    await function clearSearch(results){
+        console.log(results)
+        console.log('clearing results')
+        for( const match in results){
+            match[result] = [];
+        }
+    }
 
     //Artists
     const artists = await Artist.findAll();
@@ -72,14 +78,8 @@ router.get('/', asyncHandler( async(req, res) => {
         }
     });
     await res.send({searchResults})
-    await clearSearch(searchResults)
-    // console.log("searchResults")
     // clearSearch(searchResults)
-    // matchedSongs = []
-    // matchedFriends = []
-    // matchedUsers = []
-    // matchedArtist = []
-    // matchedAlbums = []
+
 }));
 
 //search route for finding all user friends
