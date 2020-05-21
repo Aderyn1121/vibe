@@ -13,6 +13,12 @@ body {
   text-align: center;
 }
 
+.home,
+.search,
+.library {
+  opacity: 0;
+}
+
 img {
   height: 100%;
   width: 100%;
@@ -362,6 +368,10 @@ input {
   animation: fadeout 1s 3s forwards;
 }
 
+.fadein {
+  animation: fadein 1s 500ms forwards;
+}
+
 .load {
   stroke: #817e9f;
   opacity: 0;
@@ -391,5 +401,15 @@ input {
   100% {
     opacity: 10;
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
