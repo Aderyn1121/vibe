@@ -13,6 +13,7 @@ const { Playlist } = require('../db/models');
 
 const router = express.Router();
 
+
 //Post route for creating user
 // const validateEmailAndPassword = [
 //     check('email')
@@ -37,6 +38,8 @@ const router = express.Router();
 //     res.json({userList})
 
 // }))
+
+
 
 router.get(
   '/:id(\\d+)/',

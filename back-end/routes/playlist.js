@@ -6,7 +6,7 @@ const { Song } = require('../db/models');
 const { Artist } = require('../db/models');
 const { Album } = require('../db/models');
 const { requireAuth } = require('../auth');
-const {  asyncHandler } = require('../utils');
+const {  asyncHandler, handleValidationErrors } = require('../utils');
 
 const router = express.Router();
 // this route will only work with a loggen in user once line 13 is enabled
@@ -28,8 +28,18 @@ const playlistValidators = check('playlistName')
 
 
 //Get route for playlists--------------------------------------
+router.post('/:id/playlists/add-playlist', playlistValidators, handleValidationErrors, asyncHandler( async( req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    console.log(userId)
+    const { playlistName } = req.body;
+    console.log(playlistName)
+    const playlist = await Playlist.create({playlistName, userId });
+    res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
+}))
+
+//Get route for playlists
 router.get(
-  '/',
+  '/playlists',
   asyncHandler(async (req, res) => {
     const playlists = await Playlist.findAll();
     const userPlaylist = playlists.map((playlist) => {
