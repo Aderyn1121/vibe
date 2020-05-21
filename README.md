@@ -27,7 +27,7 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 ---
 # Coding highlights
 
-Regex-Based Song Search
+### Regex-Based Song Search
 ```
 const regExMaker = (value, word) => {
     const pattern = word.split(' ').map(letter => {
