@@ -19,13 +19,7 @@ const validateUser = [
     .isEmail()
     .withMessage('Please provide an entry for field email.')
     .isLength({ max: 100 })
-    .withMessage('Email address must not be more than 100 characters long.'),
-  check('userName')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide an entry for field user name'),
-  check('birthday')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide an entry for field birthday')
+    .withMessage('Email address must not be more than 100 characters long.')
     .custom((value) => {
       return User.findOne({ where: { email: value } }).then((user) => {
         if (user) {
@@ -35,6 +29,12 @@ const validateUser = [
         }
       });
     }),
+  check('userName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide an entry for field user name'),
+  check('birthday')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide an entry for field birthday'),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a value for Password')
