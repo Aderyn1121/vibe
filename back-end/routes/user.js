@@ -58,16 +58,17 @@ router.get(
 );
 router.get('/:id/library', asyncHandler( async(req, res) =>{
   const userId = parseInt(req.params.id, 10);
-  const playlists = await Playlist.findAll({where: { userId} });
+  const playlists = await Playlist.findAll({where: { userId} , include: { model: PlaylistSong }});
 
-
-  const playlistSongs = []
-  for(let i = 0; i < playlists.length; i++){
-    let playlistId = playlists[i].id;
-    let songs = await PlaylistSong.findAll({ where: {playlistId}})
-    playlistSongs.push(...songs)
-  }
-  res.json({playlistSongs})
+  // let playlistSongs;
+  // for(let i = 0; i < playlists.length; i++){
+  //   let playlistId = playlists[i].id;
+  //   playlistSongs = await PlaylistSong.findAll({ where: {playlistId}})
+  
+  // }
+  // let library = {};
+  
+  res.json({playlists})
 }))
 
 //Add Playlists
