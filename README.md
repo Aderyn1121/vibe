@@ -61,6 +61,8 @@ We ran into a few major and minor problems to overcome, including:
 
 - Issues with require auth being called on the wrong routes were fixed through rearranging our router mounts so that the javascript didn't run into an auth requirement before hitting the route that was meant to be called. Order of operations matters.
 
+- Not really a bug, but discovering range inputs made creating volume and progress bars vastly easier.
+
 ---
 # Database Structure
 
