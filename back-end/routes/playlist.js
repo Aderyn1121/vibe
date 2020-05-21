@@ -75,21 +75,22 @@ router.get(
 
 //Get route for playlist by id
 router.get(
-  'playlists/:id(\\d+)',
+  '/playlists/:id',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
     const playlist = await Playlist.findByPk(playlistId);
-    if (playlist) {
+    console.log(playlistId)
+    // if (playlist) {
       res.json({ playlistName: playlist.playlistName });
-    } else {
-      next(playlistNotFound(playlistId));
-    }
+    // } else {
+    //   next(playlistNotFound(playlistId));
+    // }
   })
 );
 
 //Get route for playlist songs
 router.get(
-  'playlists/:id/songs',
+  '/playlists/:id/songs',
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
 
@@ -134,7 +135,7 @@ router.get(
 
 //Get route for playlist song by id
 router.get(
-  '/:id/songs/:id(\\d+)',
+  '/playlists/:id/songs/:id(\\d+)',
   asyncHandler(async (req, res) => {
     const songId = parseInt(req.params.id);
     const song = await Song.findByPk(songId);
