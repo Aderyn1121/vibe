@@ -28,6 +28,10 @@ const mainContent = document.getElementById('mainContent');
 const sidebarLinks = document.getElementById('sidebarLinks');
 const sidebarPlaylists = document.getElementById('sidebarPlaylists');
 const plusIcon = document.getElementById('plusIcon');
+const contextMenu = document.getElementById('contextMenu');
+const contextPlaylists = document.getElementById('contextPlaylists');
+let newPLform = document.getElementById('newPLForm');
+let newPLinput = document.getElementById('newPLinput');
 
 //PLAYER FUNCTIONS
 const playMusic = async () => {
@@ -155,12 +159,24 @@ const updatePlaylists = async () => {
   );
   const { playlistNames: playlists } = await playlistsJSON.json();
   const sidebarPlaylists = document.getElementById('sidebarPlaylists');
+  contextPlaylists.innerHTML = '';
+  sidebarPlaylists.innerHTML = `
+  <form id="newPLForm" class="hidden">
+  <input class="newPlaylist" name="newPlaylist" type="text" id="newPLinput">
+  </form>`;
+
+  newPLform = document.getElementById('newPLForm');
+  newPLinput = document.getElementById('newPLinput');
 
   playlists.forEach((playlist) => {
     const div = document.createElement('div');
+
     div.setAttribute('playlistid', playlist.playlistId);
     div.innerHTML = `<div playlistid=${playlist.playlistId}>${playlist.playList}</div>`;
+    const contextDiv = div.cloneNode(true);
+    contextDiv.classList.add('contextPlaylist');
     sidebarPlaylists.appendChild(div);
+    contextPlaylists.appendChild(contextDiv);
   });
 };
 
@@ -193,7 +209,18 @@ const updateHome = async () => {
     homePlaylists.prepend(playlistDiv);
 
     homePlaylists.addEventListener('click', async (event) => {
-      playPlaylist();
+      if (!event.target.getAttribute('playlistid')) return;
+      const playlistId = event.target.getAttribute('playlistid');
+
+      const res = await fetch(`/music/playlist/${playlistId}/ajax`);
+      const data = await res.json();
+      history.pushState(
+        { playlist: playlistId },
+        playlistId,
+        `/music/playlist/${playlistId}`
+      );
+      mainContent.innerHTML = data;
+      updateEditPlaylist(playlistId);
     });
   });
 };
@@ -223,6 +250,25 @@ const updateSearchSection = (results, section) => {
     text.innerHTML = result.name;
     div.appendChild(img);
     div.appendChild(text);
+    div.oncontextmenu = (event1) => {
+      contextMenu.classList.remove('hidden');
+      contextMenu.style.top = `${event1.pageY - 10}px`;
+      contextMenu.style.left = `${event1.pageX - 10}px`;
+
+      contextMenu.addEventListener('mouseleave', (event2) => {
+        event2.stopPropagation;
+        contextMenu.classList.add('hidden');
+      });
+
+      contextPlaylists.addEventListener('click', (event3) => {
+        const playlistid = event3.target.getAttribute('playlistid');
+        const songid = event1.target.getAttribute('songsid');
+        //TODO ADD SONG TO PLAYLIST
+        console.log(playlistid, songid);
+        contextMenu.classList.add('hidden');
+      });
+      return false;
+    };
 
     resultSection.prepend(div);
   });
@@ -298,11 +344,33 @@ const playPlaylist = async () => {
   }
 };
 
-const deletePlaylist = async () => {
-  console.log('in production');
+const deletePlaylist = async (event) => {
+  const playlistId = event.target.getAttribute('playlistid');
+
+  const res = await fetch(`${backendURL}/playlists/${playlistId}/delete`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+  });
+
+  if (!res.ok) {
+    console.log('fetch error');
+    return;
+  }
+
+  const home = await fetch(`/music/home/ajax`);
+  const data = await home.json();
+  mainContent.innerHTML = data;
+
+  history.pushState({ mainContent: 'home' }, 'home', `/music/home`);
+  updateHome();
+  updatePlaylists();
+
+  console.log(playlistId);
 };
 
-const editPlaylist = async () => {
+const editPlaylist = async (event) => {
   console.log('in production');
 };
 
@@ -313,7 +381,6 @@ const updateEditPlaylistsList = async (playlistId) => {
 
   tableBody.innerHTML = '';
   songs.forEach((song) => {
-    console.log(song);
     const songDiv = document.createElement('div');
     const trackDiv = document.createElement('div');
     const artistDiv = document.createElement('div');
@@ -449,7 +516,6 @@ searchBar[0].addEventListener('keyup', async () => {
 });
 
 sidebarLinks.addEventListener('click', async (event) => {
-  console.log('working');
   if (!['home', 'search', 'library'].includes(event.target.id)) return;
   const res = await fetch(`/music/${event.target.id}/ajax`);
   const data = await res.json();
@@ -490,14 +556,16 @@ sidebarPlaylists.addEventListener('click', async (event) => {
 });
 
 plusIcon.addEventListener('click', () => {
-  const newPLform = document.createElement('form');
-  newPLform.innerHTML =
-    '<input id = newPlaylist class= "newPlaylist", name= "newPlaylist", type="text">';
-  sidebarPlaylists.prepend(newPLform);
-  const playlistInput = document.getElementById('newPlaylist');
-  playlistInput.focus();
-  newPLform.addEventListener('submit', async (event) => {
-    event.preventDefault();
+  newPLform.classList.remove('hidden');
+  newPLinput.focus();
+
+  newPLinput.addEventListener('blur', (event) => {
+    event.stopPropagation();
+    newPLform.classList.add('hidden');
+  });
+
+  newPLform.addEventListener('submit', async (event2) => {
+    event2.preventDefault();
     const formData = new FormData(newPLform);
     const playlistName = formData.get('newPlaylist');
     const body = { playlistName };

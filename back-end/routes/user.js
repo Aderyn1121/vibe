@@ -32,7 +32,7 @@ router.get(
   })
 );
 
-// Get route for user playlists 
+// Get route for user playlists
 router.get(
   '/:id/playlists',
   requireAuth,
@@ -65,10 +65,10 @@ router.get('/:id/library', asyncHandler( async(req, res) =>{
   const userId = parseInt(req.params.id, 10);
   const playlists = await Playlist.findAll({
     where: { userId},
-    include: { model: PlaylistSong, 
-    attributes: ['songId', 'song'] 
-  }});  
-  
+    include: { model: PlaylistSong,
+    attributes: ['songId', 'song']
+  }});
+
   let playlistSongs = playlists.map( (songs, i) => {
     return songs.PlaylistSongs
   })
@@ -76,7 +76,7 @@ router.get('/:id/library', asyncHandler( async(req, res) =>{
   let list = {}
   let library = []
   let newArr = arrayFlattener(playlistSongs)
-  
+
   for(let i in newArr){
     let songName = newArr[i]['song']
     list[songName] = newArr[i]

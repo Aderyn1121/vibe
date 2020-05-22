@@ -218,7 +218,7 @@ input {
   100% {
     opacity: 0;
     display: none;
-    z-index: -3;
+    z-index: -2;
   }
 }
 

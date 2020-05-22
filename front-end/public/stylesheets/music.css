@@ -15,7 +15,9 @@ body {
   color: #e0e0e0;
   text-align: center;
 }
-
+.hidden {
+  display: none;
+}
 .home,
 .search,
 .library,
@@ -92,6 +94,25 @@ svg {
   width: 50%;
   margin: auto;
 }
+
+#contextMenu {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  z-index: 300;
+  background-color: grey;
+  font-size: 0.7em;
+  width: 200px;
+}
+
+#contextMenu * {
+  padding: 10px;
+}
+
+.contextPlaylist:hover {
+  color: #121212;
+}
+
 /* Main */
 .main {
   width: 100vw;
@@ -419,7 +440,7 @@ input {
   100% {
     opacity: 0;
     display: none;
-    z-index: -3;
+    z-index: -2;
   }
 }
 

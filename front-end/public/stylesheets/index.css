@@ -97,7 +97,7 @@ svg {
   top: 0;
   left: 0;
   right: 0;
-  z-index: -2;
+  z-index: -1;
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -175,7 +175,7 @@ svg {
   100% {
     opacity: 0;
     display: none;
-    z-index: -3;
+    z-index: -2;
   }
 }
 
