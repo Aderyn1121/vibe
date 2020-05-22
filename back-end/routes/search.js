@@ -20,7 +20,7 @@ console.log('Outside')
 
 //search route for finding all Artists, songs, and albums
 router.get('/', asyncHandler( async(req, res) => {
-    let { searchInput } = req.body;
+    let { searchInput } = req.query;
     searchInput = searchInput.toLowerCase();
      
     console.log('Inside')

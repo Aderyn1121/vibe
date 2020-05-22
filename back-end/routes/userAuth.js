@@ -31,10 +31,21 @@ const validateUser = [
     }),
   check('userName')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide an entry for field user name'),
+    .withMessage('Please provide an entry for field user name')
+    .custom((value) => {
+      return User.findOne({ where: { userName: value } }).then((user) => {
+        if (user) {
+          return Promise.reject(
+            'The provided username is already in use by another account'
+          );
+        }
+      });
+    }),
   check('birthday')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide an entry for field birthday'),
+    .withMessage('Please provide an entry for field birthday')
+    .matches(/([0-9][0-9])\/([0-9][0-9])\/([0-9][0-9][0-9][0-9])/)
+    .withMessage('Please enter a date with the format MM/DD/YYYY'),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a value for Password')
