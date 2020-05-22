@@ -89,7 +89,7 @@ router.get('/:id/library', asyncHandler( async(req, res) =>{
 }))
 
 //Add Playlists
-router.post('/:id/add-playlist', playlistValidators, handleValidationErrors, requireAuth, asyncHandler( async( req, res) => {
+router.post('/:id/playlist', playlistValidators, handleValidationErrors, requireAuth, asyncHandler( async( req, res) => {
   const userId = parseInt(req.params.id, 10);
   const { playlistName } = req.body;
   const playlist = await Playlist.create({playlistName, userId });
