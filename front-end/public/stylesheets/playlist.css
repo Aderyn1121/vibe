@@ -1,0 +1,32 @@
+#editPlaylistNav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#editPlaylistNav > div {
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 30px;
+}
+
+#editPlaylistName > *,
+#editPlaylistButtons > * {
+  margin-right: 30px;
+  min-width: 80px;
+}
+
+#editIcon {
+  display: flex;
+  align-items: center;
+}
+
+#editIcon:hover,
+#editPlaylistButtons *:hover {
+  color: #fde74c;
+}
+
+#editPlaylistButtons * {
+  color: white;
+}
