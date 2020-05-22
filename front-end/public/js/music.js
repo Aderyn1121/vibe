@@ -93,6 +93,7 @@ function prevTrack() {
     startMusic(songQueue[currentTrack]);
   }
 }
+
 function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
   const duration = Math.floor(track.audio.duration) - currentTime;
   const percent = currentTime / track.audio.duration;
@@ -260,12 +261,7 @@ const updateSearch = async () => {
 
 //PLAYLIST FUNCTIONS
 
-const updateEditPlaylist = async (playlistId) => {
-  const EPLTitle = document.getElementById('editPlaylistTitle');
-  const EPLPlayButton = document.getElementById('editPlaylistPlayButton');
-  const EPLDeleteButton = document.getElementById('editPlaylistDeleteButton');
-  const EPLEditButton = document.getElementById('editIcon');
-
+const getPlaylist = async (playlistId) => {
   const playlistJSON = await fetch(`${backendURL}/playlists/${playlistId}`, {
     method: 'GET',
     headers: {
@@ -274,40 +270,95 @@ const updateEditPlaylist = async (playlistId) => {
   });
 
   const { playlistName } = await playlistJSON.json();
-  EPLTitle.innerHTML = playlistName;
-  EPLPlayButton.setAttribute('playlistid', playlistId);
-  EPLDeleteButton.setAttribute('playlistid', playlistId);
-  EPLPlayButton.onclick = () => {
-    playPlaylist();
-  };
-  EPLDeleteButton.onclick = () => {
-    console.log('still need to write delete');
-  };
-  EPLEditButton.onclick = () => {
-    console.log('still need to write edit');
-  };
+  return playlistName;
+};
+
+const getPlaylistSongs = async (playlistId) => {
+  const songsJSON = await fetch(`${backendURL}/playlists/${playlistId}/songs`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+  });
+
+  const { songsList } = await songsJSON.json();
+  return songsList;
 };
 
 const playPlaylist = async () => {
   if (!event.target.getAttribute('playlistid')) return;
   const playlistId = event.target.getAttribute('playlistid');
-  const playlistJSON = await fetch(
-    `${backendURL}/playlists/${playlistId}/songs`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
-      },
-    }
-  );
 
-  const { songsList: playlist } = await playlistJSON.json();
+  const songs = await getPlaylistSongs(playlistId);
 
-  if (playlist.length > 0) {
-    songQueue = playlist;
+  if (songs.length > 0) {
+    songQueue = songs;
     currentTrack = 0;
     startMusic(songQueue[currentTrack]);
   }
+};
+
+const deletePlaylist = async () => {
+  console.log('in production');
+};
+
+const editPlaylist = async () => {
+  console.log('in production');
+};
+
+const updateEditPlaylistsList = async (playlistId) => {
+  const songs = await getPlaylistSongs(playlistId);
+  if (songs.length === 0) return;
+  const tableBody = document.getElementById('tableBody');
+
+  tableBody.innerHTML = '';
+  songs.forEach((song) => {
+    console.log(song);
+    const songDiv = document.createElement('div');
+    const trackDiv = document.createElement('div');
+    const artistDiv = document.createElement('div');
+    const albumDiv = document.createElement('div');
+    const deleteDiv = document.createElement('div');
+
+    songDiv.classList.add('song');
+    trackDiv.classList.add('listsong');
+    artistDiv.classList.add('listsong');
+    albumDiv.classList.add('listsong');
+    deleteDiv.classList.add('delete');
+
+    trackDiv.setAttribute('songId', song.songId);
+    artistDiv.setAttribute('songId', song.artistId);
+    albumDiv.setAttribute('songId', song.albumId);
+
+    trackDiv.innerHTML = song.playlistSong;
+    artistDiv.innerHTML = song.artistName;
+    albumDiv.innerHTML = song.albumName;
+    deleteDiv.innerHTML = '<i class="fas fa-trash"></i>';
+
+    songDiv.appendChild(trackDiv);
+    songDiv.appendChild(artistDiv);
+    songDiv.appendChild(albumDiv);
+    songDiv.appendChild(deleteDiv);
+
+    tableBody.appendChild(songDiv);
+  });
+};
+
+const updateEditPlaylist = async (playlistId) => {
+  const EPLTitle = document.getElementById('editPlaylistTitle');
+  const EPLPlayButton = document.getElementById('editPlaylistPlayButton');
+  const EPLDeleteButton = document.getElementById('editPlaylistDeleteButton');
+  const EPLEditButton = document.getElementById('editIcon');
+
+  const playlistName = await getPlaylist(playlistId);
+
+  EPLTitle.innerHTML = playlistName;
+  EPLPlayButton.setAttribute('playlistid', playlistId);
+  EPLDeleteButton.setAttribute('playlistid', playlistId);
+  EPLPlayButton.addEventListener('click', playPlaylist);
+  EPLDeleteButton.addEventListener('click', deletePlaylist);
+  EPLEditButton.addEventListener('click', editPlaylist);
+  updateEditPlaylistsList(playlistId);
 };
 
 //INITAL LOAD
