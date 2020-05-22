@@ -45,7 +45,7 @@ router.get('/', asyncHandler( async(req, res) => {
         let find = artist.artistName
         find = find.toLowerCase()
         if(regExMaker(find, searchInput) !== null){
-            matchedArtist.push({artist: artist.artistName, artistId: artist.id})
+            matchedArtist.push({name: artist.artistName, id: artist.id})
         }
     });
 
@@ -55,7 +55,7 @@ router.get('/', asyncHandler( async(req, res) => {
         let find = song.songName
         find = find.toLowerCase()
         if(regExMaker(find, searchInput) !== null){
-            matchedSongs.push({song: song.songName, songId: song.id})
+            matchedSongs.push({name: song.songName, id: song.id})
         }
         
     });
@@ -65,7 +65,7 @@ router.get('/', asyncHandler( async(req, res) => {
         let find = album.albumName
         find = find.toLowerCase()
         if(regExMaker(find, searchInput) !== null){
-            matchedAlbums.push({album: album.albumName, albumId: album.id})
+            matchedAlbums.push({name: album.albumName, id: album.id})
         }
     });
     await res.send({searchResults})
