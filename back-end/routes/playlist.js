@@ -125,13 +125,13 @@ router.get(
           where: { id: songId} 
         }],
     });
-    const song = playlistSongs.map( song => { 
+    const songs = playlistSongs.map( song => { 
       return {
         songName: song.song,
         songId: song.songId
       }
     })
-    res.json({song})
+    res.json({songs})
   })
 )
 
