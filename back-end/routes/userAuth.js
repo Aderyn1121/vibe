@@ -44,7 +44,8 @@ const validateUser = [
     .exists({ checkFalsy: true })
     .withMessage('Please provide an entry for field birthday')
     .matches(/([0-9][0-9])\/([0-9][0-9])\/([0-9][0-9][0-9][0-9])/)
-    .withMessage('Please enter a date with the format MM/DD/YYYY'),
+    .isISO8601()
+    .withMessage('Please provide a valid date for birthday'),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a value for Password')
