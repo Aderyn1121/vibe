@@ -55,7 +55,7 @@ router.get('/', asyncHandler( async(req, res) => {
         let find = song.songName
         find = find.toLowerCase()
         if(regExMaker(find, searchInput) !== null){
-            matchedSongs.push(song.songName)
+            matchedSongs.push(...[song.songName, song.id])
         }
         
     });

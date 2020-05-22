@@ -116,7 +116,6 @@ router.get(
 );
 
 //Get route for playlist song by id
-//Move to a songs route
 router.get(
   '/:id/songs/:id(\\d+)',
   asyncHandler(async (req, res) => {
@@ -125,5 +124,16 @@ router.get(
     res.json({ songName: song.songName, songId: songId });
   })
 );
+
+router.delete(
+  '/:id/songs/:id(\\d+)',
+  asyncHandler(async (req, res) => {
+    const songId = parseInt(req.params.id);
+    const song = await Song.findByPk(songId);
+    song.destroy();
+    res.status(204).end();
+  })
+);
+
 
 module.exports = router;
