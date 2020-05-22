@@ -1,15 +1,17 @@
 const express = require('express');
 const { check } = require('express-validator');
-const {
-  asyncHandler,
-  csrfProtection,
-  handleValidationErrors,
-} = require('../utils');
 const { requireAuth, getUserToken } = require('../auth');
 const { User } = require('../db/models');
 const { UserFriend } = require('../db/models');
 const { Playlist } = require('../db/models');
 const { PlaylistSong } = require('../db/models');
+
+const {
+  asyncHandler,
+  handleValidationErrors,
+  arrayFlattener
+} = require('../utils');
+
 
 const router = express.Router();
 
@@ -19,6 +21,8 @@ const playlistValidators = check('playlistName')
   .isLength({ max: 20 })
   .withMessage('Playlist name cannot be more than 20 characters long.');
 
+
+// Get route for user by id
 router.get(
   '/:id(\\d+)/',
   asyncHandler(async (req, res) => {
@@ -28,8 +32,7 @@ router.get(
   })
 );
 
-// Get route for user playlists   /users/1/playlists/
-
+// Get route for user playlists 
 router.get(
   '/:id/playlists',
   requireAuth,
@@ -56,31 +59,45 @@ router.get(
     res.json({ playlistNames });
   })
 );
+
+//Get route for library
 router.get('/:id/library', asyncHandler( async(req, res) =>{
   const userId = parseInt(req.params.id, 10);
-  const playlists = await Playlist.findAll({where: { userId} , include: { model: PlaylistSong }});
+  const playlists = await Playlist.findAll({
+    where: { userId},
+    include: { model: PlaylistSong, 
+    attributes: ['songId', 'song'] 
+  }});  
+  
+  let playlistSongs = playlists.map( (songs, i) => {
+    return songs.PlaylistSongs
+  })
 
-  // let playlistSongs;
-  // for(let i = 0; i < playlists.length; i++){
-  //   let playlistId = playlists[i].id;
-  //   playlistSongs = await PlaylistSong.findAll({ where: {playlistId}})
+  let list = {}
+  let library = []
+  let newArr = arrayFlattener(playlistSongs)
   
-  // }
-  // let library = {};
-  
-  res.json({playlists})
+  for(let i in newArr){
+    let songName = newArr[i]['song']
+    list[songName] = newArr[i]
+  }
+  for(let i in list){
+    library.push(list[i])
+  }
+  res.json({library})
+
 }))
 
 //Add Playlists
 router.post('/:id/add-playlist', playlistValidators, handleValidationErrors, requireAuth, asyncHandler( async( req, res) => {
   const userId = parseInt(req.params.id, 10);
-  console.log(userId)
   const { playlistName } = req.body;
-  console.log(playlistName)
   const playlist = await Playlist.create({playlistName, userId });
   res.status(201).json({playlistId: playlist.id, playlist: playlist.playlistName });
 }));
 
+
+//Playlist Friends
 router.get(
   '/:id/friends',
   requireAuth,

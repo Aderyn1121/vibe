@@ -27,4 +27,17 @@ const regExMaker = (value, word) => {
     return value.match(reg)
 }
 
-module.exports = { csrfProtection, asyncHandler, handleValidationErrors, regExMaker }
+let arrayFlattener = (array) => {
+    let newArr = [];
+
+    array.forEach(element => {
+        if (Array.isArray(element)) {
+            newArr.push(...arrayFlattener(element));
+        } else {
+            newArr.push(element)
+        } 
+     });
+    return newArr;
+}
+
+module.exports = { csrfProtection, asyncHandler, handleValidationErrors, regExMaker, arrayFlattener }
