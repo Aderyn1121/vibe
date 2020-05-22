@@ -1,4 +1,7 @@
-//DEFINITIONS
+/*
+DEFINITIONS
+ */
+
 const track = {
   art: document.getElementById('trackArt'),
   title: document.getElementById('trackTitle'),
@@ -194,7 +197,7 @@ const updateHome = async () => {
   });
 };
 
-//SEArCH FUNCTIONS
+//SEARCH FUNCTIONS
 
 const updateSearchSection = (results, section) => {
   const resultSection = document.getElementById(`result${section}`);
@@ -257,7 +260,31 @@ const updateSearch = async () => {
 //PLAYLIST FUNCTIONS
 
 const updateEditPlaylist = async (playlistId) => {
-  const title = document.getElementById('editPlaylistTitle');
+  const EPLTitle = document.getElementById('editPlaylistTitle');
+  const EPLPlayButton = document.getElementById('editPlaylistPlayButton');
+  const EPLDeleteButton = document.getElementById('editPlaylistDeleteButton');
+  const EPLEditButton = document.getElementById('editIcon');
+
+  const playlistJSON = await fetch(`${backendURL}/playlists/${playlistId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+  });
+
+  const { playlistName } = await playlistJSON.json();
+  EPLTitle.innerHTML = playlistName;
+  EPLPlayButton.setAttribute('playlistid', playlistId);
+  EPLDeleteButton.setAttribute('playlistid', playlistId);
+  EPLPlayButton.onclick = () => {
+    playPlaylist();
+  };
+  EPLDeleteButton.onclick = () => {
+    console.log('still need to write delete');
+  };
+  EPLEditButton.onclick = () => {
+    console.log('still need to write edit');
+  };
 };
 
 const playPlaylist = async () => {
@@ -375,7 +402,7 @@ sidebarLinks.addEventListener('click', async (event) => {
   const res = await fetch(`/music/${event.target.id}/ajax`);
   const data = await res.json();
   mainContent.innerHTML = data;
-  
+
   history.pushState(
     { mainContent: event.target.id },
     event.target.id,
@@ -407,7 +434,7 @@ sidebarPlaylists.addEventListener('click', async (event) => {
     `/music/playlist/${playlistId}`
   );
   mainContent.innerHTML = data;
-  updateEditPlaylist();
+  updateEditPlaylist(playlistId);
 });
 
 plusIcon.addEventListener('click', () => {

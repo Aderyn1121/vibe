@@ -2,6 +2,7 @@
 @import 'track.css';
 @import 'home.css';
 @import 'search.css';
+@import 'playlist.css';
 
 body {
   background-color: #121212;
