@@ -145,7 +145,6 @@ const updateHome = async () => {
   const homePlaylists = document.getElementById('homePlaylists');
 
   playlists.forEach((playlist) => {
-    console.log(playlist);
     playlistDiv = document.createElement('div');
     playlistImg = document.createElement('img');
     playlistText = document.createElement('div');
@@ -162,7 +161,6 @@ const updateHome = async () => {
     homePlaylists.prepend(playlistDiv);
 
     homePlaylists.addEventListener('click', async (event) => {
-      console.log(event.target);
       playPlaylist();
     });
   });
@@ -175,7 +173,14 @@ if (!localStorage['VIBE_TOKEN']) {
   updateUser();
   updatePlaylists();
   changelogo(0, '#000000');
-  updateHome();
+  console.log(window.location);
+  if (window.location.href.includes('library')) {
+    // updateLibrary()
+  } else if (window.location.href.includes('search')) {
+    // updateSearch()
+  } else {
+    updateHome();
+  }
 }
 
 track.audio.addEventListener('ended', () => {

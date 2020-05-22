@@ -1,6 +1,7 @@
 /* Global*/
 @import 'track.css';
 @import 'home.css';
+@import 'search.css';
 
 body {
   background-color: #121212;
@@ -131,7 +132,7 @@ svg {
   width: 100%;
   background-color: #141414;
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
 }
 
 .nav-bar * {
