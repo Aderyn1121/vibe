@@ -1,5 +1,4 @@
 const sidebarLinks = document.getElementById('sidebarLinks');
-const mainContent = document.getElementById('mainContent');
 const sidebarPlaylists = document.getElementById('sidebarPlaylists');
 const plusIcon = document.getElementById('plusIcon');
 
@@ -8,12 +7,18 @@ sidebarLinks.addEventListener('click', async (event) => {
   const res = await fetch(`/music/${event.target.id}/ajax`);
   const data = await res.json();
   history.pushState(
-    { mainContent: 'home' },
-    'home',
+    { mainContent: event.target.id },
+    event.target.id,
     `/music/${event.target.id}`
   );
   mainContent.innerHTML = data;
-  updateHome();
+  if (event.target.id === 'home') {
+    updateHome();
+  } else if (event.target.id === 'search') {
+    // updateSearch()
+  } else {
+    // updateLibrary()
+  }
 });
 
 sidebarPlaylists.addEventListener('click', async (event) => {

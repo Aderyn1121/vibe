@@ -2,7 +2,7 @@ const express = require('express');
 
 router = express.Router();
 
-const scripts = ['music/play-buttons', 'music/sidebar', 'music/progress-bar'];
+const scripts = ['music/play-buttons', 'music/sidebar', 'music/progress-bar', 'music/search'];
 
 router.get('/', async (req, res) => {
   res.render('music', {
