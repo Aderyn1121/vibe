@@ -111,14 +111,49 @@ router.get(
 );
 
 
-//Delete playlist song
-router.delete(
+//Get song by id
+router.get(
   '/:id1/songs/:id2',
   asyncHandler(async (req, res) => {
     const playlistSongsId = parseInt(req.params.id1);
     const songId = parseInt(req.params.id2);
-    const playlistSongs = await PlaylistSong.findAll({ where: { playlistId: playlistSongsId }});
+    const playlistSongs = await PlaylistSong.findAll({ 
+      where: { playlistId: playlistSongsId },
+      include: [
+        { 
+          model: Song,
+          where: { id: songId} 
+        }],
+    });
     const song = playlistSongs.map( song => { 
+      return {
+        songName: song.song,
+        songId: song.songId
+      }
+    })
+    res.json({song})
+  })
+)
+
+//Add songs
+router.post('/:id1/songs', asyncHandler( async(req, res) => {
+  const playlistId = parseInt(req.params.id1, 10);
+  const { songId } = req.body;
+  const id = Number(songId)
+  const song = await Song.findByPk(id)
+  PlaylistSong.create({song: song.songName, songId: song.id, playlistId});
+  res.json({message: 'song was added to playlist songs'})
+}))
+
+
+//Delete playlist song
+router.delete(
+  '/:id1/songs/:id2',
+  asyncHandler(async (req, res) => {
+    const playlistSongsId = parseInt(req.params.id1, 10);
+    const songId = parseInt(req.params.id2, 10);
+    const playlistSongs = await PlaylistSong.findAll({ where: { playlistId: playlistSongsId }});
+    playlistSongs.map( song => { 
       if(song.songId === songId){
         song.destroy();
       }
