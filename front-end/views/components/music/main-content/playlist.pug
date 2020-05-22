@@ -1,9 +1,25 @@
-#editPlaylistNav
-  #editPlaylistName
-    h1#editPlaylistTitle
-    #editIcon
-      i(class="fas fa-edit")
-  #editPlaylistButtons
-    a()#editPlaylistPlayButton Play
-    a()#editPlaylistDeleteButton Delete
-#editPlaylistSongs.scroll
+.editPlaylists.fadein
+  #editPlaylistNav
+    #editPlaylistName
+      h1#editPlaylistTitle
+      #editIcon
+        i(class="fas fa-edit")
+    #editPlaylistButtons
+      #editPlaylistPlayButton Play
+      #editPlaylistDeleteButton Delete Playlist
+  #editPlaylistSongs.scroll
+    #fakeTable
+      #tableHeader
+        .trackTitle Track
+        .trackArtist Artist
+        .trackAlbum Album
+        .trackDelete
+      #tableBody
+        //- .addSongs No songs found
+        #song1.song
+          .listsong Hide and Seek
+          .listsong Imogen Heap
+          .listsong Speak for Yourself
+          .delete
+            i(class="fas fa-trash")
+            i(class="fas fa-play")

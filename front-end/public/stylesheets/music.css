@@ -18,7 +18,8 @@ body {
 
 .home,
 .search,
-.library {
+.library,
+.editPlaylists {
   opacity: 0;
 }
 

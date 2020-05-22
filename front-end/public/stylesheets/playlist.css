@@ -23,10 +23,38 @@
 }
 
 #editIcon:hover,
-#editPlaylistButtons *:hover {
+#editPlaylistButtons *:hover,
+.delete:hover,
+.listsong:hover {
   color: #fde74c;
 }
 
 #editPlaylistButtons * {
   color: white;
+}
+
+#tableHeader,
+.song {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr)) 50px;
+  width: 70vw;
+  text-align: left;
+}
+#tableHeader {
+  margin-bottom: 20px;
+}
+
+.listsong,
+.delete,
+.addSongs {
+  padding: 10px 5px;
+  font-size: 1rem;
+  border: #e0e0e0 solid 1px;
+  text-align: left;
+}
+
+.delete {
+  display: flex;
+  justify-content: center;
 }
