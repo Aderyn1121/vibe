@@ -61,12 +61,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const playlistId = parseInt(req.params.id, 10);
     const playlist = await Playlist.findByPk(playlistId);
-    console.log(playlistId)
-    // if (playlist) {
-      res.json({ playlistName: playlist.playlistName });
-    // } else {
-    //   next(playlistNotFound(playlistId));
-    // }
+    res.json({ playlistName: playlist.playlistName });
   })
 );
 
@@ -115,25 +110,22 @@ router.get(
   })
 );
 
-//Get route for playlist song by id
-router.get(
-  '/:id/songs/:id(\\d+)',
-  asyncHandler(async (req, res) => {
-    const songId = parseInt(req.params.id);
-    const song = await Song.findByPk(songId);
-    res.json({ songName: song.songName, songId: songId });
-  })
-);
 
+//Delete playlist song
 router.delete(
-  '/:id/songs/:id(\\d+)',
+  '/:id1/songs/:id2',
   asyncHandler(async (req, res) => {
-    const songId = parseInt(req.params.id);
-    const song = await Song.findByPk(songId);
-    song.destroy();
-    res.status(204).end();
+    const playlistSongsId = parseInt(req.params.id1);
+    const songId = parseInt(req.params.id2);
+    const playlistSongs = await PlaylistSong.findAll({ where: { playlistId: playlistSongsId }});
+    const song = playlistSongs.map( song => { 
+      if(song.songId === songId){
+        song.destroy();
+      }
+    })
+    res.json({message: 'song was deleted'})
   })
-);
+)
 
 
 module.exports = router;
