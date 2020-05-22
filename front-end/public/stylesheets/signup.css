@@ -102,25 +102,23 @@ svg {
   margin: auto;
 }
 
+#errors {
+  color: red;
+  font-size: 0.8rem;
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.errorText {
+  margin-bottom: 10px;
+}
+
 .main > *,
 form > * {
   margin: 10px 0;
   height: 50px;
   width: 100%;
-}
-
-#Emily-button {
-  background-color: #3b5998;
-  color: #e0e0e2;
-}
-
-#Jeff-button {
-  background-color: #000000;
-  color: #ffffff;
-}
-
-#Zach-button {
-  background-color: #fde74c;
 }
 
 .line {
@@ -194,7 +192,9 @@ input {
 #signup-button {
   background-color: #fde74c;
 }
-
+.hidden {
+  display: none !important ;
+}
 .fadein {
   animation: fadein 1s 250ms forwards;
 }

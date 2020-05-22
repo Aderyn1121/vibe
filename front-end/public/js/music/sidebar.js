@@ -15,15 +15,20 @@ sidebarLinks.addEventListener('click', async (event) => {
   if (event.target.id === 'home') {
     updateHome();
   } else if (event.target.id === 'search') {
-    updateSearch()
+    updateSearch();
   } else {
     // updateLibrary()
   }
 });
 
+// sidebarPlaylists.addEventListener('click', async (event) => {
+//   playPlaylist();
+// });
+
 sidebarPlaylists.addEventListener('click', async (event) => {
-  playPlaylist();
+
 });
+
 
 plusIcon.addEventListener('click', () => {
   const newPLform = document.createElement('form');
