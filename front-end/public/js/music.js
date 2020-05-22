@@ -371,7 +371,39 @@ const deletePlaylist = async (event) => {
 };
 
 const editPlaylist = async (event) => {
-  console.log('in production');
+  const playlistId = window.location.href.match(/\d+$/)[0];
+  const editPlaylistTitle = document.getElementById('editPlaylistTitle');
+  const editTitleForm = document.getElementById('editTitleForm');
+  const editTitleInput = document.getElementById('editTitleInput');
+  editPlaylistTitle.classList.add('hidden');
+  editTitleForm.classList.remove('hidden');
+  editTitleInput.focus();
+
+  editTitleInput.addEventListener('blur', (event2) => {
+    event2.stopPropagation();
+    editPlaylistTitle.classList.remove('hidden');
+    editTitleForm.classList.add('hidden');
+  });
+  editTitleForm.addEventListener('submit', async (event3) => {
+    event3.preventDefault();
+    const formData = new FormData(editTitleForm);
+    const playlistName = formData.get('newPlaylistTitle');
+    const body = { playlistName };
+
+    await fetch(`${backendURL}/playlists/${playlistId}/edit`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+      body: JSON.stringify(body),
+    });
+    editPlaylistTitle.innerHTML = playlistName;
+    editPlaylistTitle.classList.remove('hidden');
+    editTitleForm.classList.add('hidden');
+    sidebarPlaylists.innerHTML = '';
+    updatePlaylists();
+  });
 };
 
 const updateEditPlaylistsList = async (playlistId) => {
@@ -442,7 +474,7 @@ if (!localStorage['VIBE_TOKEN']) {
   } else if (window.location.href.includes('search')) {
     updateSearch();
   } else if (window.location.href.includes('playlist')) {
-    const windowId = window.location.href.match(/\d$/);
+    const windowId = window.location.href.match(/\d+$/);
     updateEditPlaylist(windowId[0]);
   } else {
     updateHome();

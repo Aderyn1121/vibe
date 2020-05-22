@@ -58,3 +58,15 @@
   display: flex;
   justify-content: center;
 }
+
+#editTitleInput {
+  background: none;
+  width: 350px;
+  padding: 20px;
+  font-size: 2em;
+  margin: 0.67em 0;
+  font-weight: bold;
+  font-family: 'Sintony', sans-serif;
+  color: #e0e0e0;
+  text-align: left;
+}
