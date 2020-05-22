@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 const {
   asyncHandler,
-  csrfProtection,
   handleValidationErrors,
 } = require('../utils');
 const { getUserToken } = require('../auth');
