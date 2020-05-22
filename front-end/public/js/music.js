@@ -214,11 +214,12 @@ const updateSearchSection = (results, section) => {
     const text = document.createElement('div');
 
     div.classList.add('square');
+    div.setAttribute(`${section}Id`, result.id);
     img.src = `/public/images/playlists/${Math.floor(
       Math.random() * (15 - 1) + 1
     )}.jpg`;
-    // img.setAttribute(`${section}id`);
-    text.innerHTML = result;
+    img.setAttribute(`${section}Id`, result.id);
+    text.innerHTML = result.name;
     div.appendChild(img);
     div.appendChild(text);
 
