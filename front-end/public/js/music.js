@@ -1,20 +1,32 @@
-// inital load
-
-//Authorization
-
+//DEFINITIONS
 const track = {
   art: document.getElementById('trackArt'),
   title: document.getElementById('trackTitle'),
   artist: document.getElementById('trackArtist'),
   audio: document.getElementById('trackAudio'),
 };
+
 let interval;
 let songQueue = [];
 let currentTrack = 0;
 let repeat = 'none';
+
 const volumeLevel = document.getElementById('volumeLevel');
 const volume = document.getElementById('volume');
+const playButton = document.getElementById('playButton');
+const nextButton = document.getElementById('nextButton');
+const prevButton = document.getElementById('prevButton');
+const repeatButton = document.getElementById('repeatButton');
+const startTime = document.getElementById('startTime');
+const endTime = document.getElementById('endTime');
+const progressBar = document.getElementById('progress-bar');
+const searchBar = document.getElementsByName('search');
+const mainContent = document.getElementById('mainContent');
+const sidebarLinks = document.getElementById('sidebarLinks');
+const sidebarPlaylists = document.getElementById('sidebarPlaylists');
+const plusIcon = document.getElementById('plusIcon');
 
+//PLAYER FUNCTIONS
 const playMusic = async () => {
   document.body.style.cursor = 'progress';
   await track.audio.play();
@@ -78,8 +90,43 @@ function prevTrack() {
     startMusic(songQueue[currentTrack]);
   }
 }
+function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
+  const duration = Math.floor(track.audio.duration) - currentTime;
+  const percent = currentTime / track.audio.duration;
 
-// Music funtions
+  const hours =
+    Math.floor(currentTime / 3600) < 10
+      ? `0${Math.floor(currentTime / 3600)}`
+      : Math.floor(currentTime / 3600);
+  const mins =
+    Math.floor(currentTime / 60) < 10
+      ? `0${Math.floor(currentTime / 60)}`
+      : Math.floor(currentTime / 60);
+  const seconds =
+    currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
+
+  startTime.innerHTML = `${hours}:${mins}:${seconds}`;
+
+  if (duration) {
+    const durationHours =
+      Math.floor(duration / 3600) < 10
+        ? `0${Math.floor(duration / 3600)}`
+        : Math.floor(duration / 3600);
+    const durationMins =
+      Math.floor(duration / 60) < 10
+        ? `0${Math.floor(duration / 60)}`
+        : Math.floor(duration / 60);
+    const durationSeconds =
+      duration % 60 < 10 ? `0${duration % 60}` : duration % 60;
+
+    endTime.innerHTML = `${durationHours}:${durationMins}:${durationSeconds}`;
+  } else {
+    endTime.innerHTML = '00:00:00';
+  }
+  progressBar.value = Math.floor(percent * 100);
+}
+
+// NAV FUNCTIONS
 const updateUser = async () => {
   const user = await getUser();
   const welcome = document.getElementById('welcome');
@@ -89,6 +136,8 @@ const updateUser = async () => {
   const logoutButton = document.getElementById('logoutButton');
   logoutButton.addEventListener('mouseup', logoutUser);
 };
+
+// SIDEBAR FUNCTIONS
 
 const updatePlaylists = async () => {
   const user = await getUser();
@@ -111,28 +160,7 @@ const updatePlaylists = async () => {
   });
 };
 
-const playPlaylist = async () => {
-  if (!event.target.getAttribute('playlistid')) return;
-  const playlistId = event.target.getAttribute('playlistid');
-  const playlistJSON = await fetch(
-    `${backendURL}/playlists/${playlistId}/songs`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
-      },
-    }
-  );
-
-  const { songsList: playlist } = await playlistJSON.json();
-
-  if (playlist.length > 0) {
-    songQueue = playlist;
-    currentTrack = 0;
-    startMusic(songQueue[currentTrack]);
-  }
-};
-
+//HOME FUNCTIONS
 const updateHome = async () => {
   const userId = localStorage.getItem('VIBE_USER_ID');
   const playlistsJSON = await fetch(`${backendURL}/users/${userId}/playlists`, {
@@ -166,6 +194,96 @@ const updateHome = async () => {
   });
 };
 
+//SEArCH FUNCTIONS
+
+const updateSearchSection = (results, section) => {
+  const resultSection = document.getElementById(`result${section}`);
+  if (results.length === 0) {
+    resultSection.innerHTML = `No ${section} found`;
+    return;
+  }
+
+  resultSection.innerHTML = '';
+
+  results.forEach((result) => {
+    const div = document.createElement('div');
+    const img = document.createElement('img');
+    const text = document.createElement('div');
+
+    div.classList.add('square');
+    img.src = `/public/images/playlists/${Math.floor(
+      Math.random() * (15 - 1) + 1
+    )}.jpg`;
+    // img.setAttribute(`${section}id`);
+    text.innerHTML = result;
+    div.appendChild(img);
+    div.appendChild(text);
+
+    resultSection.prepend(div);
+  });
+};
+
+const updateSearch = async () => {
+  if (!searchBar[0].value) return;
+  const searchInput = encodeURIComponent(searchBar[0].value);
+  const userId = encodeURIComponent(localStorage.getItem('VIBE_USER_ID'));
+  const token = encodeURIComponent(localStorage.getItem('VIBE_TOKEN'));
+
+  const resultsJSON = await fetch(
+    `${backendURL}/search/?searchInput=${searchInput}&userId=${userId}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+    }
+  );
+
+  const { searchResults } = await resultsJSON.json();
+
+  // updateSearchSection(searchResults.matchedPlaylists, 'Playlists');
+
+  updateSearchSection(searchResults.matchedArtist, 'Artists');
+
+  updateSearchSection(searchResults.matchedSongs, 'Songs');
+
+  updateSearchSection(searchResults.matchedAlbums, 'Albums');
+
+  // updateSearchSection(searchResults.matchedFriends, 'Friends');
+
+  // updateSearchSection(searchResults.matchedUsers, 'Users');
+};
+
+//PLAYLIST FUNCTIONS
+
+const updateEditPlaylist = async (playlistId) => {
+  const title = document.getElementById('editPlaylistTitle');
+};
+
+const playPlaylist = async () => {
+  if (!event.target.getAttribute('playlistid')) return;
+  const playlistId = event.target.getAttribute('playlistid');
+  const playlistJSON = await fetch(
+    `${backendURL}/playlists/${playlistId}/songs`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+    }
+  );
+
+  const { songsList: playlist } = await playlistJSON.json();
+
+  if (playlist.length > 0) {
+    songQueue = playlist;
+    currentTrack = 0;
+    startMusic(songQueue[currentTrack]);
+  }
+};
+
+//INITAL LOAD
+
 if (!localStorage['VIBE_TOKEN']) {
   window.location.replace('/login');
 } else {
@@ -173,16 +291,148 @@ if (!localStorage['VIBE_TOKEN']) {
   updateUser();
   updatePlaylists();
   changelogo(0, '#000000');
-  console.log(window.location);
   if (window.location.href.includes('library')) {
     // updateLibrary()
   } else if (window.location.href.includes('search')) {
-    // updateSearch()
+    updateSearch();
+  } else if (window.location.href.includes('playlist')) {
+    const windowId = window.location.href.match(/\d$/);
+    updateEditPlaylist(windowId[0]);
   } else {
     updateHome();
   }
 }
 
+//EVENT LISTENERS
+
 track.audio.addEventListener('ended', () => {
   nextTrack();
+});
+
+playButton.addEventListener('click', (e) => {
+  if (track.audio.classList.contains('playing')) {
+    pauseMusic();
+  } else {
+    playMusic();
+  }
+});
+
+nextButton.addEventListener('click', (e) => {
+  nextTrack();
+});
+
+prevButton.addEventListener('click', (e) => {
+  prevTrack();
+});
+
+repeatButton.addEventListener('click', (e) => {
+  if (repeat === 'none') {
+    repeat = 'all';
+    repeatButton.classList.add('glow');
+  } else if (repeat === 'all') {
+    repeat = 'one';
+    repeatButton.innerHTML = 1;
+  } else {
+    repeat = 'none';
+    repeatButton.innerHTML = '<i class="fas fa-redo-alt"/>';
+    repeatButton.classList.remove('glow');
+  }
+});
+
+volume.oninput = () => {
+  volumeLevel.innerHTML = volume.value;
+  track.audio.volume = volume.value / 100;
+};
+
+progressBar.oninput = function (event) {
+  if (!track.audio.src) return;
+  clearInterval(interval);
+  const percent = progressBar.value / 100;
+  updateTime(Math.floor(track.audio.duration * percent));
+  const changeTrackTime = () => {
+    track.audio.currentTime = Math.floor(track.audio.duration * percent);
+    playMusic();
+    document.body.removeEventListener('mouseup', changeTrackTime);
+  };
+  document.body.addEventListener('mouseup', changeTrackTime);
+};
+
+searchBar[0].addEventListener('focus', async (event) => {
+  const res = await fetch(`/music/search/ajax`);
+  const data = await res.json();
+  history.pushState({ mainContent: 'search' }, 'search', '/music/search');
+  mainContent.innerHTML = data;
+  updateSearch();
+});
+
+searchBar[0].addEventListener('keyup', async () => {
+  updateSearch();
+});
+
+sidebarLinks.addEventListener('click', async (event) => {
+  console.log('working');
+  if (!['home', 'search', 'library'].includes(event.target.id)) return;
+  const res = await fetch(`/music/${event.target.id}/ajax`);
+  const data = await res.json();
+  mainContent.innerHTML = data;
+  
+  history.pushState(
+    { mainContent: event.target.id },
+    event.target.id,
+    `/music/${event.target.id}`
+  );
+
+  if (event.target.id === 'home') {
+    updateHome();
+  } else if (event.target.id === 'search') {
+    updateSearch();
+  } else {
+    // updateLibrary()
+  }
+});
+
+// sidebarPlaylists.addEventListener('click', async (event) => {
+//   playPlaylist();
+// });
+
+sidebarPlaylists.addEventListener('click', async (event) => {
+  if (!event.target.getAttribute('playlistid')) return;
+  const playlistId = event.target.getAttribute('playlistid');
+
+  const res = await fetch(`/music/playlist/${playlistId}/ajax`);
+  const data = await res.json();
+  history.pushState(
+    { playlist: playlistId },
+    playlistId,
+    `/music/playlist/${playlistId}`
+  );
+  mainContent.innerHTML = data;
+  updateEditPlaylist();
+});
+
+plusIcon.addEventListener('click', () => {
+  const newPLform = document.createElement('form');
+  newPLform.innerHTML =
+    '<input id = newPlaylist class= "newPlaylist", name= "newPlaylist", type="text">';
+  sidebarPlaylists.prepend(newPLform);
+  const playlistInput = document.getElementById('newPlaylist');
+  playlistInput.focus();
+  newPLform.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(newPLform);
+    const playlistName = formData.get('newPlaylist');
+    const body = { playlistName };
+    const user = await getUser();
+
+    await fetch(`${backendURL}/users/${user.userId}/playlists`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+      },
+      body: JSON.stringify(body),
+    });
+    sidebarPlaylists.innerHTML = '';
+    updatePlaylists();
+  });
 });

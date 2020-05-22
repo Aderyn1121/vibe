@@ -2,16 +2,12 @@ const express = require('express');
 
 router = express.Router();
 
-const scripts = ['music/play-buttons', 'music/sidebar', 'music/progress-bar', 'music/search'];
-
 router.get('/', async (req, res) => {
   res.render('music', {
     fileName: 'music',
     title: 'Music',
     mainContent: 'home',
     script: 'music',
-    scripts,
-    blockScript: 'home',
   });
 });
 
@@ -27,8 +23,6 @@ router.get('/home', (req, res) => {
     title: 'Music',
     mainContent: 'home',
     script: 'music',
-    scripts,
-    blockScript: 'home',
   });
 });
 
@@ -44,8 +38,6 @@ router.get('/search', (req, res) => {
     title: 'Music',
     mainContent: 'search',
     script: 'music',
-    scripts,
-    blockScript: 'search',
   });
 });
 
@@ -61,8 +53,21 @@ router.get('/library', (req, res) => {
     title: 'Music',
     mainContent: 'library',
     script: 'music',
-    scripts,
-    blockScript: 'library',
+  });
+});
+
+router.get('/playlist/:id', (req, res) => {
+  res.render('music', {
+    fileName: 'music',
+    title: 'Music',
+    mainContent: 'playlist',
+    script: 'music',
+  });
+});
+
+router.get('/playlist/:id/ajax', (req, res) => {
+  res.render('components/music/main-content/playlist', (err, html) => {
+    res.send(JSON.stringify(html));
   });
 });
 
