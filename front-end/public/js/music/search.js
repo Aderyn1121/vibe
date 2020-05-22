@@ -29,10 +29,13 @@ const updateSearchSection = (results, section) => {
 };
 
 const updateSearch = async () => {
+  if (!searchBar[0].value) return;
   const searchInput = encodeURIComponent(searchBar[0].value);
+  const userId = encodeURIComponent(localStorage.getItem('VIBE_USER_ID'));
+  const token = encodeURIComponent(localStorage.getItem('VIBE_TOKEN'));
 
   const resultsJSON = await fetch(
-    `${backendURL}/search/?searchInput=${searchInput}`,
+    `${backendURL}/search/?searchInput=${searchInput}&userId=${userId}`,
     {
       method: 'GET',
       headers: {
@@ -51,9 +54,9 @@ const updateSearch = async () => {
 
   updateSearchSection(searchResults.matchedAlbums, 'Albums');
 
-  updateSearchSection(searchResults.matchedFriends, 'Friends');
+  // updateSearchSection(searchResults.matchedFriends, 'Friends');
 
-  updateSearchSection(searchResults.matchedUsers, 'Users');
+  // updateSearchSection(searchResults.matchedUsers, 'Users');
 };
 
 searchBar[0].addEventListener('focus', async (event) => {
@@ -61,6 +64,7 @@ searchBar[0].addEventListener('focus', async (event) => {
   const data = await res.json();
   history.pushState({ mainContent: 'search' }, 'search', '/music/search');
   mainContent.innerHTML = data;
+  updateSearch();
 });
 
 searchBar[0].addEventListener('keyup', async () => {

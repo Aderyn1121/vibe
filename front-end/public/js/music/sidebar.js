@@ -15,7 +15,7 @@ sidebarLinks.addEventListener('click', async (event) => {
   if (event.target.id === 'home') {
     updateHome();
   } else if (event.target.id === 'search') {
-    // updateSearch()
+    updateSearch()
   } else {
     // updateLibrary()
   }
