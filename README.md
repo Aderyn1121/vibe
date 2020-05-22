@@ -16,6 +16,8 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 
 ---
 ![](https://i.gyazo.com/66db483da45cd066b308acd25faac651.jpg)
+![](https://i.imgur.com/OmQhJCZ.mp4)
+![](https://i.imgur.com/rgU8pp1.mp4)
 
 
 
