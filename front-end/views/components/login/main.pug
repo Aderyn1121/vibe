@@ -1,6 +1,5 @@
 .main
-    .text
-      p Meet out team:
+    .text Meet out team:
     a(href='https://github.com/Aderyn1121')#Emily-button TEAM LEAD
     a(href='https://github.com/gootieno')#Jeff-button MODEL LEAD
     a(href='https://github.com/zachary-henderson')#Zach-button UX/UI DESIGN
@@ -8,6 +7,7 @@
       .line__one
       .line__two
       #continue To continue, log in to Vibe
+    #errors.hidden
     form(method="POST" action='/login')#auth-form
       +input('_csrf', 'hidden')
       +input('email', 'email', 'Email')

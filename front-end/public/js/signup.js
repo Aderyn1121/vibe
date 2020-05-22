@@ -1,4 +1,5 @@
 const signupForm = document.getElementById('auth-form');
+const errorsDiv = document.getElementById('errors');
 
 signupForm.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -11,7 +12,15 @@ signupForm.addEventListener('submit', async (e) => {
   const birthday = formData.get('birthday');
   const gender = formData.get('gender');
 
-  const body = { email, password, confirmEmail, confirmPassword, userName, birthday, gender };
+  const body = {
+    email,
+    password,
+    confirmEmail,
+    confirmPassword,
+    userName,
+    birthday,
+    gender,
+  };
   const res = await fetch(`${backendURL}/sign-up`, {
     method: 'POST',
     body: JSON.stringify(body),
@@ -21,15 +30,15 @@ signupForm.addEventListener('submit', async (e) => {
   });
 
   if (!res.ok) {
+    errorsDiv.innerHTML = '';
     const { errors } = await res.json();
     errors.forEach((error) => {
-      const errorP = document.createElement('p');
       if (error !== 'Invalid value') {
-        errorP.innerHTML = error;
-        errorP.classList.add('error');
-        errorP.style.color = 'red';
-        errorP.style['font-size'] = '.8rem';
-        signupForm.prepend(errorP);
+        errorsDiv.classList.remove('hidden');
+        const errorText = document.createElement('div');
+        errorText.innerHTML += `${error}`;
+        errorText.classList.add('errorText');
+        errorsDiv.appendChild(errorText);
       }
     });
   }

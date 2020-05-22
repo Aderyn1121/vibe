@@ -1,6 +1,5 @@
-
-
 const logInForm = document.getElementById('auth-form');
+const errorsDiv = document.getElementById('errors');
 
 logInForm.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -18,15 +17,15 @@ logInForm.addEventListener('submit', async (e) => {
   });
 
   if (!res.ok) {
+    errorsDiv.innerHTML = '';
     const { errors } = await res.json();
     errors.forEach((error) => {
-      const errorP = document.createElement('p');
       if (error !== 'Invalid value') {
-        errorP.innerHTML = error;
-        errorP.classList.add('error');
-        errorP.style.color = 'red';
-        errorP.style['font-size'] = '.8rem';
-        logInForm.prepend(errorP);
+        errorsDiv.classList.remove('hidden');
+        const errorText = document.createElement('div');
+        errorText.innerHTML += `${error}`;
+        errorText.classList.add('errorText');
+        errorsDiv.appendChild(errorText);
       }
     });
   }

@@ -1,6 +1,6 @@
 .main
-    .text
-      p Sign up with your email address
+    .text Sign up with your email address
+    #errors.hidden
     form(method="POST" action='/signup')#auth-form
       +input('_csrf', 'hidden')
       +input('email', 'text', 'Email', true)

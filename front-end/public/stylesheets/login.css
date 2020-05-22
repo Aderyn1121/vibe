@@ -143,6 +143,22 @@ form > * {
   left: calc(50% - 130px);
 }
 
+#errors {
+  color: red;
+  font-size: 0.8rem;
+  height: 50px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.errorText {
+  margin-bottom: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
 #auth-form {
   display: flex;
   flex-flow: column;
