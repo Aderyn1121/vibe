@@ -260,11 +260,18 @@ const updateSearchSection = (results, section) => {
         contextMenu.classList.add('hidden');
       });
 
-      contextPlaylists.addEventListener('click', (event3) => {
-        const playlistid = event3.target.getAttribute('playlistid');
-        const songid = event1.target.getAttribute('songsid');
-        //TODO ADD SONG TO PLAYLIST
-        console.log(playlistid, songid);
+      contextPlaylists.addEventListener('click', async (event3) => {
+        const playlistId = event3.target.getAttribute('playlistid');
+        const songId = event1.target.getAttribute('songsid');
+        const body = { songId: songId };
+        await fetch(`${backendURL}/playlists/${playlistId}/songs`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+          },
+          body: JSON.stringify(body),
+        });
         contextMenu.classList.add('hidden');
       });
       return false;
@@ -406,10 +413,26 @@ const editPlaylist = async (event) => {
   });
 };
 
+const deleteSongFromPlaylist = async (event) => {
+  console.log(event.target);
+  const songId = event.target.getAttribute('songid');
+  const playlistId = window.location.href.match(/\d+$/);
+  await fetch(`${backendURL}/playlists/${playlistId}/songs/${songId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+  });
+  updateEditPlaylistsList(playlistId);
+};
+
 const updateEditPlaylistsList = async (playlistId) => {
   const songs = await getPlaylistSongs(playlistId);
-  if (songs.length === 0) return;
   const tableBody = document.getElementById('tableBody');
+  if (songs.length === 0) {
+    tableBody.innerHTML = '<div.addSongs>No songs found</div>';
+    return;
+  }
 
   tableBody.innerHTML = '';
   songs.forEach((song) => {
@@ -428,11 +451,14 @@ const updateEditPlaylistsList = async (playlistId) => {
     trackDiv.setAttribute('songId', song.songId);
     artistDiv.setAttribute('songId', song.artistId);
     albumDiv.setAttribute('songId', song.albumId);
+    deleteDiv.setAttribute('songId', song.songId);
 
     trackDiv.innerHTML = song.playlistSong;
     artistDiv.innerHTML = song.artistName;
     albumDiv.innerHTML = song.albumName;
-    deleteDiv.innerHTML = '<i class="fas fa-trash"></i>';
+    deleteDiv.innerHTML = `<i songId=${song.songId} class="fas fa-trash"></i>`;
+
+    deleteDiv.addEventListener('click', deleteSongFromPlaylist);
 
     songDiv.appendChild(trackDiv);
     songDiv.appendChild(artistDiv);
@@ -567,10 +593,6 @@ sidebarLinks.addEventListener('click', async (event) => {
     // updateLibrary()
   }
 });
-
-// sidebarPlaylists.addEventListener('click', async (event) => {
-//   playPlaylist();
-// });
 
 sidebarPlaylists.addEventListener('click', async (event) => {
   if (!event.target.getAttribute('playlistid')) return;
