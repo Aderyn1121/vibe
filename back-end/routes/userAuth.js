@@ -43,7 +43,6 @@ const validateUser = [
   check('birthday')
     .exists({ checkFalsy: true })
     .withMessage('Please provide an entry for field birthday')
-    .matches(/([0-9][0-9])\/([0-9][0-9])\/([0-9][0-9][0-9][0-9])/)
     .isISO8601()
     .withMessage('Please provide a valid date for birthday'),
   check('password')
