@@ -367,7 +367,7 @@ const playPlaylist = async () => {
   const playlistId = event.target.getAttribute('playlistid');
   const songs = await getPlaylistSongs(playlistId);
 
-  console.log(songs)
+  console.log(songs);
 
   if (songs.length > 0) {
     songQueue = songs;
@@ -473,9 +473,9 @@ const updateEditPlaylistsList = async (playlistId) => {
     albumDiv.classList.add('listsong');
     deleteDiv.classList.add('delete');
 
-    trackDiv.setAttribute('songId', song.songId);
-    artistDiv.setAttribute('songId', song.artistId);
-    albumDiv.setAttribute('songId', song.albumId);
+    trackDiv.setAttribute('songsid', song.songId);
+    artistDiv.setAttribute('artistId', song.artistId);
+    albumDiv.setAttribute('albumId', song.albumId);
     deleteDiv.setAttribute('songId', song.songId);
 
     trackDiv.innerHTML = song.songName;
