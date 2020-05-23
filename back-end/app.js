@@ -6,6 +6,7 @@ const userRouter = require('./routes/user');
 const playlistRouter = require('./routes/playlist');
 const userAuthRouter = require('./routes/userAuth');
 const searchRouter = require('./routes/search');
+const songRouter = require('./routes/songs');
 const { environment } = require('./config');
 
 const app = express();
@@ -18,6 +19,7 @@ app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/playlists', playlistRouter);
 app.use('/search', searchRouter);
+app.use('/songs', songRouter);
 app.use('/', userAuthRouter);
 
 // Catch unhandled requests and forward to error handler.
