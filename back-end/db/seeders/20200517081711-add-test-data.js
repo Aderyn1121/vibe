@@ -112,6 +112,41 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          artistName: 'Adele',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          artistName: 'The Rolling Stones',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, /*6*/
+        {
+          artistName: 'Natasha Tyrimos',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, /*7*/
+        {
+          artistName: 'Pentatonix',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          artistName: 'Darude',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          artistName: 'Vertical Voices',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          artistName: 'Zedd, Elley Duhé & Arkadi',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       { returning: true }
     );
@@ -151,6 +186,55 @@ module.exports = {
           albumName: 'Unnecessary Dissonance',
           releaseDate: new Date('12-1-2014'),
           artistId: artists[4].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          albumName: '25',
+          releaseDate: new Date('12-1-2014'),
+          artistId: artists[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          albumName: 'Hot Rocks 1964-1971',
+          releaseDate: new Date('12-20-1971'),
+          artistId: artists[6].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, /*6*/
+        {
+          albumName: 'Singer Songwriter Sensual',
+          releaseDate: new Date('09-14-2017'),
+          artistId: artists[7].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }, /*7*/
+        {
+          albumName: 'The Sing Off: Season 3, Episode 9 - R&B',
+          releaseDate: new Date('11-14-2011'),
+          artistId: artists[8].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          albumName: 'Before The Storm',
+          releaseDate: new Date('09-18-2000'),
+          artistId: artists[9].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          albumName: 'Fourward',
+          releaseDate: new Date('01-02-2014'),
+          artistId: artists[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          albumName: 'Happy Now (Acoustic) - Single',
+          releaseDate: new Date('07-18-2018'),
+          artistId: artists[11].id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -196,6 +280,210 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          songName: 'Hello',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*6*/
+        },
+        {
+          songName: 'Send My Love (To Your New Lover)',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*7*/
+        },
+        {
+          songName: 'I Miss You',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*8*/
+        },
+        {
+          songName: 'When We Were Young',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*9*/
+        },
+        {
+          songName: 'Remedy',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*10*/
+        },
+        {
+          songName: 'Water Under The Bridge',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*11*/
+        },
+        {
+          songName: 'River Lea',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*12*/
+        },
+        {
+          songName: 'Love in the Dark',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*13*/
+        },
+        {
+          songName: 'Million Years Ago',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*14*/
+        },
+        {
+          songName: 'All I Ask',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*15*/
+        },
+        {
+          songName: 'Sweetest Devotion',
+          releaseDate: albums[5].releaseDate,
+          albumId: albums[5].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*16*/
+        },
+        {
+          songName: '(I Can\'t Get No) Satisfaction',
+          releaseDate: albums[6].releaseDate,
+          albumId: albums[6].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*17*/
+        },
+        {
+          songName: 'Happy',
+          releaseDate: albums[7].releaseDate,
+          albumId: albums[7].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*18*/
+        },
+        {
+          songName: "Let's Get it On",
+          releaseDate: albums[8].releaseDate,
+          albumId: albums[8].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*19*/
+        },
+        {
+          songName: "Sandstorm",
+          releaseDate: albums[9].releaseDate,
+          albumId: albums[9].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*20*/
+        },
+        {
+          songName: "My Favorite Things",
+          releaseDate: albums[4].releaseDate,
+          albumId: albums[4].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*21*/
+        },
+        {
+          songName: "Strangers Of The Heart",
+          releaseDate: albums[4].releaseDate,
+          albumId: albums[4].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*22*/
+        },
+        {
+          songName: "Harold's House of Jazz",
+          releaseDate: albums[4].releaseDate,
+          albumId: albums[4].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*23*/
+        },
+        {
+          songName: "Drive",
+          releaseDate: albums[4].releaseDate,
+          albumId: albums[4].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*24*/
+        },
+        {
+          songName: "Timeline",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*25*/
+        },
+        {
+          songName: "First Train Home",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*26*/
+        },
+        {
+          songName: "The Cry and the Smile",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*27*/
+        },
+        {
+          songName: "Emily",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*28*/
+        },
+        {
+          songName: "New Day",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*29*/
+        },
+        {
+          songName: "Hand in Hand",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*30*/
+        },
+        {
+          songName: "Dandaya",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*31*/
+        },
+        {
+          songName: "Travel On By",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*32*/
+        },
+        {
+          songName: "Lee's Summit",
+          releaseDate: albums[10].releaseDate,
+          albumId: albums[10].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*33*/
+        },
+        {
+          songName: "Happy Now (Acoustic)",
+          releaseDate: albums[11].releaseDate,
+          albumId: albums[11].id,
+          createdAt: new Date(),
+          updatedAt: new Date(), /*34*/
+        },
+
       ],
       { returning: true }
     );
