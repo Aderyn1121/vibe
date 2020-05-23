@@ -6,12 +6,15 @@ const { Song } = require('../db/models');
 const { Artist } = require('../db/models');
 const { Album } = require('../db/models');
 const { requireAuth } = require('../auth');
-const {  asyncHandler, handleValidationErrors, regExMaker } = require('../utils');
+const {
+  asyncHandler,
+  handleValidationErrors,
+  regExMaker,
+} = require('../utils');
 
 const router = express.Router();
 // this route will only work with a loggen in user once line 13 is enabled
 router.use(requireAuth);
-
 
 const playlistValidators = check('playlistName')
   .exists({ checkFalsy: true })
@@ -19,25 +22,30 @@ const playlistValidators = check('playlistName')
   .isLength({ max: 20 })
   .withMessage('Playlist name cannot be more than 20 characters long.');
 
-
-
 //Delete playlists
-router.delete('/:id/delete', asyncHandler(async(req, res) => {
-  const playlistId = parseInt(req.params.id);
-  const playlist = await Playlist.findByPk(playlistId);
-  playlist.destroy();
-  res.status(204).end();
-}))
+router.delete(
+  '/:id/delete',
+  asyncHandler(async (req, res) => {
+    const playlistId = parseInt(req.params.id);
+    const playlist = await Playlist.findByPk(playlistId);
+    playlist.destroy();
+    res.status(204).end();
+  })
+);
 
 //edit playlists
-router.put('/:id/edit', playlistValidators, handleValidationErrors, asyncHandler( async(req, res) => {
-  const playlistId = parseInt(req.params.id);
-  const playlist = await Playlist.findByPk(playlistId);
-  const { playlistName } = req.body;
-  await playlist.update({playlistName});
-  res.json({message: 'The playlist name was updated'});
-}))
-
+router.put(
+  '/:id/edit',
+  playlistValidators,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const playlistId = parseInt(req.params.id);
+    const playlist = await Playlist.findByPk(playlistId);
+    const { playlistName } = req.body;
+    await playlist.update({ playlistName });
+    res.json({ message: 'The playlist name was updated' });
+  })
+);
 
 //Get route for playlists--------------------------------------
 router.get(
@@ -83,33 +91,31 @@ router.get(
             {
               model: Album,
               include: [
-                  {
-                    model: Artist 
-                  }
-              ]
-            }
-          ]
-      },
-    
-    ]
+                {
+                  model: Artist,
+                },
+              ],
+            },
+          ],
+        },
+      ],
     });
 
-    const songsList = playlistSongs.map(playlistSong => {
-      return { 
-        playlistId: playlistSong.playlistId, 
-        playlistSong: playlistSong.song, 
-        songId: playlistSong.songId, 
-        albumName: playlistSong.Song.Album.albumName, 
+    const songsList = playlistSongs.map((playlistSong) => {
+      return {
+        playlistId: playlistSong.playlistId,
+        songName: playlistSong.song,
+        songId: playlistSong.songId,
+        albumName: playlistSong.Song.Album.albumName,
         albumId: playlistSong.Song.Album.id,
         artistName: playlistSong.Song.Album.Artist.artistName,
-        artistId: playlistSong.Song.Album.Artist.id
-      }
-    })
+        artistId: playlistSong.Song.Album.Artist.id,
+      };
+    });
 
     res.json({ songsList });
   })
 );
-
 
 //Get song by id
 router.get(
@@ -117,34 +123,37 @@ router.get(
   asyncHandler(async (req, res) => {
     const playlistSongsId = parseInt(req.params.id1);
     const songId = parseInt(req.params.id2);
-    const playlistSongs = await PlaylistSong.findAll({ 
+    const playlistSongs = await PlaylistSong.findAll({
       where: { playlistId: playlistSongsId },
       include: [
-        { 
+        {
           model: Song,
-          where: { id: songId} 
-        }],
+          where: { id: songId },
+        },
+      ],
     });
-    const songs = playlistSongs.map( song => { 
+    const songs = playlistSongs.map((song) => {
       return {
         songName: song.song,
-        songId: song.songId
-      }
-    })
-    res.json({songs})
+        songId: song.songId,
+      };
+    });
+    res.json({ songs });
   })
-)
+);
 
 //Add songs
-router.post('/:id1/songs', asyncHandler( async(req, res) => {
-  const playlistId = parseInt(req.params.id1, 10);
-  const { songId } = req.body;
-  const id = Number(songId)
-  const song = await Song.findByPk(id)
-  PlaylistSong.create({song: song.songName, songId: song.id, playlistId});
-  res.json({message: 'song was added to playlist songs'})
-}))
-
+router.post(
+  '/:id1/songs',
+  asyncHandler(async (req, res) => {
+    const playlistId = parseInt(req.params.id1, 10);
+    const { songId } = req.body;
+    const id = Number(songId);
+    const song = await Song.findByPk(id);
+    PlaylistSong.create({ song: song.songName, songId: song.id, playlistId });
+    res.json({ message: 'song was added to playlist songs' });
+  })
+);
 
 //Delete playlist song
 router.delete(
@@ -152,15 +161,16 @@ router.delete(
   asyncHandler(async (req, res) => {
     const playlistSongsId = parseInt(req.params.id1, 10);
     const songId = parseInt(req.params.id2, 10);
-    const playlistSongs = await PlaylistSong.findAll({ where: { playlistId: playlistSongsId }});
-    playlistSongs.map( song => { 
-      if(song.songId === songId){
+    const playlistSongs = await PlaylistSong.findAll({
+      where: { playlistId: playlistSongsId },
+    });
+    playlistSongs.map((song) => {
+      if (song.songId === songId) {
         song.destroy();
       }
-    })
-    res.json({message: 'song was deleted'})
+    });
+    res.json({ message: 'song was deleted' });
   })
-)
-
+);
 
 module.exports = router;

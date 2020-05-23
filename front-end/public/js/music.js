@@ -47,10 +47,24 @@ const playMusic = async () => {
   interval = setInterval(updateTime, 1000);
 };
 
+const playClickedSong = async (event) => {
+  const songId = event.target.getAttribute('songsid');
+  const songJSON = await fetch(`${backendURL}/songs/${songId}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+  });
+  const { songsList } = await songJSON.json();
+  console.log(songsList);
+
+  songQueue = songsList;
+  startMusic(songQueue[0]);
+};
+
 function startMusic(songInQueue) {
   track.audio.src = `../../public/test_music/${songInQueue.songId}.m4a`;
-  track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.songId}.jpg' >`;
-  track.title.innerHTML = songInQueue.playlistSong;
+  track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.albumId}.jpg' >`;
+  track.title.innerHTML = songInQueue.songName;
   track.artist.innerHTML = songInQueue.artistName;
   playMusic();
 }
@@ -250,19 +264,7 @@ const updateSearchSection = (results, section) => {
     text.innerHTML = result.name;
     div.appendChild(img);
     div.appendChild(text);
-    div.addEventListener('click', async (event) => {
-      const songId = event.target.getAttribute('songsid');
-      const songJSON = await fetch(`${backendURL}/songs/${songId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
-        },
-      });
-      const song = await songJSON.json();
-      console.log(song);
-
-      songQueue = [song];
-      startMusic(songQueue[0]);
-    });
+    div.addEventListener('click', playClickedSong);
     div.oncontextmenu = (event1) => {
       contextMenu.classList.remove('hidden');
       contextMenu.style.top = `${event1.pageY - 10}px`;
@@ -465,10 +467,12 @@ const updateEditPlaylistsList = async (playlistId) => {
     albumDiv.setAttribute('songId', song.albumId);
     deleteDiv.setAttribute('songId', song.songId);
 
-    trackDiv.innerHTML = song.playlistSong;
+    trackDiv.innerHTML = song.songName;
     artistDiv.innerHTML = song.artistName;
     albumDiv.innerHTML = song.albumName;
     deleteDiv.innerHTML = `<i songId=${song.songId} class="fas fa-trash"></i>`;
+
+    trackDiv.addEventListener('click', playClickedSong);
 
     deleteDiv.addEventListener('click', deleteSongFromPlaylist);
 
@@ -506,7 +510,7 @@ if (!localStorage['VIBE_TOKEN']) {
   const username = document.getElementById('username');
   updateUser();
   updatePlaylists();
-  changelogo(0, '#000000');
+  changelogo('#000000');
   if (window.location.href.includes('library')) {
     // updateLibrary()
   } else if (window.location.href.includes('search')) {

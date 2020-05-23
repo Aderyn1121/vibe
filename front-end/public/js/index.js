@@ -1,6 +1,8 @@
 const navButtons = document.getElementById('navButtons');
 const demoButton = document.getElementById('demoButton');
 
+changelogo('#0203008');
+
 const updateUser = async () => {
   if (localStorage['VIBE_TOKEN']) {
     const user = await getUser();

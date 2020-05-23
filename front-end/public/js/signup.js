@@ -1,6 +1,8 @@
 const signupForm = document.getElementById('auth-form');
 const errorsDiv = document.getElementById('errors');
 
+changelogo('#e0e0e0');
+
 signupForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(signupForm);

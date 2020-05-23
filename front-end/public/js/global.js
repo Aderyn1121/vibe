@@ -19,7 +19,7 @@ const logoutUser = () => {
   window.location.replace('/');
 };
 
-const changelogo = (number, pathColor, fillColor = '#fde74c') => {
+const changelogo = (pathColor, number = 0, fillColor = '#fde74c') => {
   logoStyle[number].innerHTML = `.cls-1,
   .cls-4 {
     fill: none;
@@ -34,6 +34,6 @@ const changelogo = (number, pathColor, fillColor = '#fde74c') => {
     stroke: ${pathColor};
     stroke-miterlimit: 10;
     stroke-width: 30px;
-    
+
   }`;
 };
