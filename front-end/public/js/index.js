@@ -1,3 +1,4 @@
+import { backendURL, getUser, logoutUser, changelogo } from './global.js';
 const navButtons = document.getElementById('navButtons');
 const demoButton = document.getElementById('demoButton');
 const video = document.getElementsByTagName('video');
