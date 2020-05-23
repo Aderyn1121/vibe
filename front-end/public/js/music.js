@@ -255,25 +255,24 @@ const updateSearchSection = (results, section) => {
       contextMenu.style.top = `${event1.pageY - 10}px`;
       contextMenu.style.left = `${event1.pageX - 10}px`;
 
-      contextMenu.addEventListener('mouseleave', (event2) => {
-        event2.stopPropagation;
-        contextMenu.classList.add('hidden');
-      });
-
-      contextPlaylists.addEventListener('click', async (event3) => {
-        const playlistId = event3.target.getAttribute('playlistid');
-        const songId = event1.target.getAttribute('songsid');
-        const body = { songId: songId };
-        await fetch(`${backendURL}/playlists/${playlistId}/songs`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
-          },
-          body: JSON.stringify(body),
-        });
-        contextMenu.classList.add('hidden');
-      });
+      contextPlaylists.addEventListener(
+        'click',
+        async (event3) => {
+          const playlistId = event3.target.getAttribute('playlistid');
+          const songId = event1.target.getAttribute('songsid');
+          const body = { songId: songId };
+          await fetch(`${backendURL}/playlists/${playlistId}/songs`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+            },
+            body: JSON.stringify(body),
+          });
+          contextMenu.classList.add('hidden');
+        },
+        { once: true }
+      );
       return false;
     };
 
@@ -636,4 +635,9 @@ plusIcon.addEventListener('click', () => {
     sidebarPlaylists.innerHTML = '';
     updatePlaylists();
   });
+});
+
+contextMenu.addEventListener('mouseleave', (event2) => {
+  event2.stopPropagation;
+  contextMenu.classList.add('hidden');
 });
