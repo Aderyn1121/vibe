@@ -1,6 +1,6 @@
 const navButtons = document.getElementById('navButtons');
 const demoButton = document.getElementById('demoButton');
-
+const video = document.getElementsByTagName('video');
 changelogo('#0203008');
 
 const updateUser = async () => {

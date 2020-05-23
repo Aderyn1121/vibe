@@ -1,7 +1,7 @@
 /* GLOBAL */
 
 body {
-  background-color: #2a3750;
+  background-color: #121212;
   position: relative;
   font-size: min(max(24px, 3vw), 30px);
   font-family: 'Sintony', sans-serif;
@@ -103,7 +103,7 @@ svg {
   height: 100vh;
   overflow: hidden;
 }
-.hero img {
+.hero video {
   position: absolute;
   object-fit: cover;
   width: 100%;
@@ -153,11 +153,11 @@ svg {
 /* Animations */
 
 .fadein {
-  animation: fadein 1s 250ms forwards;
+  animation: fadein 5s 1s forwards;
 }
 
 .fadeout {
-  animation: fadeout 1s 250ms forwards;
+  animation: fadeout 5s 1s forwards;
 }
 
 .load {
