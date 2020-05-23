@@ -55,7 +55,6 @@ const playClickedSong = async (event) => {
     },
   });
   const { songsList } = await songJSON.json();
-  console.log(songsList);
 
   songQueue = songsList;
   startMusic(songQueue[0]);
@@ -82,6 +81,7 @@ function stopMusic(song) {
   track.title.innerHTML = '______________';
   track.artist.innerHTML = '______________';
   pauseMusic();
+  progressBar.value = 0;
 }
 
 function nextTrack() {
@@ -90,7 +90,7 @@ function nextTrack() {
     return;
   }
 
-  currentTrack += 1;
+  currentTrack++;
 
   if (currentTrack > songQueue.length - 1 && repeat === 'none') {
     stopMusic();
@@ -105,7 +105,7 @@ function nextTrack() {
 
 function prevTrack() {
   if (currentTrack > 0 && track.audio.currentTime < 1.5) {
-    currentTrack -= +1;
+    currentTrack--;
     startMusic(songQueue[currentTrack]);
   } else {
     startMusic(songQueue[currentTrack]);
@@ -254,7 +254,6 @@ const updateSearchSection = (results, section) => {
   mainSection.classList.remove('hidden');
 
   if (section === 'Playlists') {
-    console.log(results);
     section = 'playlist';
   }
   section = section.toLowerCase();
@@ -367,16 +366,15 @@ const getPlaylistSongs = async (playlistId) => {
   return songsList;
 };
 
-const playPlaylist = async () => {
+const playPlaylist = async (event, songNumber = 0) => {
   if (!event.target.getAttribute('playlistid')) return;
   const playlistId = event.target.getAttribute('playlistid');
   const songs = await getPlaylistSongs(playlistId);
 
-  console.log(songs);
-
   if (songs.length > 0) {
     songQueue = songs;
-    currentTrack = 0;
+
+    currentTrack = songNumber;
     startMusic(songQueue[currentTrack]);
   }
 };
@@ -392,7 +390,6 @@ const deletePlaylist = async (event) => {
   });
 
   if (!res.ok) {
-    console.log('fetch error');
     return;
   }
 
@@ -403,8 +400,6 @@ const deletePlaylist = async (event) => {
   history.pushState({ mainContent: 'home' }, 'home', `/music/home`);
   updateHome();
   updatePlaylists();
-
-  console.log(playlistId);
 };
 
 const editPlaylist = async (event) => {
@@ -444,7 +439,6 @@ const editPlaylist = async (event) => {
 };
 
 const deleteSongFromPlaylist = async (event) => {
-  console.log(event.target);
   const songId = event.target.getAttribute('songid');
   const playlistId = window.location.href.match(/\d+$/);
   await fetch(`${backendURL}/playlists/${playlistId}/songs/${songId}`, {
@@ -465,6 +459,7 @@ const updateEditPlaylistsList = async (playlistId) => {
   }
 
   tableBody.innerHTML = '';
+  let trackCounter = 0;
   songs.forEach((song) => {
     const songDiv = document.createElement('div');
     const trackDiv = document.createElement('div');
@@ -479,6 +474,8 @@ const updateEditPlaylistsList = async (playlistId) => {
     deleteDiv.classList.add('delete');
 
     trackDiv.setAttribute('songsid', song.songId);
+    trackDiv.setAttribute('playlistid', playlistId);
+    trackDiv.setAttribute('trackid', trackCounter);
     artistDiv.setAttribute('artistId', song.artistId);
     albumDiv.setAttribute('albumId', song.albumId);
     deleteDiv.setAttribute('songId', song.songId);
@@ -488,7 +485,10 @@ const updateEditPlaylistsList = async (playlistId) => {
     albumDiv.innerHTML = song.albumName;
     deleteDiv.innerHTML = `<i songId=${song.songId} class="fas fa-trash"></i>`;
 
-    trackDiv.addEventListener('click', playClickedSong);
+    trackDiv.addEventListener('click', (event) => {
+      playPlaylist(event, event.target.getAttribute('trackid'));
+    });
+    trackCounter++;
 
     deleteDiv.addEventListener('click', deleteSongFromPlaylist);
 
