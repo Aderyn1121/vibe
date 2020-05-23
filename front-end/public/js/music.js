@@ -242,11 +242,16 @@ const updateHome = async () => {
 //SEARCH FUNCTIONS
 
 const updateSearchSection = (results, section) => {
+  const mainSection = document.getElementById(`search${section}`);
   const resultSection = document.getElementById(`result${section}`);
+  const noResults = document.getElementById('noResults');
   if (results.length === 0) {
-    resultSection.innerHTML = `No ${section} found`;
+    noResults.classList.remove('hidden');
+    mainSection.classList.add('hidden');
     return;
   }
+  noResults.classList.add('hidden');
+  mainSection.classList.remove('hidden');
 
   if (section === 'Playlists') {
     console.log(results);
@@ -331,7 +336,7 @@ const updateSearch = async () => {
 
   updateSearchSection(searchResults.matchedAlbums, 'Albums');
 
-  updateSearchSection(searchResults.matchedFriends, 'Friends');
+  // updateSearchSection(searchResults.matchedFriends, 'Friends');
 
   updateSearchSection(searchResults.matchedUsers, 'Users');
 };
@@ -589,6 +594,7 @@ progressBar.oninput = function (event) {
 };
 
 searchBar[0].addEventListener('focus', async (event) => {
+  if (window.location.href.includes('search')) return;
   const res = await fetch(`/music/search/ajax`);
   const data = await res.json();
   history.pushState({ mainContent: 'search' }, 'search', '/music/search');
@@ -602,6 +608,7 @@ searchBar[0].addEventListener('keyup', async () => {
 
 sidebarLinks.addEventListener('click', async (event) => {
   if (!['home', 'search', 'library'].includes(event.target.id)) return;
+  if (window.location.href.includes(event.target.id)) return;
   const res = await fetch(`/music/${event.target.id}/ajax`);
   const data = await res.json();
   mainContent.innerHTML = data;
@@ -623,6 +630,13 @@ sidebarLinks.addEventListener('click', async (event) => {
 
 sidebarPlaylists.addEventListener('click', async (event) => {
   if (!event.target.getAttribute('playlistid')) return;
+  if (
+    window.location.href.match(/\d+$/) &&
+    window.location.href.match(/\d+$/)[0] ===
+      event.target.getAttribute('playlistid')
+  )
+    return;
+
   const playlistId = event.target.getAttribute('playlistid');
 
   const res = await fetch(`/music/playlist/${playlistId}/ajax`);
