@@ -250,6 +250,19 @@ const updateSearchSection = (results, section) => {
     text.innerHTML = result.name;
     div.appendChild(img);
     div.appendChild(text);
+    div.addEventListener('click', async (event) => {
+      const songId = event.target.getAttribute('songsid');
+      const songJSON = await fetch(`${backendURL}/songs/${songId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+        },
+      });
+      const song = await songJSON.json();
+      console.log(song);
+
+      songQueue = [song];
+      startMusic(songQueue[0]);
+    });
     div.oncontextmenu = (event1) => {
       contextMenu.classList.remove('hidden');
       contextMenu.style.top = `${event1.pageY - 10}px`;
@@ -298,7 +311,7 @@ const updateSearch = async () => {
 
   const { searchResults } = await resultsJSON.json();
 
-  // updateSearchSection(searchResults.matchedPlaylists, 'Playlists');
+  updateSearchSection(searchResults.matchedPlaylists, 'Playlists');
 
   updateSearchSection(searchResults.matchedArtist, 'Artists');
 
@@ -306,9 +319,9 @@ const updateSearch = async () => {
 
   updateSearchSection(searchResults.matchedAlbums, 'Albums');
 
-  // updateSearchSection(searchResults.matchedFriends, 'Friends');
+  updateSearchSection(searchResults.matchedFriends, 'Friends');
 
-  // updateSearchSection(searchResults.matchedUsers, 'Users');
+  updateSearchSection(searchResults.matchedUsers, 'Users');
 };
 
 //PLAYLIST FUNCTIONS
