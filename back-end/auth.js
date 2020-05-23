@@ -17,14 +17,14 @@ const getUserToken = (user) => {
         secret,
         {expiresIn: parseInt(expiresIn, 10)} // This will expire in 1 week
     );
-    console.log('token')
+
     return token;
 }
 
 
 const restoreUser = (req, res, next) => {
     const { token } = req;
-    console.log(token)
+
     if(!token){
         return res.set("WWW-Authenticate", "Bearer").status(401).end();
     }
@@ -35,17 +35,16 @@ const restoreUser = (req, res, next) => {
         }
 
         const { id } = jwtPayload.data
-        console.log(jwtPayload.data)
-        console.log('This is the ID:', id)
+
         try{
             req.user = await User.findByPk(2);
-            console.log(req.user)
+
         } catch (e){
             return next(e)
         }
 
         if(!req.user) {
-            console.log('here')
+           
             return res.set("WWW-Authenticate", "Bearer").status(401).end();
         }
         return next();
@@ -53,7 +52,7 @@ const restoreUser = (req, res, next) => {
 }
 
 const requireAuth = [bearerToken(), restoreUser];
-module.exports = { 
-    getUserToken, 
+module.exports = {
+    getUserToken,
     requireAuth
 };

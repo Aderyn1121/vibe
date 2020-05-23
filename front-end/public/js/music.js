@@ -248,6 +248,12 @@ const updateSearchSection = (results, section) => {
     return;
   }
 
+  if (section === 'Playlists') {
+    console.log(results);
+    section = 'playlist';
+  }
+  section = section.toLowerCase();
+
   resultSection.innerHTML = '';
 
   results.forEach((result) => {
@@ -256,40 +262,44 @@ const updateSearchSection = (results, section) => {
     const text = document.createElement('div');
 
     div.classList.add('square');
-    div.setAttribute(`${section}Id`, result.id);
+    div.setAttribute(`${section}id`, result.id);
     img.src = `/public/images/playlists/${Math.floor(
       Math.random() * (15 - 1) + 1
     )}.jpg`;
-    img.setAttribute(`${section}Id`, result.id);
+    img.setAttribute(`${section}id`, result.id);
     text.innerHTML = result.name;
     div.appendChild(img);
     div.appendChild(text);
-    div.addEventListener('click', playClickedSong);
-    div.oncontextmenu = (event1) => {
-      contextMenu.classList.remove('hidden');
-      contextMenu.style.top = `${event1.pageY - 10}px`;
-      contextMenu.style.left = `${event1.pageX - 10}px`;
+    if (section === 'songs') {
+      div.addEventListener('click', playClickedSong);
+      div.oncontextmenu = (event1) => {
+        contextMenu.classList.remove('hidden');
+        contextMenu.style.top = `${event1.pageY - 10}px`;
+        contextMenu.style.left = `${event1.pageX - 10}px`;
 
-      contextPlaylists.addEventListener(
-        'click',
-        async (event3) => {
-          const playlistId = event3.target.getAttribute('playlistid');
-          const songId = event1.target.getAttribute('songsid');
-          const body = { songId: songId };
-          await fetch(`${backendURL}/playlists/${playlistId}/songs`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
-            },
-            body: JSON.stringify(body),
-          });
-          contextMenu.classList.add('hidden');
-        },
-        { once: true }
-      );
-      return false;
-    };
+        contextPlaylists.addEventListener(
+          'click',
+          async (event3) => {
+            const playlistId = event3.target.getAttribute('playlistid');
+            const songId = event1.target.getAttribute('songsid');
+            const body = { songId: songId };
+            await fetch(`${backendURL}/playlists/${playlistId}/songs`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+              },
+              body: JSON.stringify(body),
+            });
+            contextMenu.classList.add('hidden');
+          },
+          { once: true }
+        );
+        return false;
+      };
+    } else if (section === 'playlist') {
+      div.addEventListener('click', playPlaylist);
+    }
 
     resultSection.prepend(div);
   });
@@ -355,8 +365,9 @@ const getPlaylistSongs = async (playlistId) => {
 const playPlaylist = async () => {
   if (!event.target.getAttribute('playlistid')) return;
   const playlistId = event.target.getAttribute('playlistid');
-
   const songs = await getPlaylistSongs(playlistId);
+
+  console.log(songs)
 
   if (songs.length > 0) {
     songQueue = songs;
