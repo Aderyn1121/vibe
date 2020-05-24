@@ -1,13 +1,17 @@
 /* GLOBAL */
 
 body {
- 
   background-color: #121212;
   position: relative;
   font-size: min(max(24px, 3vw), 30px);
   font-family: 'Sintony', sans-serif;
   box-sizing: border-box;
   color: #e0e0e2;
+  cursor: pointer;
+}
+
+body * {
+  cursor: pointer;
 }
 
 a {
