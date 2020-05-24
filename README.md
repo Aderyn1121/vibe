@@ -52,6 +52,8 @@ We ran into a few major and minor problems to overcome, including:
 
 - We had some troubles keeping out HTTP calls down for each page while keeping our application organized. We used pug's string interpolation feature to dynamically call scripts/css files as they were needed for each page. 
 
+- We realized that the final product wasn't working on iOS, but that the issues were the link being HTTP instead of HTTPS, and made compatibility changes in the css for iOS devices.
+
 - Due to Heroku's slow speed we added a loading screen and a cursor change to indicate that the app *is* working.
 
 - We had to make separate repos for the front and back end within the main repo folder in order to push things to Heroku.
