@@ -582,17 +582,28 @@ volume.oninput = () => {
   track.audio.volume = volume.value / 100;
 };
 
+volume.onchange = () => {
+  track.audio.volume = volume.value / 100;
+};
+
 progressBar.oninput = function (event) {
   if (!track.audio.src) return;
   clearInterval(interval);
+
   const percent = progressBar.value / 100;
+
   updateTime(Math.floor(track.audio.duration * percent));
-  const changeTrackTime = () => {
-    track.audio.currentTime = Math.floor(track.audio.duration * percent);
-    playMusic();
-    document.body.removeEventListener('mouseup', changeTrackTime);
-  };
-  document.body.addEventListener('mouseup', changeTrackTime);
+};
+
+progressBar.onchange = function (event) {
+  if (!track.audio.src) return;
+
+  pauseMusic();
+
+  const percent = progressBar.value / 100;
+  track.audio.currentTime = Math.floor(track.audio.duration * percent);
+
+  playMusic();
 };
 
 searchBar[0].addEventListener('focus', async (event) => {
