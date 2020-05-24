@@ -27,6 +27,7 @@ app.locals.backend = process.env.BACKEND_URL;
 app.use(bodyParser.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
 app.use('/music', musicRouter);
 
 app.get('/', (req, res) => {

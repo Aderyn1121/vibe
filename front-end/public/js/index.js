@@ -1,17 +1,24 @@
 const navButtons = document.getElementById('navButtons');
+const altButtons = document.getElementsByClassName('alt-buttons');
 const demoButton = document.getElementById('demoButton');
-const video = document.getElementsByTagName('video');
+
 changelogo('#0203008');
 
 const updateUser = async () => {
   if (localStorage['VIBE_TOKEN']) {
     const user = await getUser();
+    altButtons[0].innerHTML =
+      '<a class="logoutButton vibeCheck__button">LOGOUT</a>';
+    navButtons.innerHTML = `<a class=logoutButton>Logout</a><a id='username'>${user.username}</a>`;
 
-    navButtons.innerHTML = `<a id=logoutButton>Logout</a><a>${user.username}</a>`;
-    const logoutButton = document.getElementById('logoutButton');
-    logoutButton.addEventListener('mouseup', logoutUser);
+    const logoutButton = document.getElementsByClassName('logoutButton');
+
+    for (let i = 0; i < logoutButton.length; i++) {
+      logoutButton[i].addEventListener('mouseup', logoutUser);
+    }
   }
 };
+
 updateUser();
 
 demoButton.addEventListener('click', async (e) => {

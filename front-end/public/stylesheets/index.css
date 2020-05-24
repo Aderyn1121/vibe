@@ -1,6 +1,7 @@
 /* GLOBAL */
 
 body {
+  opacity: 0 !important;
   background-color: #121212;
   position: relative;
   font-size: min(max(24px, 3vw), 30px);
@@ -85,11 +86,13 @@ svg {
   margin: 0;
 }
 
-.nav-bar__sign-up,
-#logoutButton {
+.nav-bar__sign-up {
   margin-right: 20px;
 }
 
+#username {
+  margin-left: 20px;
+}
 /* Hero  */
 
 .hero {
@@ -139,10 +142,14 @@ svg {
 
 .vibeCheck__button {
   padding: 20px 75px;
+  margin-bottom: 20px;
   background-color: #fde74c;
   border-radius: 30px;
   font-size: 15px;
   color: #020300 !important;
+  width: 200px;
+  text-align: center;
+  max-width: 30vw;
 }
 
 .vibeCheck__button:hover {
@@ -150,14 +157,18 @@ svg {
   color: #020300;
 }
 
+.alt-buttons {
+  display: none;
+}
+
 /* Animations */
 
 .fadein {
-  animation: fadein 5s 1s forwards;
+  animation: fadein 3s 1s forwards;
 }
 
 .fadeout {
-  animation: fadeout 5s 1s forwards;
+  animation: fadeout 3s 1s forwards;
 }
 
 .load {
@@ -199,5 +210,19 @@ svg {
   100% {
     opacity: 10;
     stroke-dashoffset: 0;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .nav-bar__buttons {
+    display: none;
+  }
+
+  .nav-bar {
+    justify-content: center;
+  }
+  .alt-buttons {
+    display: flex;
+    flex-flow: column;
   }
 }
