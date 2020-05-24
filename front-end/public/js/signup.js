@@ -1,3 +1,4 @@
+import { backendURL, getUser, logoutUser, changelogo } from './global.js';
 const signupForm = document.getElementById('auth-form');
 const errorsDiv = document.getElementById('errors');
 
