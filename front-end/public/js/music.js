@@ -59,15 +59,14 @@ const playClickedSong = async (event) => {
   const { songsList } = await songJSON.json();
 
   songQueue = songsList;
-  startMusic(songQueue[0]);
+  loadQueueAtSongNumber(songQueue[0]);
 };
 
-function startMusic(songInQueue) {
+function loadQueueAtSongNumber(songInQueue) {
   track.audio.src = `../../public/test_music/${songInQueue.songId}.m4a`;
   track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.albumId}.jpg' >`;
   track.title.innerHTML = songInQueue.songName;
   track.artist.innerHTML = songInQueue.artistName;
-  playMusic();
 }
 
 function pauseMusic() {
@@ -88,7 +87,7 @@ function stopMusic(song) {
 
 function nextTrack() {
   if (repeat === 'one') {
-    startMusic(songQueue[currentTrack]);
+    loadQueueAtSongNumber(songQueue[currentTrack]);
     return;
   }
 
@@ -102,15 +101,15 @@ function nextTrack() {
   if (currentTrack > songQueue.length - 1 && repeat === 'all') {
     currentTrack = 0;
   }
-  startMusic(songQueue[currentTrack]);
+  loadQueueAtSongNumber(songQueue[currentTrack]);
 }
 
 function prevTrack() {
   if (currentTrack > 0 && track.audio.currentTime < 1.5) {
     currentTrack--;
-    startMusic(songQueue[currentTrack]);
+    loadQueueAtSongNumber(songQueue[currentTrack]);
   } else {
-    startMusic(songQueue[currentTrack]);
+    loadQueueAtSongNumber(songQueue[currentTrack]);
   }
 }
 
@@ -277,7 +276,10 @@ const updateSearchSection = (results, section) => {
     div.appendChild(img);
     div.appendChild(text);
     if (section === 'songs') {
-      div.addEventListener('click', playClickedSong);
+      div.addEventListener('click', async (e) => {
+        await playClickedSong(e);
+        playMusic();
+      });
       div.oncontextmenu = (event1) => {
         contextMenu.classList.remove('hidden');
         contextMenu.style.top = `${event1.pageY - 10}px`;
@@ -304,7 +306,10 @@ const updateSearchSection = (results, section) => {
         return false;
       };
     } else if (section === 'playlist') {
-      div.addEventListener('click', playPlaylist);
+      div.addEventListener('click', async (e) => {
+        await playPlaylist(e);
+        playMusic();
+      });
     }
 
     resultSection.prepend(div);
@@ -377,7 +382,7 @@ const playPlaylist = async (event, songNumber = 0) => {
     songQueue = songs;
 
     currentTrack = songNumber;
-    startMusic(songQueue[currentTrack]);
+    loadQueueAtSongNumber(songQueue[currentTrack]);
   }
 };
 
@@ -487,8 +492,9 @@ const updateEditPlaylistsList = async (playlistId) => {
     albumDiv.innerHTML = song.albumName;
     deleteDiv.innerHTML = `<i songId=${song.songId} class="fas fa-trash"></i>`;
 
-    trackDiv.addEventListener('click', (event) => {
-      playPlaylist(event, event.target.getAttribute('trackid'));
+    trackDiv.addEventListener('click', async (event) => {
+      await playPlaylist(event, event.target.getAttribute('trackid'));
+      playMusic();
     });
     trackCounter++;
 
@@ -514,7 +520,10 @@ const updateEditPlaylist = async (playlistId) => {
   EPLTitle.innerHTML = playlistName;
   EPLPlayButton.setAttribute('playlistid', playlistId);
   EPLDeleteButton.setAttribute('playlistid', playlistId);
-  EPLPlayButton.addEventListener('click', playPlaylist);
+  EPLPlayButton.addEventListener('click', async (e) => {
+    await playPlaylist(e);
+    playMusic();
+  });
   EPLDeleteButton.addEventListener('click', deletePlaylist);
   EPLEditButton.addEventListener('click', editPlaylist);
   updateEditPlaylistsList(playlistId);
