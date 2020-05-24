@@ -23,9 +23,7 @@ const app = express();
 
 app.set('view engine', 'pug');
 
-const origin = process.env.FRONTEND_URL;
-
-app.use(cors({ origin }));
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 app.locals.backend = process.env.BACKEND_URL;
 
