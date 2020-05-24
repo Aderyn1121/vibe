@@ -1,7 +1,7 @@
 /* GLOBAL */
 
 body {
-  opacity: 0 !important;
+ 
   background-color: #121212;
   position: relative;
   font-size: min(max(24px, 3vw), 30px);

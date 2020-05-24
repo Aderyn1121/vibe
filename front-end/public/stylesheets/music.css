@@ -5,7 +5,6 @@
 @import 'playlist.css';
 
 body {
-  opacity: 0;
   background-color: #121212;
   position: relative;
   font-size: min((20px, 2vw), 30px);
