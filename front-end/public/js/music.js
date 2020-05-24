@@ -38,7 +38,6 @@ let newPLinput = document.getElementById('newPLinput');
 //PLAYER FUNCTIONS
 const playMusic = async () => {
   document.body.style.cursor = 'progress';
-  await track.audio.play();
   track.audio.volume = volume.value / 100;
   document.body.style.cursor = 'default';
   playButton.innerHTML = '<i class="fas fa-pause"></i>';
@@ -88,6 +87,7 @@ function stopMusic(song) {
 function nextTrack() {
   if (repeat === 'one') {
     loadQueueAtSongNumber(songQueue[currentTrack]);
+    track.audio.classList.add('playing');
     return;
   }
 
@@ -102,15 +102,14 @@ function nextTrack() {
     currentTrack = 0;
   }
   loadQueueAtSongNumber(songQueue[currentTrack]);
+  track.audio.classList.add('playing');
 }
 
 function prevTrack() {
   if (currentTrack > 0 && track.audio.currentTime < 1.5) {
     currentTrack--;
-    loadQueueAtSongNumber(songQueue[currentTrack]);
-  } else {
-    loadQueueAtSongNumber(songQueue[currentTrack]);
   }
+  loadQueueAtSongNumber(songQueue[currentTrack]);
 }
 
 function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
@@ -276,11 +275,14 @@ const updateSearchSection = (results, section) => {
     div.appendChild(img);
     div.appendChild(text);
     if (section === 'songs') {
-      div.addEventListener('click', async (e) => {
-        await playClickedSong(e);
-        playMusic();
-      });
-      div.oncontextmenu = (event1) => {
+      const plus = document.createElement('div');
+      plus.classList.add('search-plus');
+      plus.setAttribute('songsid', result.id);
+
+      plus.innerHTML = `<i songsid=${result.id} class="fas fa-plus"></i>`;
+
+      plus.addEventListener('click', (event1) => {
+        event1.stopPropagation();
         contextMenu.classList.remove('hidden');
         contextMenu.style.top = `${event1.pageY - 10}px`;
         contextMenu.style.left = `${event1.pageX - 10}px`;
@@ -303,12 +305,22 @@ const updateSearchSection = (results, section) => {
           },
           { once: true }
         );
-        return false;
-      };
+      });
+
+      div.appendChild(plus);
+
+      div.addEventListener('click', async (e) => {
+        if (!event.target.getAttribute('songsid')) return;
+
+        await playClickedSong(e);
+        playMusic();
+        track.audio.play();
+      });
     } else if (section === 'playlist') {
       div.addEventListener('click', async (e) => {
         await playPlaylist(e);
         playMusic();
+        track.audio.play();
       });
     }
 
@@ -495,6 +507,7 @@ const updateEditPlaylistsList = async (playlistId) => {
     trackDiv.addEventListener('click', async (event) => {
       await playPlaylist(event, event.target.getAttribute('trackid'));
       playMusic();
+      track.audio.play();
     });
     trackCounter++;
 
@@ -523,6 +536,7 @@ const updateEditPlaylist = async (playlistId) => {
   EPLPlayButton.addEventListener('click', async (e) => {
     await playPlaylist(e);
     playMusic();
+    track.audio.play();
   });
   EPLDeleteButton.addEventListener('click', deletePlaylist);
   EPLEditButton.addEventListener('click', editPlaylist);
@@ -552,8 +566,12 @@ if (!localStorage['VIBE_TOKEN']) {
 
 //EVENT LISTENERS
 
-track.audio.addEventListener('ended', () => {
-  nextTrack();
+track.audio.addEventListener('ended', async () => {
+  await nextTrack();
+  if (track.audio.classList.contains('playing')) {
+    playMusic();
+    track.audio.play();
+  }
 });
 
 playButton.addEventListener('click', (e) => {
@@ -561,15 +579,22 @@ playButton.addEventListener('click', (e) => {
     pauseMusic();
   } else {
     playMusic();
+    track.audio.play();
   }
 });
 
-nextButton.addEventListener('click', (e) => {
-  nextTrack();
+nextButton.addEventListener('click', async (e) => {
+  await nextTrack();
+  if (track.audio.classList.contains('playing')) {
+    playMusic();
+    track.audio.play();
+  }
 });
 
-prevButton.addEventListener('click', (e) => {
-  prevTrack();
+prevButton.addEventListener('click', async (e) => {
+  await prevTrack();
+  playMusic();
+  track.audio.play();
 });
 
 repeatButton.addEventListener('click', (e) => {
@@ -613,6 +638,7 @@ progressBar.onchange = function (event) {
   track.audio.currentTime = Math.floor(track.audio.duration * percent);
 
   playMusic();
+  track.audio.play();
 };
 
 searchBar[0].addEventListener('focus', async (event) => {
@@ -702,6 +728,5 @@ plusIcon.addEventListener('click', () => {
 });
 
 contextMenu.addEventListener('mouseleave', (event2) => {
-  event2.stopPropagation;
   contextMenu.classList.add('hidden');
 });

@@ -40,7 +40,7 @@
   margin: 0 30px;
 }
 
-.square > div:hover {
+.square:hover {
   transform: scale(1.1);
   box-shadow: 0px 0px 3px white;
   opacity: 0.9;
@@ -55,4 +55,24 @@
   width: 150px;
   font-size: 20px;
   padding: 10px 0;
+}
+
+.search-plus {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 40px;
+  width: 40px;
+}
+
+.search-plus * {
+  margin-right: 10px;
+}
+
+.search-plus *:hover {
+  transform: 0 !important;
+  box-shadow: 0px 0px 3px white;
+  color: #fde74c;
 }
