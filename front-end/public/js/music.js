@@ -209,9 +209,9 @@ const updateHome = async () => {
   const homePlaylists = document.getElementById('homePlaylists');
 
   playlists.forEach((playlist) => {
-    playlistDiv = document.createElement('div');
-    playlistImg = document.createElement('img');
-    playlistText = document.createElement('div');
+    const playlistDiv = document.createElement('div');
+    const playlistImg = document.createElement('img');
+    const playlistText = document.createElement('div');
 
     playlistDiv.classList.add('home__playlist');
     playlistImg.src = `/public/images/playlists/${Math.floor(
