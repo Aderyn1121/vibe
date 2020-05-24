@@ -38,6 +38,9 @@ let newPLinput = document.getElementById('newPLinput');
 //PLAYER FUNCTIONS
 const playMusic = async () => {
   document.body.style.cursor = 'progress';
+  track.audio.muted = true;
+  await track.audio.play();
+  track.audio.muted = false;
   track.audio.volume = volume.value / 100;
   document.body.style.cursor = 'default';
   playButton.innerHTML = '<i class="fas fa-pause"></i>';
@@ -314,13 +317,11 @@ const updateSearchSection = (results, section) => {
 
         await playClickedSong(e);
         playMusic();
-        track.audio.play();
       });
     } else if (section === 'playlist') {
       div.addEventListener('click', async (e) => {
         await playPlaylist(e);
         playMusic();
-        track.audio.play();
       });
     }
 
@@ -507,7 +508,6 @@ const updateEditPlaylistsList = async (playlistId) => {
     trackDiv.addEventListener('click', async (event) => {
       await playPlaylist(event, event.target.getAttribute('trackid'));
       playMusic();
-      track.audio.play();
     });
     trackCounter++;
 
@@ -536,7 +536,6 @@ const updateEditPlaylist = async (playlistId) => {
   EPLPlayButton.addEventListener('click', async (e) => {
     await playPlaylist(e);
     playMusic();
-    track.audio.play();
   });
   EPLDeleteButton.addEventListener('click', deletePlaylist);
   EPLEditButton.addEventListener('click', editPlaylist);
@@ -570,7 +569,6 @@ track.audio.addEventListener('ended', async () => {
   await nextTrack();
   if (track.audio.classList.contains('playing')) {
     playMusic();
-    track.audio.play();
   }
 });
 
@@ -579,7 +577,6 @@ playButton.addEventListener('click', (e) => {
     pauseMusic();
   } else {
     playMusic();
-    track.audio.play();
   }
 });
 
@@ -587,14 +584,12 @@ nextButton.addEventListener('click', async (e) => {
   await nextTrack();
   if (track.audio.classList.contains('playing')) {
     playMusic();
-    track.audio.play();
   }
 });
 
 prevButton.addEventListener('click', async (e) => {
   await prevTrack();
   playMusic();
-  track.audio.play();
 });
 
 repeatButton.addEventListener('click', (e) => {
@@ -638,7 +633,6 @@ progressBar.onchange = function (event) {
   track.audio.currentTime = Math.floor(track.audio.duration * percent);
 
   playMusic();
-  track.audio.play();
 };
 
 searchBar[0].addEventListener('focus', async (event) => {
