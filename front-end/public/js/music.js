@@ -193,6 +193,47 @@ const updatePlaylists = async () => {
 };
 
 //HOME FUNCTIONS
+
+const addPlaylistNewPage = async () => {
+  const body = { playlistName: 'New Playlist' };
+  const user = await getUser();
+
+  await fetch(`${backendURL}/users/${user.userId}/playlists`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+    body: JSON.stringify(body),
+  });
+  sidebarPlaylists.innerHTML = '';
+  await updatePlaylists();
+
+  const playlistList = document.getElementsByClassName('contextPlaylist');
+
+  let playlistId = 0;
+
+  for (let i = 0; i < playlistList.length; i++) {
+    let attribute = Number.parseInt(playlistList[i].getAttribute('playlistid'));
+    console.log(playlistId, attribute);
+
+    if (playlistId < attribute) {
+      playlistId = attribute;
+    }
+  }
+
+  const res = await fetch(`/music/playlist/${playlistId}/ajax`);
+  const data = await res.json();
+  history.pushState(
+    { playlist: playlistId },
+    playlistId,
+    `/music/playlist/${playlistId}`
+  );
+  mainContent.innerHTML = data;
+  await updateEditPlaylist(playlistId);
+  editPlaylist();
+};
+
 const updateHome = async () => {
   const userId = localStorage.getItem('VIBE_USER_ID');
   const playlistsJSON = await fetch(`${backendURL}/users/${userId}/playlists`, {
@@ -203,6 +244,9 @@ const updateHome = async () => {
 
   const { playlistNames: playlists } = await playlistsJSON.json();
   const homePlaylists = document.getElementById('homePlaylists');
+  const addPlaylist = document.getElementById('addPlaylist');
+
+  addPlaylist.addEventListener('click', addPlaylistNewPage);
 
   playlists.forEach((playlist) => {
     const playlistDiv = document.createElement('div');
@@ -232,7 +276,7 @@ const updateHome = async () => {
         `/music/playlist/${playlistId}`
       );
       mainContent.innerHTML = data;
-      updateEditPlaylist(playlistId);
+      await updateEditPlaylist(playlistId);
     });
   });
 };
@@ -243,11 +287,13 @@ const updateSearchSection = (results, section) => {
   const mainSection = document.getElementById(`search${section}`);
   const resultSection = document.getElementById(`result${section}`);
   const noResults = document.getElementById('noResults');
+
   if (results.length === 0) {
-    noResults.classList.remove('hidden');
+    resultSection.innerHTML = '';
     mainSection.classList.add('hidden');
     return;
   }
+
   noResults.classList.add('hidden');
   mainSection.classList.remove('hidden');
 
@@ -327,7 +373,6 @@ const updateSearch = async () => {
   if (!searchBar[0].value) return;
   const searchInput = encodeURIComponent(searchBar[0].value);
   const userId = encodeURIComponent(localStorage.getItem('VIBE_USER_ID'));
-  const token = encodeURIComponent(localStorage.getItem('VIBE_TOKEN'));
 
   const resultsJSON = await fetch(
     `${backendURL}/search/?searchInput=${searchInput}&userId=${userId}`,
@@ -352,6 +397,14 @@ const updateSearch = async () => {
   // updateSearchSection(searchResults.matchedFriends, 'Friends');
 
   updateSearchSection(searchResults.matchedUsers, 'Users');
+
+  const noResults = document.getElementById('noResults');
+
+  console.log(document.getElementsByClassName('square').length);
+
+  if (document.getElementsByClassName('square').length === 0) {
+    noResults.classList.remove('hidden');
+  }
 };
 
 //PLAYLIST FUNCTIONS
