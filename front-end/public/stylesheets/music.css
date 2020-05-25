@@ -5,6 +5,8 @@
 @import 'playlist.css';
 
 body {
+  height: 100vh;
+  width: 100vw;
   background-color: #121212;
   position: relative;
   font-size: min((20px, 2vw), 30px);
@@ -14,7 +16,6 @@ body {
   -moz-box-sizing: border-box;
   color: #e0e0e0;
   text-align: center;
-  overflow: hidden;
 }
 
 .hidden {
@@ -465,22 +466,14 @@ input {
 }
 
 @media screen and (max-width: 900px) {
-  .nav-bar__search {
-    display: none !important;
-  }
   #welcome {
     display: none;
   }
 
-  #logout {
-    width: 100vw;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  #logout * {
-    max-width: 80px;
-    margin: 0 40px;
+  .nav-bar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 30px 50px;
   }
 
   #tableHeader,
@@ -500,7 +493,7 @@ input {
 
   .main {
     grid-template-columns: 1fr;
-    grid-template-rows: 75px 75px 200px 1fr 200px;
+    grid-template-rows: 75px 75px 37px 1fr 200px;
     grid-template-areas:
       'navbar'
       'logo'
@@ -512,10 +505,12 @@ input {
   .sidebarPlaylistsBar {
     display: none;
   }
-
-  .sidebar {
-    display: flex;
-    flex-flow: column;
+  .sidebar__links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 100%;
+    border-bottom: #121212 3px solid;
+    border-top: #121212 3px solid;
   }
 
   .songOptions {
@@ -545,13 +540,5 @@ input {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
-  }
-
-  #nav-search{
-    
-  }
-
-  .search__search {
-    display: block !important;
   }
 }
