@@ -36,11 +36,10 @@ let newPLform = document.getElementById('newPLForm');
 let newPLinput = document.getElementById('newPLinput');
 
 //PLAYER FUNCTIONS
+
 const playMusic = async () => {
   document.body.style.cursor = 'progress';
-  track.audio.muted = true;
   await track.audio.play();
-  track.audio.muted = false;
   track.audio.volume = volume.value / 100;
   document.body.style.cursor = 'default';
   playButton.innerHTML = '<i class="fas fa-pause"></i>';
@@ -49,6 +48,10 @@ const playMusic = async () => {
     clearInterval(interval);
   }
   interval = setInterval(updateTime, 1000);
+};
+
+const clickPlay = (e) => {
+  setTimeout(playMusic, 200);
 };
 
 const playClickedSong = async (event) => {
@@ -62,6 +65,7 @@ const playClickedSong = async (event) => {
 
   songQueue = songsList;
   loadQueueAtSongNumber(songQueue[0]);
+  playMusic();
 };
 
 function loadQueueAtSongNumber(songInQueue) {
@@ -305,16 +309,15 @@ const updateSearchSection = (results, section) => {
 
       div.addEventListener('click', async (e) => {
         if (!event.target.getAttribute('songsid')) return;
-
-        await playClickedSong(e);
-        playMusic();
+        playClickedSong(e);
       });
     } else if (section === 'playlist') {
       div.addEventListener('click', async (e) => {
-        await playPlaylist(e);
-        playMusic();
+        playPlaylist(e);
       });
     }
+
+    div.addEventListener('click', clickPlay);
 
     resultSection.prepend(div);
   });
@@ -387,6 +390,7 @@ const playPlaylist = async (event, songNumber = 0) => {
 
     currentTrack = songNumber;
     loadQueueAtSongNumber(songQueue[currentTrack]);
+    playMusic();
   }
 };
 
@@ -497,9 +501,9 @@ const updateEditPlaylistsList = async (playlistId) => {
     deleteDiv.innerHTML = `<i songId=${song.songId} class="fas fa-trash"></i>`;
 
     trackDiv.addEventListener('click', async (event) => {
-      await playPlaylist(event, event.target.getAttribute('trackid'));
-      playMusic();
+      playPlaylist(event, event.target.getAttribute('trackid'));
     });
+    trackDiv.addEventListener('click', clickPlay);
     trackCounter++;
 
     deleteDiv.addEventListener('click', deleteSongFromPlaylist);
@@ -524,10 +528,10 @@ const updateEditPlaylist = async (playlistId) => {
   EPLTitle.innerHTML = playlistName;
   EPLPlayButton.setAttribute('playlistid', playlistId);
   EPLDeleteButton.setAttribute('playlistid', playlistId);
-  EPLPlayButton.addEventListener('click', async (e) => {
-    await playPlaylist(e);
-    playMusic();
+  EPLPlayButton.addEventListener('click', (e) => {
+    playPlaylist(e);
   });
+  EPLPlayButton.addEventListener('click', clickPlay);
   EPLDeleteButton.addEventListener('click', deletePlaylist);
   EPLEditButton.addEventListener('click', editPlaylist);
   updateEditPlaylistsList(playlistId);
@@ -563,13 +567,7 @@ track.audio.addEventListener('ended', async () => {
   }
 });
 
-playButton.addEventListener('click', (e) => {
-  if (track.audio.classList.contains('playing')) {
-    pauseMusic();
-  } else {
-    playMusic();
-  }
-});
+playButton.addEventListener('click', clickPlay);
 
 nextButton.addEventListener('click', async (e) => {
   await nextTrack();
