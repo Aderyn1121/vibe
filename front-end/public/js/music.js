@@ -118,11 +118,6 @@ function prevTrack() {
 function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
   const duration = Math.floor(track.audio.duration) - currentTime;
   const percent = currentTime / track.audio.duration;
-
-  const hours =
-    Math.floor(currentTime / 3600) < 10
-      ? `0${Math.floor(currentTime / 3600)}`
-      : Math.floor(currentTime / 3600);
   const mins =
     Math.floor(currentTime / 60) < 10
       ? `0${Math.floor(currentTime / 60)}`
@@ -130,13 +125,9 @@ function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
   const seconds =
     currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
 
-  startTime.innerHTML = `${hours}:${mins}:${seconds}`;
+  startTime.innerHTML = `${mins}:${seconds}`;
 
   if (duration) {
-    const durationHours =
-      Math.floor(duration / 3600) < 10
-        ? `0${Math.floor(duration / 3600)}`
-        : Math.floor(duration / 3600);
     const durationMins =
       Math.floor(duration / 60) < 10
         ? `0${Math.floor(duration / 60)}`
@@ -144,9 +135,9 @@ function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
     const durationSeconds =
       duration % 60 < 10 ? `0${duration % 60}` : duration % 60;
 
-    endTime.innerHTML = `${durationHours}:${durationMins}:${durationSeconds}`;
+    endTime.innerHTML = `${durationMins}:${durationSeconds}`;
   } else {
-    endTime.innerHTML = '00:00:00';
+    endTime.innerHTML = '00:00';
   }
   progressBar.value = Math.floor(percent * 100);
 }
