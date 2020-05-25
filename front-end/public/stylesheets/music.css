@@ -14,6 +14,7 @@ body {
   -moz-box-sizing: border-box;
   color: #e0e0e0;
   text-align: center;
+  overflow: hidden;
 }
 
 .hidden {
@@ -126,9 +127,6 @@ svg {
     'logo navbar'
     'sidebar mainContent'
     'music music';
-}
-.main * {
-  overflow: hidden;
 }
 /* Logo */
 .logo {
@@ -293,10 +291,6 @@ input {
   overflow: hidden;
 }
 
-/* .music * {
-  border: white solid;
-} */
-
 .songOptions {
   display: grid;
   grid-template-areas: 'songinfo buttons';
@@ -401,7 +395,7 @@ input {
 
 .otherOptions {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr;
   margin: 0 20px;
 }
 
@@ -471,32 +465,93 @@ input {
 }
 
 @media screen and (max-width: 900px) {
-  #nav-search {
+  .nav-bar__search {
+    display: none !important;
+  }
+  #welcome {
     display: none;
-  }
-  .nav-bar {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  .sidebar {
-    display: none;
-  }
-  .main {
-    grid-template-areas:
-      'navbar navbar'
-      'mainContent mainContent'
-      'music music';
   }
 
-  .logo {
+  #logout {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #logout * {
+    max-width: 80px;
+    margin: 0 40px;
+  }
+
+  #tableHeader,
+  #tableBody .song {
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(160px, 1fr)) 50px;
+    width: 80%;
+    min-width: 700px;
+    text-align: left;
+    margin-left: 20px;
+  }
+
+  #backButton {
+    display: block !important ;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 75px 75px 200px 1fr 200px;
+    grid-template-areas:
+      'navbar'
+      'logo'
+      'sidebar'
+      'mainContent'
+      'music';
+  }
+  #sidebarPlaylists,
+  .sidebarPlaylistsBar {
     display: none;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .songOptions {
+    grid-template-areas: 'songinfo';
+    grid-template-columns: 1fr;
+  }
+
+  .song-info {
+    grid-template-areas:
+      'art title'
+      'art artist';
+    grid-template-columns: 1fr 2.5fr;
   }
 
   .song-buttons {
     display: none;
   }
+  .music {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+  }
 
-  #welcome {
+  .otherOptions {
     display: none;
+  }
+  #editPlaylistNav {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  #nav-search{
+    
+  }
+
+  .search__search {
+    display: block !important;
   }
 }

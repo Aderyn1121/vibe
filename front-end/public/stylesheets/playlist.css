@@ -5,21 +5,22 @@
   align-items: center;
 }
 
-#editPlaylistNav > div {
+#editPlaylistName,
+#editPlaylistButtons {
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
   margin-left: 30px;
 }
 
-#editPlaylistName > *,
-#editPlaylistButtons > * {
-  margin-right: 30px;
-  min-width: 80px;
+#fakeTable {
+  overflow-x: scroll;
+  width: 100%;
 }
-
 #editIcon {
   display: flex;
   align-items: center;
+  padding-left: 10px;
 }
 
 #editIcon:hover,
@@ -38,11 +39,14 @@
   margin: auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(160px, 1fr)) 50px;
-  width: 70vw;
+  width: 65vw;
   text-align: left;
 }
 #tableHeader {
   margin-bottom: 20px;
+}
+#tableBody {
+  margin-bottom: 30px;
 }
 
 .listsong,
