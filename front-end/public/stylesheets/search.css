@@ -19,7 +19,7 @@
 .search-section > div {
   overflow-x: scroll;
   height: 200px;
-  background-color: #121212;
+  background-color: #2e2e2e;
 }
 
 .result {
@@ -51,7 +51,7 @@
   position: absolute;
   bottom: 0;
   color: #e0e0e0;
-  background-color: #12121294;
+  background-color: #2e2e2e94;
   width: 150px;
   font-size: 20px;
   padding: 10px 0;

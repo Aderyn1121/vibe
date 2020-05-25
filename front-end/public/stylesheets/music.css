@@ -7,7 +7,7 @@
 body {
   height: 100vh;
   width: 100vw;
-  background-color: #121212;
+  background-color: #2e2e2e;
   position: relative;
   font-size: min((20px, 2vw), 30px);
   font-family: 'Sintony', sans-serif;
@@ -18,6 +18,7 @@ body {
   text-align: center;
   overflow: hidden;
   cursor: default;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body * {
@@ -94,7 +95,7 @@ svg {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #121212;
+  background-color: #2e2e2e;
   z-index: 1;
 }
 
@@ -121,7 +122,7 @@ svg {
 }
 
 .contextPlaylist:hover {
-  color: #121212;
+  color: #2e2e2e;
 }
 
 /* Main */
@@ -162,7 +163,7 @@ svg {
 .nav-bar {
   grid-area: navbar;
   width: 100%;
-  background-color: #141414;
+  background-color: #2e2e2e;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
 }
@@ -222,8 +223,8 @@ input {
   align-items: center;
   height: 100%;
   width: 100%;
-  border-bottom: #121212 3px solid;
-  border-top: #121212 3px solid;
+  border-bottom: #2e2e2e 3px solid;
+  border-top: #2e2e2e 3px solid;
 }
 .sidebar__links > div,
 #logoutButton {
@@ -309,7 +310,7 @@ input {
   width: 100vw;
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
-  background-color: #181818;
+  background-color: black;
   overflow: hidden;
 }
 
@@ -318,7 +319,7 @@ input {
   grid-template-areas: 'songinfo buttons';
   grid-template-columns: 5fr 1fr;
   margin-left: 20px;
-  border-right: #121212 solid 3px;
+  border-right: #2e2e2e solid 3px;
 }
 
 .song-info {
@@ -378,7 +379,7 @@ input {
 .musicPlayer {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  border-right: #121212 solid 3px;
+  border-right: #2e2e2e solid 3px;
 }
 
 .player-buttons {
@@ -536,7 +537,7 @@ input {
     height: 100%;
     width: 100%;
 
-    border-top: #121212 3px solid;
+    border-top: #2e2e2e 3px solid;
   }
 
   .songOptions {
