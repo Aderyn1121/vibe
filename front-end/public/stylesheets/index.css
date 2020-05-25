@@ -1,7 +1,7 @@
 /* GLOBAL */
 
 body {
-  background-color: #121212;
+  background-color: #2e2e2e;
   position: relative;
   font-size: min(max(24px, 3vw), 30px);
   font-family: 'Sintony', sans-serif;
@@ -44,7 +44,7 @@ svg {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #121212;
+  background-color: #2e2e2e;
   z-index: 1;
 }
 
@@ -59,7 +59,7 @@ svg {
 /* Navigation */
 
 .nav-bar {
-  background-color: #02030086;
+  background-color: #2e2e2e86;
   height: 9vh;
   display: flex;
   justify-content: space-between;

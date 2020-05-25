@@ -9,7 +9,7 @@ h2 {
 }
 
 .home__playlists {
-  background-color: #121212;
+  background-color: #2e2e2e;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-template-rows: auto;
@@ -42,7 +42,7 @@ h2 {
   position: absolute;
   bottom: 0;
   color: #e0e0e0;
-  background-color: #12121294;
+  background-color: #2e2e2e94;
   width: 200px;
   font-size: 20px;
   padding: 10px 0;
