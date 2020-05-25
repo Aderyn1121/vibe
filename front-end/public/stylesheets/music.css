@@ -16,6 +16,13 @@ body {
   -moz-box-sizing: border-box;
   color: #e0e0e0;
   text-align: center;
+  overflow: hidden;
+  cursor: default;
+}
+
+body * {
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .hidden {
@@ -173,8 +180,11 @@ svg {
   display: flex;
   margin: 0 20px;
   align-items: center;
-  width: 100%;
 }
+#searchInput {
+  width: 20px !important;
+}
+
 #searchIcon {
   height: 100%;
   display: flex;
@@ -187,6 +197,7 @@ svg {
 }
 
 input {
+  min-width: 30px;
   box-sizing: border-box;
   padding-left: 10px;
   height: 40px;
@@ -205,19 +216,24 @@ input {
 }
 
 .sidebar__links {
-  display: grid;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
+  width: 100%;
   border-bottom: #121212 3px solid;
   border-top: #121212 3px solid;
 }
 .sidebar__links > div,
 #logoutButton {
-  width: 100;
+  width: 100px;
   height: 100%;
   min-height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .sidebarPlaylistsBar {
   display: flex;
@@ -285,8 +301,12 @@ input {
 
 /* Music */
 .music {
-  height: 100%;
-  grid-area: music;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  width: 100vw;
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
   background-color: #181818;
@@ -474,7 +494,11 @@ input {
   .nav-bar {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 30px 50px;
+    grid-template-columns: 1fr 30px 100px;
+  }
+
+  #logout {
+    width: 100px;
   }
 
   #tableHeader,
@@ -499,18 +523,19 @@ input {
       'navbar'
       'logo'
       'sidebar'
-      'mainContent'
-      'music';
+      'mainContent';
   }
   #sidebarPlaylists,
   .sidebarPlaylistsBar {
     display: none;
   }
   .sidebar__links {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
     height: 100%;
-    border-bottom: #121212 3px solid;
+    width: 100%;
+
     border-top: #121212 3px solid;
   }
 
@@ -519,17 +544,23 @@ input {
     grid-template-columns: 1fr;
   }
 
+  .sidebar {
+    display: block;
+  }
+
   .song-info {
     grid-template-areas:
       'art title'
       'art artist';
     grid-template-columns: 1fr 2.5fr;
+    width: 100%;
   }
 
   .song-buttons {
     display: none;
   }
   .music {
+    height: 200px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr;
   }
@@ -541,5 +572,17 @@ input {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 330px) and (max-height: 580px) {
+  .song-info {
+    display: none !important;
+  }
+
+  .music {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    height: 100px;
   }
 }
