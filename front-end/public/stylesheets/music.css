@@ -518,7 +518,7 @@ input {
 
   .main {
     grid-template-columns: 1fr;
-    grid-template-rows: 75px 75px 37px 1fr 200px;
+    grid-template-rows: 75px 75px 37px 1fr;
     grid-template-areas:
       'navbar'
       'logo'

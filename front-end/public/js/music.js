@@ -567,7 +567,13 @@ track.audio.addEventListener('ended', async () => {
   }
 });
 
-playButton.addEventListener('click', clickPlay);
+playButton.addEventListener('click', (e) => {
+  if (track.audio.classList.contains('playing')) {
+    pauseMusic();
+  } else {
+    playMusic();
+  }
+});
 
 nextButton.addEventListener('click', async (e) => {
   await nextTrack();
