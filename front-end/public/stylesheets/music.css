@@ -390,16 +390,12 @@ input {
   align-items: center;
 }
 
-.player-buttons * {
+.player-buttons > * {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
-}
-
-.player-buttons i {
-  padding-top: 30px;
 }
 
 #shuffleButton {
