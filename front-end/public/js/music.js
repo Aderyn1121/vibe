@@ -248,8 +248,6 @@ const updateHome = async () => {
 
   addPlaylist.addEventListener('click', addPlaylistNewPage);
 
-
-
   playlists.forEach((playlist) => {
     const playlistDiv = document.createElement('div');
     const playlistImg = document.createElement('img');
@@ -402,8 +400,6 @@ const updateSearch = async () => {
 
   const noResults = document.getElementById('noResults');
 
-  console.log(document.getElementsByClassName('square').length);
-
   if (document.getElementsByClassName('square').length === 0) {
     noResults.classList.remove('hidden');
   }
@@ -455,10 +451,10 @@ const deletePlaylist = async (event) => {
   const songs = await getPlaylistSongs(playlistId);
 
   if (songs.length > 0) {
-    await songs.forEach((song) => {
-      const songId = song.songId;
-      deleteSongFromPlaylist(null, songId);
-    });
+    for (let i = 0; i < songs.length; i++) {
+      const songId = songs[i].songId;
+      await deleteSongFromPlaylist(null, songId);
+    }
   }
 
   const res = await fetch(`${backendURL}/playlists/${playlistId}/delete`, {
@@ -483,7 +479,7 @@ const deletePlaylist = async (event) => {
   updatePlaylists();
 };
 
-const editPlaylist = async (event) => {
+const editPlaylist = async () => {
   const playlistId = window.location.href.match(/\d+$/)[0];
   const editPlaylistTitle = document.getElementById('editPlaylistTitle');
   const editTitleForm = document.getElementById('editTitleForm');
@@ -492,13 +488,8 @@ const editPlaylist = async (event) => {
   editTitleForm.classList.remove('hidden');
   editTitleInput.focus();
 
-  editTitleInput.addEventListener('blur', (event2) => {
-    event2.stopPropagation();
-    editPlaylistTitle.classList.remove('hidden');
-    editTitleForm.classList.add('hidden');
-  });
-  editTitleForm.addEventListener('submit', async (event3) => {
-    event3.preventDefault();
+  const updatePlaylistName = async (event) => {
+    event.preventDefault();
     const formData = new FormData(editTitleForm);
     const playlistName = formData.get('newPlaylistTitle');
     const body = { playlistName };
@@ -511,12 +502,21 @@ const editPlaylist = async (event) => {
       },
       body: JSON.stringify(body),
     });
+
     editPlaylistTitle.innerHTML = playlistName;
     editPlaylistTitle.classList.remove('hidden');
     editTitleForm.classList.add('hidden');
     sidebarPlaylists.innerHTML = '';
     updatePlaylists();
+  };
+
+  editTitleInput.addEventListener('blur', (event2) => {
+    event2.stopPropagation();
+    editPlaylistTitle.classList.remove('hidden');
+    editTitleForm.classList.add('hidden');
+    updatePlaylistName(event2);
   });
+  editTitleForm.addEventListener('submit', updatePlaylistName);
 };
 
 const deleteSongFromPlaylist = async (event, songid) => {
