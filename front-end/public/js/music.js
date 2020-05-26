@@ -248,6 +248,8 @@ const updateHome = async () => {
 
   addPlaylist.addEventListener('click', addPlaylistNewPage);
 
+
+
   playlists.forEach((playlist) => {
     const playlistDiv = document.createElement('div');
     const playlistImg = document.createElement('img');
@@ -450,6 +452,15 @@ const playPlaylist = async (event, songNumber = 0) => {
 const deletePlaylist = async (event) => {
   const playlistId = event.target.getAttribute('playlistid');
 
+  const songs = await getPlaylistSongs(playlistId);
+
+  if (songs.length > 0) {
+    await songs.forEach((song) => {
+      const songId = song.songId;
+      deleteSongFromPlaylist(null, songId);
+    });
+  }
+
   const res = await fetch(`${backendURL}/playlists/${playlistId}/delete`, {
     method: 'DELETE',
     headers: {
@@ -457,7 +468,8 @@ const deletePlaylist = async (event) => {
     },
   });
 
-  if (!res.ok) {
+  if (!res.status === 204) {
+    console.log(res.status);
     return;
   }
 
@@ -466,6 +478,7 @@ const deletePlaylist = async (event) => {
   mainContent.innerHTML = data;
 
   history.pushState({ mainContent: 'home' }, 'home', `/music/home`);
+
   updateHome();
   updatePlaylists();
 };
@@ -506,8 +519,8 @@ const editPlaylist = async (event) => {
   });
 };
 
-const deleteSongFromPlaylist = async (event) => {
-  const songId = event.target.getAttribute('songid');
+const deleteSongFromPlaylist = async (event, songid) => {
+  const songId = songid ? songid : event.target.getAttribute('songid');
   const playlistId = window.location.href.match(/\d+$/);
   await fetch(`${backendURL}/playlists/${playlistId}/songs/${songId}`, {
     method: 'DELETE',
@@ -522,7 +535,9 @@ const updateEditPlaylistsList = async (playlistId) => {
   const songs = await getPlaylistSongs(playlistId);
   const tableBody = document.getElementById('tableBody');
   if (songs.length === 0) {
-    tableBody.innerHTML = '<div.addSongs>No songs found</div>';
+    if (tableBody) {
+      tableBody.innerHTML = '<div.addSongs>No songs found</div>';
+    }
     return;
   }
 
