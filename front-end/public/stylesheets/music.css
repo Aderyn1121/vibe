@@ -402,6 +402,14 @@ input {
   padding-top: 30px;
 }
 
+#shuffleButton {
+  opacity: 0;
+}
+
+#popout {
+  opacity: 0;
+}
+
 .glow {
   text-shadow: 0px 0px 10px #fde74c;
 }
