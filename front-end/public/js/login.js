@@ -9,7 +9,7 @@ logInForm.addEventListener('submit', async (e) => {
   const email = formData.get('email');
   const password = formData.get('password');
   const body = { email, password };
-  console.log(backendURL);
+  console.log( );
   const res = await fetch(`${backendURL}/login`, {
     method: 'POST',
     body: JSON.stringify(body),
