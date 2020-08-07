@@ -1,4 +1,5 @@
 body {
+  
   background-color: #e0e0e2;
   position: relative;
   font-size: min((20px, 2vw), 30px);
@@ -19,7 +20,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #121212;
+  background-color: #e0e0e0;
   z-index: 1;
 }
 
@@ -97,6 +98,7 @@ svg {
   align-items: center;
   width: 30vw;
   margin: auto;
+  margin-bottom: 100px;
 }
 
 .main > *,
@@ -184,12 +186,16 @@ input {
   align-items: center;
 }
 
-#login-button {
-  width: 10vw;
+#auth-button {
+  min-width: 125px;
 }
 
 #signup-button {
   background-color: #fde74c;
+}
+
+#forget {
+  display: none;
 }
 
 .fadein {
@@ -239,5 +245,11 @@ input {
   100% {
     opacity: 10;
     stroke-dashoffset: 0;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .main {
+    width: 80%;
   }
 }

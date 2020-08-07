@@ -17,9 +17,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/', indexRouter);
 app.use('/users', userRouter);
-app.use('/playlists', playlistRouter);
 app.use('/search', searchRouter);
 app.use('/songs', songRouter);
+app.use('/playlists', playlistRouter);
 app.use('/', userAuthRouter);
 
 // Catch unhandled requests and forward to error handler.

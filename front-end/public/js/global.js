@@ -1,9 +1,9 @@
-const backendURL = document
+export const backendURL = document
   .getElementsByTagName('script')[0]
   .getAttribute('backend');
 const logoStyle = document.getElementsByClassName('logoStyle');
 
-const getUser = async () => {
+export const getUser = async () => {
   const userId = localStorage.getItem('VIBE_USER_ID');
 
   const res = await fetch(`${backendURL}/users/${userId}`, {
@@ -13,13 +13,13 @@ const getUser = async () => {
   return user;
 };
 
-const logoutUser = () => {
+export const logoutUser = () => {
   localStorage.removeItem('VIBE_TOKEN');
   localStorage.removeItem('VIBE_USER_ID');
   window.location.replace('/');
 };
 
-const changelogo = (pathColor, number = 0, fillColor = '#fde74c') => {
+export const changelogo = (pathColor, number = 0, fillColor = '#fde74c') => {
   logoStyle[number].innerHTML = `.cls-1,
   .cls-4 {
     fill: none;

@@ -1,3 +1,4 @@
+import { backendURL, getUser, logoutUser, changelogo } from './global.js';
 const logInForm = document.getElementById('auth-form');
 const errorsDiv = document.getElementById('errors');
 
@@ -9,7 +10,6 @@ logInForm.addEventListener('submit', async (e) => {
   const email = formData.get('email');
   const password = formData.get('password');
   const body = { email, password };
-  console.log( );
   const res = await fetch(`${backendURL}/login`, {
     method: 'POST',
     body: JSON.stringify(body),

@@ -1,203 +1,242 @@
 /* GLOBAL */
+#demoButton.vibeCheck__button:hover {
+	cursor: pointer;
+}
+
+.nav-bar__logout > a:hover {
+	cursor: pointer;
+}
 
 body {
-  background-color: #2a3750;
-  position: relative;
-  font-size: min(max(24px, 3vw), 30px);
-  font-family: 'Sintony', sans-serif;
-  box-sizing: border-box;
-  color: #e0e0e2;
+	background-color: #2e2e2e;
+	position: relative;
+	font-size: min(max(24px, 3vw), 30px);
+	font-family: 'Sintony', sans-serif;
+	box-sizing: border-box;
+	color: #e0e0e2;
+}
+
+.clickable {
+	cursor: pointer;
 }
 
 a {
-  border: none;
-  background: none;
-  color: inherit;
-  font-weight: bold;
-  text-decoration: none !important;
+	border: none;
+	background: none;
+	color: inherit;
+	font-weight: bold;
+	text-decoration: none !important;
 }
 a:visited {
-  color: #e0e0e0;
-  text-decoration: none;
+	color: #e0e0e0;
+	text-decoration: none;
 }
 
 a:hover {
-  color: #fde74c;
+	color: #fde74c;
 }
 
 svg {
-  height: 100%;
+	height: 100%;
 }
 
 #loadingOverlay {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #121212;
-  z-index: 1;
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #2e2e2e;
+	z-index: 1;
 }
 
 #loading {
-  display: flex;
-  justify-content: center;
-  height: 50%;
-  width: 50%;
-  margin: auto;
+	display: flex;
+	justify-content: center;
+	height: 50%;
+	width: 50%;
+	margin: auto;
 }
 
 /* Navigation */
 
 .nav-bar {
-  background-color: #02030086;
-  height: 9vh;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	background-color: #2e2e2e86;
+	height: 9vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .nav-bar > * {
-  margin-left: 5vw;
-  margin-right: 5vw;
+	margin-left: 5vw;
+	margin-right: 5vw;
 }
 
 .nav-bar__brand {
-  height: 80%;
-  display: flex;
-  align-items: center;
-  font-size: 3rem;
+	height: 80%;
+	display: flex;
+	align-items: center;
+	font-size: 3rem;
 }
 
 .brand__vibe {
-  font-family: 'Montserrat', sans-serif;
-  margin-left: 1vw;
+	font-family: 'Montserrat', sans-serif;
+	margin-left: 1vw;
 }
 
 #nav-logo {
-  height: 100%;
-  width: 100%;
-  margin: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
 }
 
-.nav-bar__sign-up,
-#logoutButton {
-  margin-right: 20px;
+.nav-bar__sign-up {
+	margin-right: 20px;
 }
 
+#username {
+	margin-left: 20px;
+}
 /* Hero  */
 
 .hero {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
 }
-.hero img {
-  position: absolute;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+.hero video {
+	position: absolute;
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
 }
 
 .vibeCheck {
-  display: inline-block;
-  margin-top: 7vh;
-  height: 85vh;
-  width: 100%;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	display: inline-block;
+	margin-top: 7vh;
+	height: 85vh;
+	width: 100%;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .vibeCheck * {
-  text-shadow: 3px 4px 20px black;
+	text-shadow: 3px 4px 20px black;
 }
 
 .vibeCheck__header {
-  font-size: min(max(10px, 6vw), 6rem);
-  margin: 0;
+	font-size: min(max(10px, 6vw), 6rem);
+	margin: 0;
 }
 
 .vibeCheck__subtitle {
-  font-size: 0.6em;
-  font-weight: 400;
-  margin: 25px 0 50px 0;
+	font-size: 0.6em;
+	font-weight: 400;
+	margin: 25px 0 50px 0;
 }
 
 .vibeCheck__button {
-  padding: 20px 75px;
-  background-color: #fde74c;
-  border-radius: 30px;
-  font-size: 15px;
-  color: #020300 !important;
+	padding: 20px 75px;
+	margin-bottom: 20px;
+	background-color: #fde74c;
+	border-radius: 30px;
+	font-size: 15px;
+	color: #020300 !important;
+	width: 200px;
+	text-align: center;
+	max-width: 30vw;
+}
+
+#demoButton {
+	font-weight: bold;
 }
 
 .vibeCheck__button:hover {
-  background-color: #f3e57d;
-  color: #020300;
+	background-color: #f3e57d;
+	color: #020300;
+}
+
+.alt-buttons {
+	display: none;
 }
 
 /* Animations */
 
 .fadein {
-  animation: fadein 1s 250ms forwards;
+	animation: fadein 3s 1s forwards;
 }
 
 .fadeout {
-  animation: fadeout 1s 250ms forwards;
+	animation: fadeout 3s 1s forwards;
 }
 
 .load {
-  stroke: #817e9f;
-  opacity: 0;
-  fill: none;
-  stroke-dasharray: 1200;
-  animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
+	stroke: #817e9f;
+	opacity: 0;
+	fill: none;
+	stroke-dasharray: 1200;
+	animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
 }
 
 @keyframes fadeout {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    display: none;
-    z-index: -2;
-  }
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		display: none;
+		z-index: -2;
+	}
 }
 
 @keyframes fadein {
-  0% {
-    opacity: 0;
-  }
+	0% {
+		opacity: 0;
+	}
 
-  100% {
-    opacity: 1;
-  }
+	100% {
+		opacity: 1;
+	}
 }
 
 @keyframes load {
-  0% {
-    opacity: 10;
-    stroke: #2a3750;
-    stroke-dashoffset: 1200;
-  }
+	0% {
+		opacity: 10;
+		stroke: #2a3750;
+		stroke-dashoffset: 1200;
+	}
 
-  100% {
-    opacity: 10;
-    stroke-dashoffset: 0;
-  }
+	100% {
+		opacity: 10;
+		stroke-dashoffset: 0;
+	}
+}
+
+@media screen and (max-width: 525px) {
+	.nav-bar__buttons {
+		display: none;
+	}
+
+	.nav-bar {
+		justify-content: center;
+	}
+	.alt-buttons {
+		display: flex;
+		flex-flow: column;
+	}
 }

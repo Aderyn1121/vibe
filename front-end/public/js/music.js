@@ -1,3 +1,5 @@
+import { backendURL, getUser, logoutUser, changelogo } from './global.js';
+
 /*
 DEFINITIONS
  */
@@ -34,6 +36,7 @@ let newPLform = document.getElementById('newPLForm');
 let newPLinput = document.getElementById('newPLinput');
 
 //PLAYER FUNCTIONS
+
 const playMusic = async () => {
   document.body.style.cursor = 'progress';
   await track.audio.play();
@@ -47,6 +50,10 @@ const playMusic = async () => {
   interval = setInterval(updateTime, 1000);
 };
 
+const clickPlay = (e) => {
+  setTimeout(playMusic, 200);
+};
+
 const playClickedSong = async (event) => {
   const songId = event.target.getAttribute('songsid');
   const songJSON = await fetch(`${backendURL}/songs/${songId}`, {
@@ -55,18 +62,17 @@ const playClickedSong = async (event) => {
     },
   });
   const { songsList } = await songJSON.json();
-  console.log(songsList);
 
   songQueue = songsList;
-  startMusic(songQueue[0]);
+  loadQueueAtSongNumber(songQueue[0]);
+  playMusic();
 };
 
-function startMusic(songInQueue) {
+function loadQueueAtSongNumber(songInQueue) {
   track.audio.src = `../../public/test_music/${songInQueue.songId}.m4a`;
   track.art.innerHTML = `<img src='../../public/images/album-art/${songInQueue.albumId}.jpg' >`;
   track.title.innerHTML = songInQueue.songName;
   track.artist.innerHTML = songInQueue.artistName;
-  playMusic();
 }
 
 function pauseMusic() {
@@ -82,15 +88,17 @@ function stopMusic(song) {
   track.title.innerHTML = '______________';
   track.artist.innerHTML = '______________';
   pauseMusic();
+  progressBar.value = 0;
 }
 
 function nextTrack() {
   if (repeat === 'one') {
-    startMusic(songQueue[currentTrack]);
+    loadQueueAtSongNumber(songQueue[currentTrack]);
+    track.audio.classList.add('playing');
     return;
   }
 
-  currentTrack += 1;
+  currentTrack++;
 
   if (currentTrack > songQueue.length - 1 && repeat === 'none') {
     stopMusic();
@@ -100,26 +108,20 @@ function nextTrack() {
   if (currentTrack > songQueue.length - 1 && repeat === 'all') {
     currentTrack = 0;
   }
-  startMusic(songQueue[currentTrack]);
+  loadQueueAtSongNumber(songQueue[currentTrack]);
+  track.audio.classList.add('playing');
 }
 
 function prevTrack() {
   if (currentTrack > 0 && track.audio.currentTime < 1.5) {
-    currentTrack -= +1;
-    startMusic(songQueue[currentTrack]);
-  } else {
-    startMusic(songQueue[currentTrack]);
+    currentTrack--;
   }
+  loadQueueAtSongNumber(songQueue[currentTrack]);
 }
 
 function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
   const duration = Math.floor(track.audio.duration) - currentTime;
   const percent = currentTime / track.audio.duration;
-
-  const hours =
-    Math.floor(currentTime / 3600) < 10
-      ? `0${Math.floor(currentTime / 3600)}`
-      : Math.floor(currentTime / 3600);
   const mins =
     Math.floor(currentTime / 60) < 10
       ? `0${Math.floor(currentTime / 60)}`
@@ -127,13 +129,9 @@ function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
   const seconds =
     currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
 
-  startTime.innerHTML = `${hours}:${mins}:${seconds}`;
+  startTime.innerHTML = `${mins}:${seconds}`;
 
   if (duration) {
-    const durationHours =
-      Math.floor(duration / 3600) < 10
-        ? `0${Math.floor(duration / 3600)}`
-        : Math.floor(duration / 3600);
     const durationMins =
       Math.floor(duration / 60) < 10
         ? `0${Math.floor(duration / 60)}`
@@ -141,9 +139,9 @@ function updateTime(currentTime = Math.ceil(track.audio.currentTime)) {
     const durationSeconds =
       duration % 60 < 10 ? `0${duration % 60}` : duration % 60;
 
-    endTime.innerHTML = `${durationHours}:${durationMins}:${durationSeconds}`;
+    endTime.innerHTML = `${durationMins}:${durationSeconds}`;
   } else {
-    endTime.innerHTML = '00:00:00';
+    endTime.innerHTML = '00:00';
   }
   progressBar.value = Math.floor(percent * 100);
 }
@@ -195,6 +193,47 @@ const updatePlaylists = async () => {
 };
 
 //HOME FUNCTIONS
+
+const addPlaylistNewPage = async () => {
+  const body = { playlistName: 'New Playlist' };
+  const user = await getUser();
+
+  await fetch(`${backendURL}/users/${user.userId}/playlists`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('VIBE_TOKEN')}`,
+    },
+    body: JSON.stringify(body),
+  });
+  sidebarPlaylists.innerHTML = '';
+  await updatePlaylists();
+
+  const playlistList = document.getElementsByClassName('contextPlaylist');
+
+  let playlistId = 0;
+
+  for (let i = 0; i < playlistList.length; i++) {
+    let attribute = Number.parseInt(playlistList[i].getAttribute('playlistid'));
+    console.log(playlistId, attribute);
+
+    if (playlistId < attribute) {
+      playlistId = attribute;
+    }
+  }
+
+  const res = await fetch(`/music/playlist/${playlistId}/ajax`);
+  const data = await res.json();
+  history.pushState(
+    { playlist: playlistId },
+    playlistId,
+    `/music/playlist/${playlistId}`
+  );
+  mainContent.innerHTML = data;
+  await updateEditPlaylist(playlistId);
+  editPlaylist();
+};
+
 const updateHome = async () => {
   const userId = localStorage.getItem('VIBE_USER_ID');
   const playlistsJSON = await fetch(`${backendURL}/users/${userId}/playlists`, {
@@ -205,11 +244,14 @@ const updateHome = async () => {
 
   const { playlistNames: playlists } = await playlistsJSON.json();
   const homePlaylists = document.getElementById('homePlaylists');
+  const addPlaylist = document.getElementById('addPlaylist');
+
+  addPlaylist.addEventListener('click', addPlaylistNewPage);
 
   playlists.forEach((playlist) => {
-    playlistDiv = document.createElement('div');
-    playlistImg = document.createElement('img');
-    playlistText = document.createElement('div');
+    const playlistDiv = document.createElement('div');
+    const playlistImg = document.createElement('img');
+    const playlistText = document.createElement('div');
 
     playlistDiv.classList.add('home__playlist');
     playlistImg.src = `/public/images/playlists/${Math.floor(
@@ -234,7 +276,7 @@ const updateHome = async () => {
         `/music/playlist/${playlistId}`
       );
       mainContent.innerHTML = data;
-      updateEditPlaylist(playlistId);
+      await updateEditPlaylist(playlistId);
     });
   });
 };
@@ -242,14 +284,20 @@ const updateHome = async () => {
 //SEARCH FUNCTIONS
 
 const updateSearchSection = (results, section) => {
+  const mainSection = document.getElementById(`search${section}`);
   const resultSection = document.getElementById(`result${section}`);
+  const noResults = document.getElementById('noResults');
+
   if (results.length === 0) {
-    resultSection.innerHTML = `No ${section} found`;
+    resultSection.innerHTML = '';
+    mainSection.classList.add('hidden');
     return;
   }
 
+  noResults.classList.add('hidden');
+  mainSection.classList.remove('hidden');
+
   if (section === 'Playlists') {
-    console.log(results);
     section = 'playlist';
   }
   section = section.toLowerCase();
@@ -271,8 +319,14 @@ const updateSearchSection = (results, section) => {
     div.appendChild(img);
     div.appendChild(text);
     if (section === 'songs') {
-      div.addEventListener('click', playClickedSong);
-      div.oncontextmenu = (event1) => {
+      const plus = document.createElement('div');
+      plus.classList.add('search-plus');
+      plus.setAttribute('songsid', result.id);
+
+      plus.innerHTML = `<i songsid=${result.id} class="fas fa-plus"></i>`;
+
+      plus.addEventListener('click', (event1) => {
+        event1.stopPropagation();
         contextMenu.classList.remove('hidden');
         contextMenu.style.top = `${event1.pageY - 10}px`;
         contextMenu.style.left = `${event1.pageX - 10}px`;
@@ -295,11 +349,21 @@ const updateSearchSection = (results, section) => {
           },
           { once: true }
         );
-        return false;
-      };
+      });
+
+      div.appendChild(plus);
+
+      div.addEventListener('click', async (e) => {
+        if (!event.target.getAttribute('songsid')) return;
+        playClickedSong(e);
+      });
     } else if (section === 'playlist') {
-      div.addEventListener('click', playPlaylist);
+      div.addEventListener('click', async (e) => {
+        playPlaylist(e);
+      });
     }
+
+    div.addEventListener('click', clickPlay);
 
     resultSection.prepend(div);
   });
@@ -309,7 +373,6 @@ const updateSearch = async () => {
   if (!searchBar[0].value) return;
   const searchInput = encodeURIComponent(searchBar[0].value);
   const userId = encodeURIComponent(localStorage.getItem('VIBE_USER_ID'));
-  const token = encodeURIComponent(localStorage.getItem('VIBE_TOKEN'));
 
   const resultsJSON = await fetch(
     `${backendURL}/search/?searchInput=${searchInput}&userId=${userId}`,
@@ -331,9 +394,15 @@ const updateSearch = async () => {
 
   updateSearchSection(searchResults.matchedAlbums, 'Albums');
 
-  updateSearchSection(searchResults.matchedFriends, 'Friends');
+  // updateSearchSection(searchResults.matchedFriends, 'Friends');
 
   updateSearchSection(searchResults.matchedUsers, 'Users');
+
+  const noResults = document.getElementById('noResults');
+
+  if (document.getElementsByClassName('square').length === 0) {
+    noResults.classList.remove('hidden');
+  }
 };
 
 //PLAYLIST FUNCTIONS
@@ -362,22 +431,31 @@ const getPlaylistSongs = async (playlistId) => {
   return songsList;
 };
 
-const playPlaylist = async () => {
+const playPlaylist = async (event, songNumber = 0) => {
   if (!event.target.getAttribute('playlistid')) return;
   const playlistId = event.target.getAttribute('playlistid');
   const songs = await getPlaylistSongs(playlistId);
 
-  console.log(songs);
-
   if (songs.length > 0) {
     songQueue = songs;
-    currentTrack = 0;
-    startMusic(songQueue[currentTrack]);
+
+    currentTrack = songNumber;
+    loadQueueAtSongNumber(songQueue[currentTrack]);
+    playMusic();
   }
 };
 
 const deletePlaylist = async (event) => {
   const playlistId = event.target.getAttribute('playlistid');
+
+  const songs = await getPlaylistSongs(playlistId);
+
+  if (songs.length > 0) {
+    for (let i = 0; i < songs.length; i++) {
+      const songId = songs[i].songId;
+      await deleteSongFromPlaylist(null, songId);
+    }
+  }
 
   const res = await fetch(`${backendURL}/playlists/${playlistId}/delete`, {
     method: 'DELETE',
@@ -386,8 +464,8 @@ const deletePlaylist = async (event) => {
     },
   });
 
-  if (!res.ok) {
-    console.log('fetch error');
+  if (!res.status === 204) {
+    console.log(res.status);
     return;
   }
 
@@ -396,13 +474,12 @@ const deletePlaylist = async (event) => {
   mainContent.innerHTML = data;
 
   history.pushState({ mainContent: 'home' }, 'home', `/music/home`);
+
   updateHome();
   updatePlaylists();
-
-  console.log(playlistId);
 };
 
-const editPlaylist = async (event) => {
+const editPlaylist = async () => {
   const playlistId = window.location.href.match(/\d+$/)[0];
   const editPlaylistTitle = document.getElementById('editPlaylistTitle');
   const editTitleForm = document.getElementById('editTitleForm');
@@ -411,13 +488,8 @@ const editPlaylist = async (event) => {
   editTitleForm.classList.remove('hidden');
   editTitleInput.focus();
 
-  editTitleInput.addEventListener('blur', (event2) => {
-    event2.stopPropagation();
-    editPlaylistTitle.classList.remove('hidden');
-    editTitleForm.classList.add('hidden');
-  });
-  editTitleForm.addEventListener('submit', async (event3) => {
-    event3.preventDefault();
+  const updatePlaylistName = async (event) => {
+    event.preventDefault();
     const formData = new FormData(editTitleForm);
     const playlistName = formData.get('newPlaylistTitle');
     const body = { playlistName };
@@ -430,17 +502,25 @@ const editPlaylist = async (event) => {
       },
       body: JSON.stringify(body),
     });
+
     editPlaylistTitle.innerHTML = playlistName;
     editPlaylistTitle.classList.remove('hidden');
     editTitleForm.classList.add('hidden');
     sidebarPlaylists.innerHTML = '';
     updatePlaylists();
+  };
+
+  editTitleInput.addEventListener('blur', (event2) => {
+    event2.stopPropagation();
+    editPlaylistTitle.classList.remove('hidden');
+    editTitleForm.classList.add('hidden');
+    updatePlaylistName(event2);
   });
+  editTitleForm.addEventListener('submit', updatePlaylistName);
 };
 
-const deleteSongFromPlaylist = async (event) => {
-  console.log(event.target);
-  const songId = event.target.getAttribute('songid');
+const deleteSongFromPlaylist = async (event, songid) => {
+  const songId = songid ? songid : event.target.getAttribute('songid');
   const playlistId = window.location.href.match(/\d+$/);
   await fetch(`${backendURL}/playlists/${playlistId}/songs/${songId}`, {
     method: 'DELETE',
@@ -455,11 +535,14 @@ const updateEditPlaylistsList = async (playlistId) => {
   const songs = await getPlaylistSongs(playlistId);
   const tableBody = document.getElementById('tableBody');
   if (songs.length === 0) {
-    tableBody.innerHTML = '<div.addSongs>No songs found</div>';
+    if (tableBody) {
+      tableBody.innerHTML = '<div.addSongs>No songs found</div>';
+    }
     return;
   }
 
   tableBody.innerHTML = '';
+  let trackCounter = 0;
   songs.forEach((song) => {
     const songDiv = document.createElement('div');
     const trackDiv = document.createElement('div');
@@ -474,6 +557,8 @@ const updateEditPlaylistsList = async (playlistId) => {
     deleteDiv.classList.add('delete');
 
     trackDiv.setAttribute('songsid', song.songId);
+    trackDiv.setAttribute('playlistid', playlistId);
+    trackDiv.setAttribute('trackid', trackCounter);
     artistDiv.setAttribute('artistId', song.artistId);
     albumDiv.setAttribute('albumId', song.albumId);
     deleteDiv.setAttribute('songId', song.songId);
@@ -483,7 +568,11 @@ const updateEditPlaylistsList = async (playlistId) => {
     albumDiv.innerHTML = song.albumName;
     deleteDiv.innerHTML = `<i songId=${song.songId} class="fas fa-trash"></i>`;
 
-    trackDiv.addEventListener('click', playClickedSong);
+    trackDiv.addEventListener('click', async (event) => {
+      playPlaylist(event, event.target.getAttribute('trackid'));
+    });
+    trackDiv.addEventListener('click', clickPlay);
+    trackCounter++;
 
     deleteDiv.addEventListener('click', deleteSongFromPlaylist);
 
@@ -507,7 +596,10 @@ const updateEditPlaylist = async (playlistId) => {
   EPLTitle.innerHTML = playlistName;
   EPLPlayButton.setAttribute('playlistid', playlistId);
   EPLDeleteButton.setAttribute('playlistid', playlistId);
-  EPLPlayButton.addEventListener('click', playPlaylist);
+  EPLPlayButton.addEventListener('click', (e) => {
+    playPlaylist(e);
+  });
+  EPLPlayButton.addEventListener('click', clickPlay);
   EPLDeleteButton.addEventListener('click', deletePlaylist);
   EPLEditButton.addEventListener('click', editPlaylist);
   updateEditPlaylistsList(playlistId);
@@ -536,8 +628,11 @@ if (!localStorage['VIBE_TOKEN']) {
 
 //EVENT LISTENERS
 
-track.audio.addEventListener('ended', () => {
-  nextTrack();
+track.audio.addEventListener('ended', async () => {
+  await nextTrack();
+  if (track.audio.classList.contains('playing')) {
+    playMusic();
+  }
 });
 
 playButton.addEventListener('click', (e) => {
@@ -548,12 +643,16 @@ playButton.addEventListener('click', (e) => {
   }
 });
 
-nextButton.addEventListener('click', (e) => {
-  nextTrack();
+nextButton.addEventListener('click', async (e) => {
+  await nextTrack();
+  if (track.audio.classList.contains('playing')) {
+    playMusic();
+  }
 });
 
-prevButton.addEventListener('click', (e) => {
-  prevTrack();
+prevButton.addEventListener('click', async (e) => {
+  await prevTrack();
+  playMusic();
 });
 
 repeatButton.addEventListener('click', (e) => {
@@ -575,20 +674,32 @@ volume.oninput = () => {
   track.audio.volume = volume.value / 100;
 };
 
+volume.onchange = () => {
+  track.audio.volume = volume.value / 100;
+};
+
 progressBar.oninput = function (event) {
   if (!track.audio.src) return;
   clearInterval(interval);
+
   const percent = progressBar.value / 100;
+
   updateTime(Math.floor(track.audio.duration * percent));
-  const changeTrackTime = () => {
-    track.audio.currentTime = Math.floor(track.audio.duration * percent);
-    playMusic();
-    document.body.removeEventListener('mouseup', changeTrackTime);
-  };
-  document.body.addEventListener('mouseup', changeTrackTime);
+};
+
+progressBar.onchange = function (event) {
+  if (!track.audio.src) return;
+
+  pauseMusic();
+
+  const percent = progressBar.value / 100;
+  track.audio.currentTime = Math.floor(track.audio.duration * percent);
+
+  playMusic();
 };
 
 searchBar[0].addEventListener('focus', async (event) => {
+  if (window.location.href.includes('search')) return;
   const res = await fetch(`/music/search/ajax`);
   const data = await res.json();
   history.pushState({ mainContent: 'search' }, 'search', '/music/search');
@@ -602,6 +713,7 @@ searchBar[0].addEventListener('keyup', async () => {
 
 sidebarLinks.addEventListener('click', async (event) => {
   if (!['home', 'search', 'library'].includes(event.target.id)) return;
+  if (window.location.href.includes(event.target.id)) return;
   const res = await fetch(`/music/${event.target.id}/ajax`);
   const data = await res.json();
   mainContent.innerHTML = data;
@@ -623,6 +735,13 @@ sidebarLinks.addEventListener('click', async (event) => {
 
 sidebarPlaylists.addEventListener('click', async (event) => {
   if (!event.target.getAttribute('playlistid')) return;
+  if (
+    window.location.href.match(/\d+$/) &&
+    window.location.href.match(/\d+$/)[0] ===
+      event.target.getAttribute('playlistid')
+  )
+    return;
+
   const playlistId = event.target.getAttribute('playlistid');
 
   const res = await fetch(`/music/playlist/${playlistId}/ajax`);
@@ -666,6 +785,5 @@ plusIcon.addEventListener('click', () => {
 });
 
 contextMenu.addEventListener('mouseleave', (event2) => {
-  event2.stopPropagation;
   contextMenu.classList.add('hidden');
 });

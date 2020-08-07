@@ -21,7 +21,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #121212;
+  background-color: #e0e0e0;
   z-index: 1;
 }
 
@@ -100,6 +100,7 @@ svg {
   align-items: center;
   width: 30vw;
   margin: auto;
+  margin-bottom: 100px;
 }
 
 #errors {
@@ -184,12 +185,7 @@ input {
   align-items: center;
 }
 
-#auth-button {
-  width: 10vw;
-  align-self: flex-end;
-}
-
-#signup-button {
+#login-button {
   background-color: #fde74c;
 }
 .hidden {
@@ -242,5 +238,10 @@ input {
   100% {
     opacity: 10;
     stroke-dashoffset: 0;
+  }
+}
+@media screen and (max-width: 525px) {
+  .main {
+    width: 80%;
   }
 }

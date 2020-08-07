@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const musicRouter = require('./routes/music-routes');
 
 const months = [
@@ -22,11 +23,14 @@ const app = express();
 
 app.set('view engine', 'pug');
 
+app.use(cors({ origin: process.env.FRONTEND_URL }));
+
 app.locals.backend = process.env.BACKEND_URL;
 
 app.use(bodyParser.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
 app.use('/music', musicRouter);
 
 app.get('/', (req, res) => {
