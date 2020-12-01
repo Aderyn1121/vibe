@@ -1,17 +1,17 @@
 const express = require('express');
 
-const { Artist } = require('../db/models');
-const { User } = require('../db/models');
-const { Song } = require('../db/models');
-const { UserFriend } = require('../db/models');
-const { Playlist } = require('../db/models');
-const { Album } = require('../db/models');
+const { Artist } = require('../../db/models');
+const { User } = require('../../db/models');
+const { Song } = require('../../db/models');
+const { UserFriend } = require('../../db/models');
+const { Playlist } = require('../../db/models');
+const { Album } = require('../../db/models');
 
 const {
   asyncHandler,
   handleValidationErrors,
   regExMaker,
-} = require('../utils');
+} = require('../../utils');
 
 const router = express.Router();
 

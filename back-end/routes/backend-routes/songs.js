@@ -1,9 +1,9 @@
 const express = require('express');
-const { Song } = require('../db/models');
-const { Artist } = require('../db/models');
-const { Album } = require('../db/models');
-const { asyncHandler } = require('../utils');
-const { requireAuth } = require('../auth')
+const { Song } = require('../../db/models');
+const { Artist } = require('../../db/models');
+const { Album } = require('../../db/models');
+const { asyncHandler } = require('../../utils');
+const { requireAuth } = require('../../auth')
 const router = express.Router();
 
 

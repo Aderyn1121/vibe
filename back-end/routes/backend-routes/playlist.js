@@ -1,16 +1,16 @@
 const express = require('express');
 const { check } = require('express-validator');
-const { Playlist } = require('../db/models');
-const { PlaylistSong } = require('../db/models');
-const { Song } = require('../db/models');
-const { Artist } = require('../db/models');
-const { Album } = require('../db/models');
-const { requireAuth } = require('../auth');
+const { Playlist } = require('../../db/models');
+const { PlaylistSong } = require('../../db/models');
+const { Song } = require('../../db/models');
+const { Artist } = require('../../db/models');
+const { Album } = require('../../db/models');
+const { requireAuth } = require('../../auth');
 const {
   asyncHandler,
   handleValidationErrors,
   regExMaker,
-} = require('../utils');
+} = require('../../utils');
 
 const router = express.Router();
 // this route will only work with a loggen in user once line 13 is enabled
