@@ -1,0 +1,28 @@
+.main
+    .text Meet out team:
+    a(href='https://github.com/Aderyn1121')#Emily-button TEAM LEAD
+    a(href='https://github.com/gootieno')#Jeff-button MODEL LEAD
+    a(href='https://github.com/zachary-henderson')#Zach-button UX/UI DESIGN
+    .line
+      .line__one
+      .line__two
+      #continue To continue, log in to Vibe
+    #errors.hidden
+    form(method="POST" action='/login')#auth-form
+      +input('_csrf', 'hidden')
+      +input('email', 'email', 'Email')
+      +input('password', 'password', 'Password')
+      .submit
+        .remember
+          +input('remember', 'checkbox')
+          label(for="remember") Remember me?
+        button(type="submit")#auth-button Login
+    .text#forget
+      a() Forgot your password?
+    .line
+      .line__one
+      .line__two
+    .text
+      p Don't have an account?
+
+    a(href="/signup")#signup-button SIGN UP FOR VIBE

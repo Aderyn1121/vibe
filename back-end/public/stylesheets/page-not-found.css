@@ -1,0 +1,112 @@
+
+body {
+  background-color: #2a3750;
+  position: relative;
+  font-size: min(max(24px, 3vw), 30px);
+  font-family: 'Sintony', sans-serif;
+  box-sizing: border-box;
+  color: #e0e0e2;
+}
+
+a {
+  border: none;
+  background: none;
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none !important;
+}
+a:visited {
+  color: #e0e0e0;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fde74c;
+}
+
+svg {
+  height: 100%;
+}
+
+#loadingOverlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2e2e2e;
+  z-index: 1;
+}
+
+#loading {
+  display: flex;
+  justify-content: center;
+  height: 50%;
+  width: 50%;
+  margin: auto;
+
+}
+
+/* Animations */
+
+.fadein {
+  animation: fadein 1s 250ms forwards;
+}
+
+.fadeout {
+  animation: fadeout 1s 250ms forwards;
+}
+
+.load {
+  stroke: #817e9f;
+  opacity: 0;
+  fill: none;
+  stroke-dasharray: 1200;
+  animation: load 1.25s 500ms cubic-bezier(0.59, -0.02, 0.1, 1) infinite;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -2;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes load {
+  0% {
+    opacity: 10;
+    stroke: #2a3750;
+    stroke-dashoffset: 1200;
+  }
+
+  100% {
+    opacity: 10;
+    stroke-dashoffset: 0;
+  }
+}
+
+div#main-error{
+  margin-top: 20%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 20%;
+}
