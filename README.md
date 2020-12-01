@@ -23,7 +23,7 @@ From rock, to jazz, to pop and everything around and in-between, Vibe will help 
 
 
 # Features
-- Vibe works off of both a front-end and a back-end database to handle displays, authentication and relations between profiles
+- Vibe works off of one server to handle displays, authentication and relations between profiles
 
 - Vibe uses bcrypt's hashing functions to obscure and store user passwords, ensuring user security.
 

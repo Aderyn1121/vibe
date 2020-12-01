@@ -1,4 +1,4 @@
-import { backendURL, getUser, logoutUser, changelogo } from './global.js';
+import { getUser, logoutUser, changelogo } from './global.js';
 const navButtons = document.getElementById('navButtons');
 const altButtons = document.getElementsByClassName('alt-buttons');
 const demoButton = document.getElementById('demoButton');

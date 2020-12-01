@@ -1,4 +1,4 @@
-import { backendURL, getUser, logoutUser, changelogo } from './global.js';
+import { getUser, logoutUser, changelogo } from './global.js';
 
 /*
 DEFINITIONS
