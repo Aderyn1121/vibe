@@ -1,6 +1,3 @@
-export const backendURL = document
-    .getElementsByTagName('script')[0]
-    .getAttribute('backend');
 const logoStyle = document.getElementsByClassName('logoStyle');
 
 export const getUser = async () => {

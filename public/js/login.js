@@ -1,30 +1,16 @@
-import { backendURL, getUser, logoutUser, changelogo } from './global.js';
-const signupForm = document.getElementById('auth-form');
+import { getUser, logoutUser, changelogo } from './global.js';
+const logInForm = document.getElementById('auth-form');
 const errorsDiv = document.getElementById('errors');
 
 changelogo('#e0e0e0');
 
-signupForm.addEventListener('submit', async (e) => {
+logInForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const formData = new FormData(signupForm);
-    const email = formData.get('email').toLowerCase();
-    const confirmEmail = formData.get('confirmEmail').toLowerCase();
+    const formData = new FormData(logInForm);
+    const email = formData.get('email');
     const password = formData.get('password');
-    const confirmPassword = formData.get('confirmPassword');
-    const userName = formData.get('userName');
-    const birthday = formData.get('birthday');
-    const gender = formData.get('gender');
-
-    const body = {
-        email,
-        password,
-        confirmEmail,
-        confirmPassword,
-        userName,
-        birthday,
-        gender,
-    };
-    const res = await fetch(`/api/sign-up`, {
+    const body = { email, password };
+    const res = await fetch(`/api/login`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
