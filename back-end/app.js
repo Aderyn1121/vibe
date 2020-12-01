@@ -26,9 +26,6 @@ const months = [
     'December',
 ];
 
-// const origin = process.env.FRONTEND_URL;
-
-// app.use(cors({ origin }));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api', apiRouter);
