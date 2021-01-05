@@ -48,7 +48,7 @@
 # **ROLES**
 
 - UX/UI Lead
-  - Zach
+  - Mylo
 - Models Lead
   - Geoffrey
 - Team Lead

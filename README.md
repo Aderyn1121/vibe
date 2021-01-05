@@ -73,7 +73,7 @@ We ran into a few major and minor problems to overcome, including:
 ---
 # Contributors
 -  **Backend Lead:** Geoffrey Otieno (gootieno)
--  **UX/UI Lead:** Zachary Henderson (zachary-henderson)
+-  **UX/UI Lead:** Mylo James (mylo-james)
 -  **Team Lead:** Emily Burnham (Aderyn1121)
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-pug.svg)](https://forthebadge.com)
