@@ -1,10 +1,11 @@
-# ![Vibe](https://i.imgur.com/FNi3qlt.gif) align=center
+# Vibe - an open-source, web-based music platform, catered to _your_ vibes
 
-## An open-source, web-based music platform, catered to _your_ vibes
-
+![vibe](https://i.imgur.com/FNi3qlt.gif)  
 Vibe is a non-commercial, social music platform with an emphasis on finding music suited to your 'vibe'.  
 From rock, to jazz, to pop and everything around and in-between, Vibe will help you create your perfect playlist.  
 _(This was more fun to write than "Spotify-inspired, express-based music player app".)_
+
+---
 
 ## Latest Public Release
 
@@ -20,11 +21,11 @@ _No installation necessary. Tested on Google Chrome v. 81.0.4044_
 
 ## Features
 
--Vibe works off of one server to handle displays, authentication and relations between profiles
+- Vibe works off of one server to handle displays, authentication and relations between profiles
 
--Vibe uses bcrypt's hashing functions to obscure and store user passwords, ensuring user security.
+- Vibe uses bcrypt's hashing functions to obscure and store user passwords, ensuring user security.
 
--We utilize JWTs and cookies to ensure user privacy. No longer will anybody see how many times you've played "Grandma got Run Over by a Reindeer".
+- We utilize JWTs and cookies to ensure user privacy. No longer will anybody see how many times you've played "Grandma got Run Over by a Reindeer".
 
 ---
 
