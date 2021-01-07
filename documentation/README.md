@@ -1,4 +1,6 @@
-# **DATABASE**
+# Vibe
+
+## **DATABASE**
 
 - Song/Playlist CRUD
 - Search
@@ -8,7 +10,7 @@
   - Algorithm/Random array
   - Random playlist by genre
 
-# **UX/UI LEAD**
+## **UX/UI LEAD**
 
 - Generate a responsive, and intuitive user interface design
 - Build a frontend server using Express.js
@@ -17,7 +19,7 @@
 - Create animations using Adobe Creator Suite and native CSS
 - (Bonus): Explore Page
 
-# **PAGES**
+## **PAGES**
 
 - Landing page
 - Log in
@@ -25,8 +27,8 @@
 - Music page
 - Home page when signed up
 - Accounts page
- 
-# **Account/Profile**
+
+## **Account/Profile**
 
 - Username
 - Pronouns
@@ -37,7 +39,7 @@
 - Followed
 - Favorite Genres
 
-# **Colors**
+## **Colors**
 
 - Base/Background (English Violet): #474056
 - Old Lavender: #757083
@@ -45,7 +47,7 @@
 - Bright Navy Blue: #3E78B2
 - Yellow-green highlight: #A2D729
 
-# **ROLES**
+## **ROLES**
 
 - UX/UI Lead
   - Mylo
