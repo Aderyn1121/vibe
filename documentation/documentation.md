@@ -1,6 +1,7 @@
 # Vibe
 
-### by Geoffrey Otieno, Mylo James and Emily Burnham
+## by Geoffrey Otieno, Mylo James and Emily Burnham
+
 
 Vibe is a free, social music platform with an emphasis on finding music suited to your 'vibe'.
 From rock, to jazz, to pop and everything around and in-between, Vibe will help you create your perfect playlist.
