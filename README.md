@@ -1,4 +1,4 @@
-# ![Vibe](https://i.imgur.com/FNi3qlt.gif) align=center
+# ![Vibe](https://i.imgur.com/FNi3qlt.gif)
 
 ## An open-source, web-based music platform, catered to _your_ vibes
 
