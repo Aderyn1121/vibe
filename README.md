@@ -10,7 +10,7 @@ _(This was more fun to write than "Spotify-inspired, express-based music player 
 
 ## Latest Public Release
 
-_[Vibe can be found here!](https://aa-vibe.herokuapp.com/) Come, and take a look!_  
+_[Vibe can be found here!](https://vibe-music-app.herokuapp.com/) Come, and take a look!_  
 _No installation necessary. Tested on Google Chrome v. 81.0.4044_
 
 ---
