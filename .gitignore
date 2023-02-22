@@ -116,11 +116,10 @@ hs_err_pid*
 
 #nodemodules
 node_modules/
+package-lock.json
 
-<<<<<<< HEAD
 #env 
 .env
-=======
 
 
 
@@ -130,4 +129,3 @@ node_modules/
 .pnp.*
 
 
->>>>>>> 2761ee9d5530f21ca23c01f5d6640839770b564f
