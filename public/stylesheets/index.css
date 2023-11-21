@@ -81,6 +81,7 @@ svg {
 .brand__vibe {
   font-family: 'Montserrat', sans-serif;
   margin-left: 1vw;
+  cursor: default;
 }
 
 #nav-logo {
@@ -135,12 +136,14 @@ svg {
 .vibeCheck__header {
   font-size: min(max(10px, 6vw), 6rem);
   margin: 0;
+  cursor: default;
 }
 
 .vibeCheck__subtitle {
   font-size: 0.6em;
   font-weight: 400;
   margin: 25px 0 50px 0;
+  cursor: default;
 }
 
 .vibeCheck__button {
@@ -157,6 +160,7 @@ svg {
 
 #demoButton {
   font-weight: bold;
+  cursor: pointer;
 }
 
 .vibeCheck__button:hover {

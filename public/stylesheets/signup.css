@@ -87,6 +87,7 @@ svg {
   font-family: 'Montserrat', sans-serif;
   margin-left: 1vw;
   font-size: 1.5em;
+  cursor: default;
 }
 
 #nav-logo {
@@ -163,20 +164,40 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: default;
 }
 
 .birthday {
   display: flex;
   flex-flow: column;
   text-align: left;
+  cursor: default;
 }
 .birthday * {
   margin-top: 20px;
+  padding: 5px 0px 2px;
+  cursor: text;
 }
 
 .gender {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+}
+
+.gender > label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.gender > label > input {
+  cursor: pointer;
+}
+
+#auth-button {
+  cursor: pointer;
 }
 
 .submit {
