@@ -181,7 +181,7 @@ const updatePlaylists = async () => {
         const div = document.createElement('div');
 
         div.setAttribute('playlistid', playlist.playlistId);
-        div.innerHTML = `<div playlistid=${playlist.playlistId}>${playlist.playList}</div>`;
+        div.innerHTML = `<div class=playlist-items playlistid=${playlist.playlistId}>${playlist.playList}</div>`;
         const contextDiv = div.cloneNode(true);
         contextDiv.classList.add('contextPlaylist');
         sidebarPlaylists.appendChild(div);

@@ -194,7 +194,12 @@ svg {
   min-width: 30px;
 }
 #logoutButton {
-  color: #e0e0e0 !important;
+  color: #e0e0e0;
+}
+
+#logoutButton:hover {
+  font-size: 1.3em;
+  color: yellow;
 }
 
 input {
@@ -225,16 +230,16 @@ input {
   width: 100%;
   border-bottom: #2e2e2e 3px solid;
   border-top: #2e2e2e 3px solid;
+  row-gap: 15%;
 }
 .sidebar__links > div,
 #logoutButton {
   width: 100px;
-  height: 100%;
-  min-height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  cursor: pointer;
 }
 .sidebarPlaylistsBar {
   display: flex;
@@ -243,11 +248,14 @@ input {
   height: 60px;
 }
 
+#plusIcon {
+  cursor: pointer;
+}
+
 #plusIcon:hover {
   color: #fde74c;
 }
-.sidebar__links > div:hover,
-#logoutButton {
+.sidebar__links > div:hover {
   color: #fde74c;
 }
 
@@ -257,6 +265,15 @@ input {
   height: 100%;
   overflow-y: scroll;
   font-family: 'Montserrat', sans-serif;
+}
+
+.playlist-items {
+  cursor: pointer;
+}
+
+.playlist-items:hover {
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .newPlaylist {

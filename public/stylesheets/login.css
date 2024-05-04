@@ -91,6 +91,7 @@ svg {
 #nav-logo {
   height: 80%;
   margin: 0;
+  cursor: pointer;
 }
 
 .main {
@@ -182,6 +183,8 @@ input {
   height: 40px;
   border-radius: 3px;
   border: none;
+  border-bottom: 1px solid gray;
+  width: 200px;
 }
 .text {
   display: flex;
@@ -191,17 +194,43 @@ input {
 }
 .submit {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  flex-direction: center;
+  gap: 10px;
+}
+
+.remember {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
   align-items: center;
+  justify-content: center;
+}
+
+.remember > * {
+  width: fit-content;
+}
+
+input[name="remember"]{
+  height: 60%;
+  cursor: pointer;
+
 }
 
 #auth-button {
   min-width: 125px;
   cursor: pointer;
+  padding: 20px 0;
+  height: 50px;
 }
 
-.remember > input {
-  cursor: pointer;
+#auth-form > input {
+  width: 100%;
+}
+
+#auth-form > input:focus {
+  outline:none;
+
 }
 
 #signup-button {

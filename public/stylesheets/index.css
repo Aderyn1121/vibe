@@ -19,6 +19,7 @@ a {
   color: inherit;
   font-weight: bold;
   text-decoration: none !important;
+  cursor: pointer;
 }
 a:visited {
   color: #e0e0e0;
@@ -27,6 +28,10 @@ a:visited {
 
 a:hover {
   color: #fde74c;
+}
+
+input:focus {
+  outline: none;
 }
 
 svg {
@@ -156,6 +161,7 @@ svg {
   width: 200px;
   text-align: center;
   max-width: 30vw;
+  cursor: pointer;
 }
 
 #demoButton {
