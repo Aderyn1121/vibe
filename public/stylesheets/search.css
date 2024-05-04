@@ -2,6 +2,11 @@
   display: grid;
 }
 
+input[name="search"]:focus {
+  transition: width 2s ease;
+  width: 100px;
+}
+
 #searchTitle {
   box-sizing: content-box;
   text-align: left;

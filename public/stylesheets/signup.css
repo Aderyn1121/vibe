@@ -92,6 +92,7 @@ svg {
 #nav-logo {
   height: 80%;
   margin: 0;
+  cursor: pointer;
 }
 
 .main {
@@ -158,7 +159,13 @@ input {
   height: 40px;
   border-radius: 3px;
   border: none;
+  border-bottom: 1px solid gray;
 }
+
+input:focus {
+  outline: none;
+}
+
 .text {
   display: flex;
   align-items: center;
@@ -188,6 +195,21 @@ input {
 #login-button {
   background-color: #fde74c;
 }
+
+#auth-button {
+  cursor: pointer;
+}
+
+input[name="gender"]{
+  cursor: pointer;
+}
+
+.gender > label {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
 .hidden {
   display: none !important ;
 }
