@@ -85,6 +85,7 @@ svg {
   font-family: 'Montserrat', sans-serif;
   margin-left: 1vw;
   font-size: 1.5em;
+  cursor: default;
 }
 
 #nav-logo {
@@ -144,6 +145,7 @@ form > * {
   width: 260px;
   background-color: #e0e0e0;
   left: calc(50% - 130px);
+  cursor: default;
 }
 
 #errors {
@@ -160,6 +162,12 @@ form > * {
 
 .hidden {
   display: none !important;
+}
+
+.remember {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 #auth-form {
@@ -182,6 +190,7 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: default;
 }
 .submit {
   display: flex;
@@ -221,6 +230,7 @@ input[name="remember"]{
 
 #auth-form > input:focus {
   outline:none;
+
 }
 
 #signup-button {
